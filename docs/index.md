@@ -1,7 +1,7 @@
 --- 
 title: "singlm: A simple introduction to GLM for analysing Poisson and Binomal responses"
 author: "Emma Rand"
-date: "`r Sys.Date()`"
+date: "2020-07-14"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -12,12 +12,7 @@ description: "The output format for this example is bookdown::gitbook."
 
 # Introduction
 
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
-```
+
 
 expected audience, prerequisite knowledge but will include brief intros
 

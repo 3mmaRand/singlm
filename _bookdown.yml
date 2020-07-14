@@ -1,6 +1,14 @@
 book_filename: "singlm"
 delete_merged_file: true
+rmd_files:
+- index.Rmd
+- revisit-linear-models.Rmd
+- glm-binomial.Rmd
+- glm-poisson.Rmd
+- summary.Rmd
+- references.Rmd
 output_dir: docs
 language:
   ui:
     chapter_name: "Chapter "
+new_session: true
