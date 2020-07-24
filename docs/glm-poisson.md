@@ -1,3 +1,15 @@
-# GLM for poisson responses
+# GLM for poisson responses {#pois}
 
-We describe our methods in this chapter.
+
+## intro {#pois-intro}
+
+some stuff introducing pois
+
+
+## build {#pois-build}
+
+some stuff about build pois
+
+## output {#pois-output}
+
+some stuff about pois output

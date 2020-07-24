@@ -3,8 +3,8 @@ delete_merged_file: true
 rmd_files:
 - index.Rmd
 - revisit-linear-models.Rmd
-- glm-binomial.Rmd
 - glm-poisson.Rmd
+- glm-binomial.Rmd
 - summary.Rmd
 - references.Rmd
 output_dir: docs
@@ -12,3 +12,4 @@ language:
   ui:
     chapter_name: "Chapter "
 new_session: true
+before_chapter_script: "_common.R"
