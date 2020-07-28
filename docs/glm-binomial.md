@@ -1,3 +1,5 @@
+# (PART) USING `glm()` FOR BINOMIAL RESPONSES {-}
+
 # GLM for binomial responses {#bino}
 
 ## intro {#bino-intro}

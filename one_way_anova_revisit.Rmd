@@ -1,0 +1,199 @@
+# One-way ANOVA revisited {#one-way-anova-revisit}
+
+## Introduction to the example
+The myoglobin concentration of skeletal muscle of three species of seal in grams per kilogram of muscle was determined and the data are given in [seal.txt](data-raw/seal.text). We want to know if there is a difference in myoglobin concentration between species. Each row represents an individual seal.
+
+
+Figure \@ref(fig:weddell-fig)
+
+(ref:weddell-fig) Baby Weddell Seals are very cute. By Photo © Samuel Blanc, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=3877642
+
+```{r weddell-fig, echo = FALSE, fig.cap='(ref:weddell-fig)'}
+knitr::include_graphics("images/Baby_Weddell_Seal.jpg")
+```
+
+```{r}
+seal <- read_delim("data-raw/seal.txt", delim = " ")
+seal$species <- factor(seal$species)
+```
+
+make a factor because we will later use an r function that demands that
+
+
+
+```{r}
+# create a rough plot of the data  
+ggplot(data = seal, aes(x = species, y = myoglobin)) +
+  geom_violin()
+
+```
+
+
+
+```{r}
+seal_summary <- seal %>%
+  group_by(species) %>%
+  summarise(mean = mean(myoglobin),
+            std = sd(myoglobin),
+            n = length(myoglobin),
+            se = std/sqrt(n))
+```
+
+```{r echo=FALSE}
+knitr::kable(seal_summary, digits = 2)
+```
+
+
+## `aov()` output reminder
+
+```{r}
+mod <- aov(data = seal, myoglobin ~ species)
+```
+
+```{r}
+summary(mod)
+```
+
+
+```{r echo=FALSE}
+res <- summary(mod)[[1]]
+df1 <- res$Df[1] 
+df2 <- res$Df[2]
+fval <- res$`F value`[1]
+if (res$`Pr(>F)`[1] < 0.001) {
+        pval = "< 0.001"
+        }
+if (res$`Pr(>F)`[1] > 0.001) {
+        pval = paste("=", round(res$`Pr(>F)`[1], 3))
+        }
+```
+
+There was a significant difference in myoglobin concentration between Seal species (ANOVA: $F$ = `r fval`; $d.f.$ = `r df1`, `r df2`; $p$ `r pval`). We need a post-hoc test to discover which comparisons are significant.
+
+## Post-hoc testing for `aov()`
+```{r}
+TukeyHSD(mod)
+```
+
+Post-hoc testing revealed the difference to be between the Harbour Seal with the highest myoglobin concentrations ($\bar{x} \pm s.e.$: `r seal_summary[2,"mean"]` $\pm$ `r seal_summary[2,"se"]`) ) and the Bladdernose Seal with the lowest ($\bar{x} \pm s.e.$: `r seal_summary[1,"mean"]` $\pm$ `r seal_summary[1,"se"]`). 
+
+## Applying and interpreting `lm()`
+
+```{r}
+mod <- lm(data = seal, myoglobin ~ species)
+```
+
+
+```{r}
+mod
+```
+```{r echo=FALSE}
+coef <- mod$coefficients %>% round(2)
+
+```
+
+The mean of Bladdernose Seals is (`r coef["(Intercept)"]`). It is the intercept ($\beta_{0}$) because "Bladdernose Seal" comes before "Harbour Seal" and "Weddell Seal" in the alphabet.
+The value labelled "speciesHarbour Seal" is the difference between the intercept and the Harbour Seal mean. It indicates that you have to add `r coef["speciesHarbour Seal"]` to `r coef["(Intercept)"]` to get the Harbour Seal mean
+
+The value labelled "speciesWedell Seal" is also relative to the intercept. The value of `r coef["speciesWeddell Seal"]` must be added to `r coef["(Intercept)"]` to get the Weddell Seal mean.
+ 
+
+## Getting predictions from the model
+
+
+```{r}
+predictions <- data.frame(species = seal_summary$species)
+```
+
+
+```{r}
+predictions$pred <- predict(mod, newdata = predictions)
+```
+
+## Link to Chapter 2.1
+
+Replacing the terms shown in Figure \@ref(fig:lm-annotated) with the values in this example gives us \@ref(fig:one-way-annotated).
+
+(ref:one-way-annotated) The annotated model with the values from the myoglobin content of seal muscle example. The measured `r kableExtra::text_spec("response values are in pink", color = pal3[2], bold = TRUE)`, the `r kableExtra::text_spec("predictions are in green", color = pal3[3], bold = TRUE)`, and the `r kableExtra::text_spec("residuals, are in blue", color = pal3[1], bold = TRUE)`. One example of a measured value, a predicted value and the residual is shown for a Harbour Seal individual. The estimated model parameters, $\beta_{0}$ and $\beta_{1}$ are indicated. Compare to Figure \@ref(fig:lm-annotated).
+
+```{r one-way-annotated, echo = FALSE, fig.cap="(ref:one-way-annotated)"} 
+knitr::include_graphics("images/fig_7.svg")
+```
+
+
+## Checking assumptions
+
+
+```{r}
+plot(mod, which = 2)
+plot(mod, which = 1)
+shapiro.test(mod$res)
+```
+
+## Post-hoc testing for `lm()`
+
+```{r}
+library(multcomp)
+```
+
+generic example. define linfct, mcp multiple comparion procedures
+```
+
+
+```
+
+
+```{r}
+mod_mc <- glht(mod, linfct = mcp(species = "Tukey"))
+summary(mod_mc)
+```
+
+## Creating a figure
+
+```{r fig-one-anova}
+#summarise the data 
+
+ggplot() +
+  geom_jitter(data = seal, 
+              aes(x = species, y = myoglobin), 
+              width = 0.25, colour = "grey") +
+  geom_errorbar(data = seal_summary,
+                aes(x = species,
+                    ymin = mean,
+                    ymax = mean),
+                width = .3) +
+  geom_errorbar(data = seal_summary,
+                aes(x = species,
+                    ymin = mean - se,
+                    ymax = mean + se),
+                width = .5) +
+  geom_segment(aes(x = 1, y = 71, xend = 3, yend = 71),
+               size = 1) +
+  geom_segment(aes(x = 1, y = 71, xend = 1, yend = 69),
+               size = 1) +
+  geom_segment(aes(x = 3, y = 71, xend = 3, yend = 69),
+               size = 1) +
+  annotate("text", x = 2, y = 73,  label = "**", size = 6) +
+  scale_x_discrete(name = "Species") +
+  scale_y_continuous(name = expression("Myoglobin concentration g "*Kg^{-1}),
+                     expand = c(0, 0),
+                     limits = c(0, 75)) +
+  theme_classic()
+```
+
+## Reporting the results
+```{r}
+# res <- summary(mod)
+# tval <- res$coefficients["specieswild", "t value"]
+# df <- res$df[2]
+```
+
+
+There is a significant difference in myoglobin concentration between Seal species (ANOVA: $F$ = `r fval`; $d.f.$ = `r df1`, `r df2`; $p$ `r pval`). Post-hoc testing revealed that difference to be between the Harbour Seal with the highest myoglobin concentrations ($\bar{x} \pm s.e.$: `r seal_summary[2,"mean"]` $\pm$ `r seal_summary[2,"se"]`) ) and the Bladdernose Seal with the lowest ($\bar{x} \pm s.e.$: `r seal_summary[1,"mean"]` $\pm$ `r seal_summary[1,"se"]`). See figure \@ref(fig:fig-one-anova-report).
+
+(ref:fig-one-anova-report) Muscle myoglobin content of three seal species. 
+
+```{r fig-one-anova-report, ref.label = 'fig-one-anova', echo = FALSE, fig.height=4, fig.width=4, fig.cap="(ref:fig-one-anova-report)", out.width="60%"} 
+```
+
+

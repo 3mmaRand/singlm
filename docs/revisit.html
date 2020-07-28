@@ -291,9 +291,9 @@ The relationship between them looks roughly linear. So far, common sense suggest
 <span id="cb5-5"><a href="revisit.html#cb5-5"></a><span class="co"># </span></span>
 <span id="cb5-6"><a href="revisit.html#cb5-6"></a><span class="co"># Coefficients:</span></span>
 <span id="cb5-7"><a href="revisit.html#cb5-7"></a><span class="co"># (Intercept)           jh  </span></span>
-<span id="cb5-8"><a href="revisit.html#cb5-8"></a><span class="co">#    0.419338     0.006459</span></span></code></pre></div>
+<span id="cb5-8"><a href="revisit.html#cb5-8"></a><span class="co">#     0.41934      0.00646</span></span></code></pre></div>
 <p><span class="math inline">\(\beta_{0}\)</span> is labelled “(Intercept)” and <span class="math inline">\(\beta_{1}\)</span> is labelled “jh”. Thus the equation of the line is:</p>
-<p><span class="math inline">\(mand\)</span> = 0.4193382 + 0.0064588<span class="math inline">\(jh\)</span></p>
+<p><span class="math inline">\(mand\)</span> = 0.419 + 0.006<span class="math inline">\(jh\)</span></p>
 <p>More information including statistical tests of the model and its parameters is obtained by using <code>summary()</code></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="revisit.html#cb6-1"></a><span class="co"># examine it</span></span>
 <span id="cb6-2"><a href="revisit.html#cb6-2"></a><span class="kw">summary</span>(mod)</span>
@@ -302,21 +302,21 @@ The relationship between them looks roughly linear. So far, common sense suggest
 <span id="cb6-5"><a href="revisit.html#cb6-5"></a><span class="co"># lm(formula = mand ~ jh, data = stag)</span></span>
 <span id="cb6-6"><a href="revisit.html#cb6-6"></a><span class="co"># </span></span>
 <span id="cb6-7"><a href="revisit.html#cb6-7"></a><span class="co"># Residuals:</span></span>
-<span id="cb6-8"><a href="revisit.html#cb6-8"></a><span class="co">#      Min       1Q   Median       3Q      Max </span></span>
-<span id="cb6-9"><a href="revisit.html#cb6-9"></a><span class="co"># -0.38604 -0.20281 -0.09751  0.15034  0.60690 </span></span>
+<span id="cb6-8"><a href="revisit.html#cb6-8"></a><span class="co">#     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb6-9"><a href="revisit.html#cb6-9"></a><span class="co"># -0.3860 -0.2028 -0.0975  0.1503  0.6069 </span></span>
 <span id="cb6-10"><a href="revisit.html#cb6-10"></a><span class="co"># </span></span>
 <span id="cb6-11"><a href="revisit.html#cb6-11"></a><span class="co"># Coefficients:</span></span>
 <span id="cb6-12"><a href="revisit.html#cb6-12"></a><span class="co">#             Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
-<span id="cb6-13"><a href="revisit.html#cb6-13"></a><span class="co"># (Intercept) 0.419338   0.139429   3.008  0.00941 **</span></span>
-<span id="cb6-14"><a href="revisit.html#cb6-14"></a><span class="co"># jh          0.006459   0.001584   4.078  0.00113 **</span></span>
+<span id="cb6-13"><a href="revisit.html#cb6-13"></a><span class="co"># (Intercept)  0.41934    0.13943    3.01   0.0094 **</span></span>
+<span id="cb6-14"><a href="revisit.html#cb6-14"></a><span class="co"># jh           0.00646    0.00158    4.08   0.0011 **</span></span>
 <span id="cb6-15"><a href="revisit.html#cb6-15"></a><span class="co"># ---</span></span>
 <span id="cb6-16"><a href="revisit.html#cb6-16"></a><span class="co"># Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb6-17"><a href="revisit.html#cb6-17"></a><span class="co"># </span></span>
 <span id="cb6-18"><a href="revisit.html#cb6-18"></a><span class="co"># Residual standard error: 0.292 on 14 degrees of freedom</span></span>
-<span id="cb6-19"><a href="revisit.html#cb6-19"></a><span class="co"># Multiple R-squared:  0.5429,  Adjusted R-squared:  0.5103 </span></span>
-<span id="cb6-20"><a href="revisit.html#cb6-20"></a><span class="co"># F-statistic: 16.63 on 1 and 14 DF,  p-value: 0.00113</span></span></code></pre></div>
-<p>The “Coefficients:” table gives the estimated <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> again, this time with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is 0.4193382 <span class="math inline">\(\pm\)</span> 0.1394289 and this differs significantly from zero (<span class="math inline">\(p\)</span> = 0.0094098). The estimated value for the slope, 0.0064588 <span class="math inline">\(\pm\)</span> 0.0015838, also differs significantly from zero (<span class="math inline">\(p\)</span> = 0.0011296).</p>
-<p>The three lines at the bottom of the output gives information about the fit of the model to the data. The “Multiple R-squared” gives the proportion of the variance in the response which is explained by the model. In our case, 0.542938 of the variance in mandible length is explained by the model and this is a significant proportion of that variance (<span class="math inline">\(p\)</span> = 0.0011296).</p>
+<span id="cb6-19"><a href="revisit.html#cb6-19"></a><span class="co"># Multiple R-squared:  0.543,   Adjusted R-squared:  0.51 </span></span>
+<span id="cb6-20"><a href="revisit.html#cb6-20"></a><span class="co"># F-statistic: 16.6 on 1 and 14 DF,  p-value: 0.00113</span></span></code></pre></div>
+<p>The “Coefficients:” table gives the estimated <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> again, this time with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is 0.419 <span class="math inline">\(\pm\)</span> 0.139 and this differs significantly from zero (<span class="math inline">\(p\)</span> = 0.009). The estimated value for the slope, 0.006 <span class="math inline">\(\pm\)</span> 0.002, also differs significantly from zero (<span class="math inline">\(p\)</span> = 0.001).</p>
+<p>The three lines at the bottom of the output gives information about the fit of the model to the data. The “Multiple R-squared” gives the proportion of the variance in the response which is explained by the model. In our case, 0.543 of the variance in mandible length is explained by the model and this is a significant proportion of that variance (<span class="math inline">\(p\)</span> = 0.001).</p>
 <p>For a single linear regression, the <em>p</em>-value for the model and the <em>p</em>-value for the slope are the same. This is also true for linear models in the form of a two-sample <em>t</em>-test but <strong>not</strong> the case for other linear models.</p>
 </div>
 <div id="getting-predictions-from-the-model" class="section level3">
@@ -345,7 +345,7 @@ Figure 1.2: these model estimates.
 <span id="cb10-5"><a href="revisit.html#cb10-5"></a><span class="co">#   Shapiro-Wilk normality test</span></span>
 <span id="cb10-6"><a href="revisit.html#cb10-6"></a><span class="co"># </span></span>
 <span id="cb10-7"><a href="revisit.html#cb10-7"></a><span class="co"># data:  mod$res</span></span>
-<span id="cb10-8"><a href="revisit.html#cb10-8"></a><span class="co"># W = 0.94737, p-value = 0.4493</span></span></code></pre></div>
+<span id="cb10-8"><a href="revisit.html#cb10-8"></a><span class="co"># W = 0.9, p-value = 0.4</span></span></code></pre></div>
 <p><img src="revisit-linear-models_files/figure-html/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto;" /><img src="revisit-linear-models_files/figure-html/unnamed-chunk-11-2.png" width="80%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="creating-a-figure" class="section level3">
@@ -367,7 +367,7 @@ Figure 1.2: these model estimates.
 </div>
 <div id="reporting-the-results" class="section level3">
 <h3><span class="header-section-number">1.3.6</span> Reporting the results</h3>
-<p>There was a significant positive relationship between the concentration of Juvenile hormone and mandible length (<span class="math inline">\(\beta_{1}\pm s.e.\)</span>: 0.0064588 <span class="math inline">\(\pm\)</span> 0.0015838; <span class="math inline">\(p\)</span> = 0.0011296). See figure <a href="revisit.html#fig:ch1-reg-report">1.3</a>.</p>
+<p>There was a significant positive relationship between the concentration of Juvenile hormone and mandible length (<span class="math inline">\(\beta_{1}\pm s.e.\)</span>: 0.006 <span class="math inline">\(\pm\)</span> 0.002; <span class="math inline">\(p\)</span> = 0.001). See figure <a href="revisit.html#fig:ch1-reg-report">1.3</a>.</p>
 
 <div class="figure" style="text-align: left"><span id="fig:ch1-reg-report"></span>
 <img src="revisit-linear-models_files/figure-html/ch1-reg-report-1.png" alt="Relationship between the concentration of Juvenile hormone and mandible length." width="80%" />
@@ -398,14 +398,14 @@ The modified plant have a lower mean omega 3 content than the wildtype plants. T
 <span id="cb14-3"><a href="revisit.html#cb14-3"></a><span class="co">#   Two Sample t-test</span></span>
 <span id="cb14-4"><a href="revisit.html#cb14-4"></a><span class="co"># </span></span>
 <span id="cb14-5"><a href="revisit.html#cb14-5"></a><span class="co"># data:  omega by plant</span></span>
-<span id="cb14-6"><a href="revisit.html#cb14-6"></a><span class="co"># t = -5.0289, df = 98, p-value = 2.231e-06</span></span>
+<span id="cb14-6"><a href="revisit.html#cb14-6"></a><span class="co"># t = -5, df = 98, p-value = 2e-06</span></span>
 <span id="cb14-7"><a href="revisit.html#cb14-7"></a><span class="co"># alternative hypothesis: true difference in means is not equal to 0</span></span>
 <span id="cb14-8"><a href="revisit.html#cb14-8"></a><span class="co"># 95 percent confidence interval:</span></span>
-<span id="cb14-9"><a href="revisit.html#cb14-9"></a><span class="co">#  -9.687828 -4.205372</span></span>
+<span id="cb14-9"><a href="revisit.html#cb14-9"></a><span class="co">#  -9.69 -4.21</span></span>
 <span id="cb14-10"><a href="revisit.html#cb14-10"></a><span class="co"># sample estimates:</span></span>
 <span id="cb14-11"><a href="revisit.html#cb14-11"></a><span class="co"># mean in group modif  mean in group wild </span></span>
-<span id="cb14-12"><a href="revisit.html#cb14-12"></a><span class="co">#             49.4652             56.4118</span></span></code></pre></div>
-<p>The two groups means are give in the section labelled “sample estimates” and the test of whether they differ significantly is given in the forth line (beginning “t = …”). We conclude the mean omega 3 content of the modified plants (49.4652) is significantly lower than that of the wildtype plants (<span class="math inline">\(t\)</span> = 5.0288776, <span class="math inline">\(d.f.\)</span> = 98, <span class="math inline">\(p\)</span> = 2.230593910^{-6}).</p>
+<span id="cb14-12"><a href="revisit.html#cb14-12"></a><span class="co">#                49.5                56.4</span></span></code></pre></div>
+<p>The two groups means are give in the section labelled “sample estimates” and the test of whether they differ significantly is given in the forth line (beginning “t = …”). We conclude the mean omega 3 content of the modified plants (49.465) is significantly lower than that of the wildtype plants (<span class="math inline">\(t\)</span> = 5.029, <span class="math inline">\(d.f.\)</span> = 98, <span class="math inline">\(p\)</span> = 2.23110^{-6}).</p>
 <p>The confidence interval is on the difference between the two means.</p>
 <p>The sign on the <span class="math inline">\(t\)</span> value and the order in which the sample estimates are given is determined by R’s alphabetical ordering of the groups. As “modif” comes before “wildtype” in the alphabet, “modif” is the first group and the test is the modified plant mean minus the wildtype mean. This has no impact on our conclusions and had the wildtype plants been labelled “control” the output would be:</p>
 <pre><code>    Two Sample t-test
@@ -433,62 +433,41 @@ mean in group control  mean in group modif
 <span id="cb17-5"><a href="revisit.html#cb17-5"></a><span class="co"># </span></span>
 <span id="cb17-6"><a href="revisit.html#cb17-6"></a><span class="co"># Coefficients:</span></span>
 <span id="cb17-7"><a href="revisit.html#cb17-7"></a><span class="co"># (Intercept)    plantwild  </span></span>
-<span id="cb17-8"><a href="revisit.html#cb17-8"></a><span class="co">#      49.465        6.947</span></span></code></pre></div>
+<span id="cb17-8"><a href="revisit.html#cb17-8"></a><span class="co">#       49.47         6.95</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="revisit.html#cb18-1"></a><span class="kw">summary</span>(mod)</span>
 <span id="cb18-2"><a href="revisit.html#cb18-2"></a><span class="co"># </span></span>
 <span id="cb18-3"><a href="revisit.html#cb18-3"></a><span class="co"># Call:</span></span>
 <span id="cb18-4"><a href="revisit.html#cb18-4"></a><span class="co"># lm(formula = omega ~ plant, data = csativa)</span></span>
 <span id="cb18-5"><a href="revisit.html#cb18-5"></a><span class="co"># </span></span>
 <span id="cb18-6"><a href="revisit.html#cb18-6"></a><span class="co"># Residuals:</span></span>
-<span id="cb18-7"><a href="revisit.html#cb18-7"></a><span class="co">#      Min       1Q   Median       3Q      Max </span></span>
-<span id="cb18-8"><a href="revisit.html#cb18-8"></a><span class="co"># -15.8718  -3.7026  -0.9635   4.4598  16.9182 </span></span>
+<span id="cb18-7"><a href="revisit.html#cb18-7"></a><span class="co">#     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb18-8"><a href="revisit.html#cb18-8"></a><span class="co"># -15.872  -3.703  -0.964   4.460  16.918 </span></span>
 <span id="cb18-9"><a href="revisit.html#cb18-9"></a><span class="co"># </span></span>
 <span id="cb18-10"><a href="revisit.html#cb18-10"></a><span class="co"># Coefficients:</span></span>
 <span id="cb18-11"><a href="revisit.html#cb18-11"></a><span class="co">#             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb18-12"><a href="revisit.html#cb18-12"></a><span class="co"># (Intercept)  49.4652     0.9768  50.642  &lt; 2e-16 ***</span></span>
-<span id="cb18-13"><a href="revisit.html#cb18-13"></a><span class="co"># plantwild     6.9466     1.3813   5.029 2.23e-06 ***</span></span>
+<span id="cb18-12"><a href="revisit.html#cb18-12"></a><span class="co"># (Intercept)   49.465      0.977   50.64  &lt; 2e-16 ***</span></span>
+<span id="cb18-13"><a href="revisit.html#cb18-13"></a><span class="co"># plantwild      6.947      1.381    5.03  2.2e-06 ***</span></span>
 <span id="cb18-14"><a href="revisit.html#cb18-14"></a><span class="co"># ---</span></span>
 <span id="cb18-15"><a href="revisit.html#cb18-15"></a><span class="co"># Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
 <span id="cb18-16"><a href="revisit.html#cb18-16"></a><span class="co"># </span></span>
-<span id="cb18-17"><a href="revisit.html#cb18-17"></a><span class="co"># Residual standard error: 6.907 on 98 degrees of freedom</span></span>
-<span id="cb18-18"><a href="revisit.html#cb18-18"></a><span class="co"># Multiple R-squared:  0.2051,  Adjusted R-squared:  0.197 </span></span>
-<span id="cb18-19"><a href="revisit.html#cb18-19"></a><span class="co"># F-statistic: 25.29 on 1 and 98 DF,  p-value: 2.231e-06</span></span>
+<span id="cb18-17"><a href="revisit.html#cb18-17"></a><span class="co"># Residual standard error: 6.91 on 98 degrees of freedom</span></span>
+<span id="cb18-18"><a href="revisit.html#cb18-18"></a><span class="co"># Multiple R-squared:  0.205,   Adjusted R-squared:  0.197 </span></span>
+<span id="cb18-19"><a href="revisit.html#cb18-19"></a><span class="co"># F-statistic: 25.3 on 1 and 98 DF,  p-value: 2.23e-06</span></span>
 <span id="cb18-20"><a href="revisit.html#cb18-20"></a><span class="kw">anova</span>(mod)</span>
 <span id="cb18-21"><a href="revisit.html#cb18-21"></a><span class="co"># Analysis of Variance Table</span></span>
 <span id="cb18-22"><a href="revisit.html#cb18-22"></a><span class="co"># </span></span>
 <span id="cb18-23"><a href="revisit.html#cb18-23"></a><span class="co"># Response: omega</span></span>
-<span id="cb18-24"><a href="revisit.html#cb18-24"></a><span class="co">#           Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span></span>
-<span id="cb18-25"><a href="revisit.html#cb18-25"></a><span class="co"># plant      1 1206.4  1206.4   25.29 2.231e-06 ***</span></span>
-<span id="cb18-26"><a href="revisit.html#cb18-26"></a><span class="co"># Residuals 98 4674.9    47.7                      </span></span>
+<span id="cb18-24"><a href="revisit.html#cb18-24"></a><span class="co">#           Df Sum Sq Mean Sq F value  Pr(&gt;F)    </span></span>
+<span id="cb18-25"><a href="revisit.html#cb18-25"></a><span class="co"># plant      1   1206    1206    25.3 2.2e-06 ***</span></span>
+<span id="cb18-26"><a href="revisit.html#cb18-26"></a><span class="co"># Residuals 98   4675      48                    </span></span>
 <span id="cb18-27"><a href="revisit.html#cb18-27"></a><span class="co"># ---</span></span>
 <span id="cb18-28"><a href="revisit.html#cb18-28"></a><span class="co"># Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
 </div>
 <div id="getting-predictions-from-the-model-1" class="section level3">
 <h3><span class="header-section-number">1.4.4</span> Getting predictions from the model</h3>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="revisit.html#cb19-1"></a><span class="kw">predict</span>(mod)</span>
-<span id="cb19-2"><a href="revisit.html#cb19-2"></a><span class="co">#       1       2       3       4       5       6       7       8       9      10 </span></span>
-<span id="cb19-3"><a href="revisit.html#cb19-3"></a><span class="co"># 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 </span></span>
-<span id="cb19-4"><a href="revisit.html#cb19-4"></a><span class="co">#      11      12      13      14      15      16      17      18      19      20 </span></span>
-<span id="cb19-5"><a href="revisit.html#cb19-5"></a><span class="co"># 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 </span></span>
-<span id="cb19-6"><a href="revisit.html#cb19-6"></a><span class="co">#      21      22      23      24      25      26      27      28      29      30 </span></span>
-<span id="cb19-7"><a href="revisit.html#cb19-7"></a><span class="co"># 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 </span></span>
-<span id="cb19-8"><a href="revisit.html#cb19-8"></a><span class="co">#      31      32      33      34      35      36      37      38      39      40 </span></span>
-<span id="cb19-9"><a href="revisit.html#cb19-9"></a><span class="co"># 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 </span></span>
-<span id="cb19-10"><a href="revisit.html#cb19-10"></a><span class="co">#      41      42      43      44      45      46      47      48      49      50 </span></span>
-<span id="cb19-11"><a href="revisit.html#cb19-11"></a><span class="co"># 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 </span></span>
-<span id="cb19-12"><a href="revisit.html#cb19-12"></a><span class="co">#      51      52      53      54      55      56      57      58      59      60 </span></span>
-<span id="cb19-13"><a href="revisit.html#cb19-13"></a><span class="co"># 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 </span></span>
-<span id="cb19-14"><a href="revisit.html#cb19-14"></a><span class="co">#      61      62      63      64      65      66      67      68      69      70 </span></span>
-<span id="cb19-15"><a href="revisit.html#cb19-15"></a><span class="co"># 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 </span></span>
-<span id="cb19-16"><a href="revisit.html#cb19-16"></a><span class="co">#      71      72      73      74      75      76      77      78      79      80 </span></span>
-<span id="cb19-17"><a href="revisit.html#cb19-17"></a><span class="co"># 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 </span></span>
-<span id="cb19-18"><a href="revisit.html#cb19-18"></a><span class="co">#      81      82      83      84      85      86      87      88      89      90 </span></span>
-<span id="cb19-19"><a href="revisit.html#cb19-19"></a><span class="co"># 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 </span></span>
-<span id="cb19-20"><a href="revisit.html#cb19-20"></a><span class="co">#      91      92      93      94      95      96      97      98      99     100 </span></span>
-<span id="cb19-21"><a href="revisit.html#cb19-21"></a><span class="co"># 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118</span></span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="revisit.html#cb20-1"></a>predictions &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">plant =</span> <span class="kw">c</span>(<span class="st">&quot;modif&quot;</span>, <span class="st">&quot;wild&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="revisit.html#cb21-1"></a>predictions<span class="op">$</span>pred &lt;-<span class="st"> </span><span class="kw">predict</span>(mod, <span class="dt">newdata =</span> predictions, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="revisit.html#cb22-1"></a>predictions<span class="op">$</span>pred &lt;-<span class="st"> </span><span class="kw">predict</span>(mod, <span class="dt">newdata =</span> predictions)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="revisit.html#cb19-1"></a>predictions &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">plant =</span> <span class="kw">c</span>(<span class="st">&quot;modif&quot;</span>, <span class="st">&quot;wild&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="revisit.html#cb20-1"></a>predictions<span class="op">$</span>pred &lt;-<span class="st"> </span><span class="kw">predict</span>(mod, <span class="dt">newdata =</span> predictions)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="revisit.html#cb21-1"></a>predictions<span class="op">$</span>pred &lt;-<span class="st"> </span><span class="kw">predict</span>(mod, <span class="dt">newdata =</span> predictions)</span></code></pre></div>
 <p>Replacing the terms shown in Figure <a href="revisit.html#fig:lm-annotated">1.1</a> with the values in this example gives us <a href="revisit.html#fig:csat-annotated">1.4</a>.</p>
 
 <div class="figure" style="text-align: center"><span id="fig:csat-annotated"></span>
@@ -500,49 +479,67 @@ Figure 1.4: these model estimates.
 </div>
 <div id="checking-assumptions-1" class="section level3">
 <h3><span class="header-section-number">1.4.5</span> Checking assumptions</h3>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="revisit.html#cb23-1"></a><span class="kw">plot</span>(mod, <span class="dt">which =</span> <span class="dv">2</span>)</span>
-<span id="cb23-2"><a href="revisit.html#cb23-2"></a><span class="kw">plot</span>(mod, <span class="dt">which =</span> <span class="dv">1</span>)</span>
-<span id="cb23-3"><a href="revisit.html#cb23-3"></a><span class="kw">shapiro.test</span>(mod<span class="op">$</span>res)</span>
-<span id="cb23-4"><a href="revisit.html#cb23-4"></a><span class="co"># </span></span>
-<span id="cb23-5"><a href="revisit.html#cb23-5"></a><span class="co">#   Shapiro-Wilk normality test</span></span>
-<span id="cb23-6"><a href="revisit.html#cb23-6"></a><span class="co"># </span></span>
-<span id="cb23-7"><a href="revisit.html#cb23-7"></a><span class="co"># data:  mod$res</span></span>
-<span id="cb23-8"><a href="revisit.html#cb23-8"></a><span class="co"># W = 0.98816, p-value = 0.5204</span></span></code></pre></div>
-<p><img src="revisit-linear-models_files/figure-html/unnamed-chunk-23-1.png" width="80%" style="display: block; margin: auto;" /><img src="revisit-linear-models_files/figure-html/unnamed-chunk-23-2.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="revisit.html#cb22-1"></a><span class="kw">plot</span>(mod, <span class="dt">which =</span> <span class="dv">2</span>)</span>
+<span id="cb22-2"><a href="revisit.html#cb22-2"></a><span class="kw">plot</span>(mod, <span class="dt">which =</span> <span class="dv">1</span>)</span>
+<span id="cb22-3"><a href="revisit.html#cb22-3"></a><span class="kw">shapiro.test</span>(mod<span class="op">$</span>res)</span>
+<span id="cb22-4"><a href="revisit.html#cb22-4"></a><span class="co"># </span></span>
+<span id="cb22-5"><a href="revisit.html#cb22-5"></a><span class="co">#   Shapiro-Wilk normality test</span></span>
+<span id="cb22-6"><a href="revisit.html#cb22-6"></a><span class="co"># </span></span>
+<span id="cb22-7"><a href="revisit.html#cb22-7"></a><span class="co"># data:  mod$res</span></span>
+<span id="cb22-8"><a href="revisit.html#cb22-8"></a><span class="co"># W = 1, p-value = 0.5</span></span></code></pre></div>
+<p><img src="revisit-linear-models_files/figure-html/unnamed-chunk-22-1.png" width="80%" style="display: block; margin: auto;" /><img src="revisit-linear-models_files/figure-html/unnamed-chunk-22-2.png" width="80%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="creating-a-figure-1" class="section level3">
 <h3><span class="header-section-number">1.4.6</span> Creating a figure</h3>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="revisit.html#cb24-1"></a>csativa_summary &lt;-<span class="st"> </span>csativa <span class="op">%&gt;%</span></span>
-<span id="cb24-2"><a href="revisit.html#cb24-2"></a><span class="st">  </span><span class="kw">group_by</span>(plant) <span class="op">%&gt;%</span></span>
-<span id="cb24-3"><a href="revisit.html#cb24-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(omega),</span>
-<span id="cb24-4"><a href="revisit.html#cb24-4"></a>            <span class="dt">std =</span> <span class="kw">sd</span>(omega),</span>
-<span id="cb24-5"><a href="revisit.html#cb24-5"></a>            <span class="dt">n =</span> <span class="kw">length</span>(omega),</span>
-<span id="cb24-6"><a href="revisit.html#cb24-6"></a>            <span class="dt">se =</span> std<span class="op">/</span><span class="kw">sqrt</span>(n))</span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="revisit.html#cb25-1"></a><span class="co">#summarise the data </span></span>
-<span id="cb25-2"><a href="revisit.html#cb25-2"></a></span>
-<span id="cb25-3"><a href="revisit.html#cb25-3"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb25-4"><a href="revisit.html#cb25-4"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">data =</span> csativa, </span>
-<span id="cb25-5"><a href="revisit.html#cb25-5"></a>              <span class="kw">aes</span>(<span class="dt">x =</span> plant, <span class="dt">y =</span> omega), </span>
-<span id="cb25-6"><a href="revisit.html#cb25-6"></a>              <span class="dt">width =</span> <span class="fl">0.2</span>, <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span></span>
-<span id="cb25-7"><a href="revisit.html#cb25-7"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="dt">data =</span> csativa_summary,</span>
-<span id="cb25-8"><a href="revisit.html#cb25-8"></a>                <span class="kw">aes</span>(<span class="dt">x =</span> plant,</span>
-<span id="cb25-9"><a href="revisit.html#cb25-9"></a>                    <span class="dt">ymin =</span> mean,</span>
-<span id="cb25-10"><a href="revisit.html#cb25-10"></a>                    <span class="dt">ymax =</span> mean),</span>
-<span id="cb25-11"><a href="revisit.html#cb25-11"></a>                <span class="dt">width =</span> <span class="fl">.1</span>) <span class="op">+</span></span>
-<span id="cb25-12"><a href="revisit.html#cb25-12"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="dt">data =</span> csativa_summary,</span>
-<span id="cb25-13"><a href="revisit.html#cb25-13"></a>                <span class="kw">aes</span>(<span class="dt">x =</span> plant,</span>
-<span id="cb25-14"><a href="revisit.html#cb25-14"></a>                    <span class="dt">ymin =</span> mean <span class="op">-</span><span class="st"> </span>se,</span>
-<span id="cb25-15"><a href="revisit.html#cb25-15"></a>                    <span class="dt">ymax =</span> mean <span class="op">+</span><span class="st"> </span>se),</span>
-<span id="cb25-16"><a href="revisit.html#cb25-16"></a>                <span class="dt">width =</span> <span class="fl">.2</span>) <span class="op">+</span></span>
-<span id="cb25-17"><a href="revisit.html#cb25-17"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Plant type&quot;</span>) <span class="op">+</span></span>
-<span id="cb25-18"><a href="revisit.html#cb25-18"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Amount of Omega 3 (units)&quot;</span>) <span class="op">+</span></span>
-<span id="cb25-19"><a href="revisit.html#cb25-19"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">75</span>) <span class="op">+</span></span>
-<span id="cb25-20"><a href="revisit.html#cb25-20"></a><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Modified&quot;</span>, <span class="st">&quot;Wild Type&quot;</span>)) <span class="op">+</span></span>
-<span id="cb25-21"><a href="revisit.html#cb25-21"></a><span class="st">  </span><span class="kw">theme_classic</span>()</span></code></pre></div>
-<p><img src="revisit-linear-models_files/figure-html/unnamed-chunk-25-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="revisit.html#cb23-1"></a>csativa_summary &lt;-<span class="st"> </span>csativa <span class="op">%&gt;%</span></span>
+<span id="cb23-2"><a href="revisit.html#cb23-2"></a><span class="st">  </span><span class="kw">group_by</span>(plant) <span class="op">%&gt;%</span></span>
+<span id="cb23-3"><a href="revisit.html#cb23-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(omega),</span>
+<span id="cb23-4"><a href="revisit.html#cb23-4"></a>            <span class="dt">std =</span> <span class="kw">sd</span>(omega),</span>
+<span id="cb23-5"><a href="revisit.html#cb23-5"></a>            <span class="dt">n =</span> <span class="kw">length</span>(omega),</span>
+<span id="cb23-6"><a href="revisit.html#cb23-6"></a>            <span class="dt">se =</span> std<span class="op">/</span><span class="kw">sqrt</span>(n))</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="revisit.html#cb24-1"></a><span class="co">#summarise the data </span></span>
+<span id="cb24-2"><a href="revisit.html#cb24-2"></a></span>
+<span id="cb24-3"><a href="revisit.html#cb24-3"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb24-4"><a href="revisit.html#cb24-4"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">data =</span> csativa, </span>
+<span id="cb24-5"><a href="revisit.html#cb24-5"></a>              <span class="kw">aes</span>(<span class="dt">x =</span> plant, <span class="dt">y =</span> omega), </span>
+<span id="cb24-6"><a href="revisit.html#cb24-6"></a>              <span class="dt">width =</span> <span class="fl">0.25</span>, <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span></span>
+<span id="cb24-7"><a href="revisit.html#cb24-7"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="dt">data =</span> csativa_summary,</span>
+<span id="cb24-8"><a href="revisit.html#cb24-8"></a>                <span class="kw">aes</span>(<span class="dt">x =</span> plant,</span>
+<span id="cb24-9"><a href="revisit.html#cb24-9"></a>                    <span class="dt">ymin =</span> mean,</span>
+<span id="cb24-10"><a href="revisit.html#cb24-10"></a>                    <span class="dt">ymax =</span> mean),</span>
+<span id="cb24-11"><a href="revisit.html#cb24-11"></a>                <span class="dt">width =</span> <span class="fl">.3</span>) <span class="op">+</span></span>
+<span id="cb24-12"><a href="revisit.html#cb24-12"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="dt">data =</span> csativa_summary,</span>
+<span id="cb24-13"><a href="revisit.html#cb24-13"></a>                <span class="kw">aes</span>(<span class="dt">x =</span> plant,</span>
+<span id="cb24-14"><a href="revisit.html#cb24-14"></a>                    <span class="dt">ymin =</span> mean <span class="op">-</span><span class="st"> </span>se,</span>
+<span id="cb24-15"><a href="revisit.html#cb24-15"></a>                    <span class="dt">ymax =</span> mean <span class="op">+</span><span class="st"> </span>se),</span>
+<span id="cb24-16"><a href="revisit.html#cb24-16"></a>                <span class="dt">width =</span> <span class="fl">.5</span>) <span class="op">+</span></span>
+<span id="cb24-17"><a href="revisit.html#cb24-17"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">75</span>, <span class="dt">xend =</span> <span class="dv">2</span>, <span class="dt">yend =</span> <span class="dv">75</span>),</span>
+<span id="cb24-18"><a href="revisit.html#cb24-18"></a>               <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb24-19"><a href="revisit.html#cb24-19"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">75</span>, <span class="dt">xend =</span> <span class="dv">1</span>, <span class="dt">yend =</span> <span class="dv">73</span>),</span>
+<span id="cb24-20"><a href="revisit.html#cb24-20"></a>               <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb24-21"><a href="revisit.html#cb24-21"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">2</span>, <span class="dt">y =</span> <span class="dv">75</span>, <span class="dt">xend =</span> <span class="dv">2</span>, <span class="dt">yend =</span> <span class="dv">73</span>),</span>
+<span id="cb24-22"><a href="revisit.html#cb24-22"></a>               <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb24-23"><a href="revisit.html#cb24-23"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="fl">1.5</span>, <span class="dt">y =</span> <span class="dv">77</span>,  <span class="dt">label =</span> <span class="st">&quot;***&quot;</span>, <span class="dt">size =</span> <span class="dv">6</span>) <span class="op">+</span></span>
+<span id="cb24-24"><a href="revisit.html#cb24-24"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Plant type&quot;</span>) <span class="op">+</span></span>
+<span id="cb24-25"><a href="revisit.html#cb24-25"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Amount of Omega 3 (units)&quot;</span>) <span class="op">+</span></span>
+<span id="cb24-26"><a href="revisit.html#cb24-26"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">90</span>) <span class="op">+</span></span>
+<span id="cb24-27"><a href="revisit.html#cb24-27"></a><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Modified&quot;</span>, <span class="st">&quot;Wild Type&quot;</span>)) <span class="op">+</span></span>
+<span id="cb24-28"><a href="revisit.html#cb24-28"></a><span class="st">  </span><span class="kw">theme_classic</span>()</span></code></pre></div>
+<p><img src="revisit-linear-models_files/figure-html/ch1-ttest-1.png" width="80%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="reporting-the-results-1" class="section level3">
 <h3><span class="header-section-number">1.4.7</span> Reporting the results</h3>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="revisit.html#cb25-1"></a>res &lt;-<span class="st"> </span><span class="kw">summary</span>(mod)</span>
+<span id="cb25-2"><a href="revisit.html#cb25-2"></a>tval &lt;-<span class="st"> </span>res<span class="op">$</span>coefficients[<span class="st">&quot;plantwild&quot;</span>, <span class="st">&quot;t value&quot;</span>]</span>
+<span id="cb25-3"><a href="revisit.html#cb25-3"></a>df &lt;-<span class="st"> </span>res<span class="op">$</span>df[<span class="dv">2</span>]</span></code></pre></div>
+<p>The genetic modification was unsuccessful with wild type plants (<span class="math inline">\(\bar{x} \pm s.e.\)</span>: 56.412 <span class="math inline">\(\pm\)</span> 1.11) have significantly higher omega 3 than modified plants(49.465 <span class="math inline">\(\pm\)</span> 0.823) (<span class="math inline">\(t\)</span> = 5.029; <span class="math inline">\(d.f.\)</span> = 98; <span class="math inline">\(p\)</span> &lt; 0.001). See figure <a href="revisit.html#fig:ch1-ttest-report">1.5</a>.</p>
+
+<div class="figure" style="text-align: left"><span id="fig:ch1-ttest-report"></span>
+<img src="revisit-linear-models_files/figure-html/ch1-ttest-report-1.png" alt="Relationship between the concentration of Juvenile hormone and mandible length." width="80%" />
+<p class="caption">
+Figure 1.5: Relationship between the concentration of Juvenile hormone and mandible length.
+</p>
+</div>
 </div>
 </div>
 <div id="one-way-anova" class="section level2">

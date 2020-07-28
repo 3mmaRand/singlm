@@ -1,16 +1,21 @@
 # 
-# options(digits = 3)
+options(digits = 3)
 
 knitr::opts_chunk$set(
   comment = "#",
   collapse = TRUE,
   out.width = "80%",
-  fig.align = 'center',
+  fig.align = 'left',
   fig.show = "hold",
   warning = FALSE,
   message = FALSE,
   echo = TRUE
 )
+
+library(tidyverse, 
+        verbose = FALSE, 
+        quietly = TRUE, 
+        warn.conflicts = FALSE)
 
 # might be of use
 # options(dplyr.print_min = 6, dplyr.print_max = 6)

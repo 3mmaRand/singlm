@@ -106,14 +106,14 @@ mod
 # 
 # Coefficients:
 # (Intercept)           jh  
-#    0.419338     0.006459
+#     0.41934      0.00646
 ```
 
 
 
 $\beta_{0}$ is labelled "(Intercept)" and $\beta_{1}$ is labelled "jh". Thus the equation of the line is:
 
-$mand$ = 0.4193382 + 0.0064588$jh$
+$mand$ = 0.419 + 0.006$jh$
 
 More information including statistical tests of the model and its parameters is obtained by using `summary()`
 
@@ -125,25 +125,25 @@ summary(mod)
 # lm(formula = mand ~ jh, data = stag)
 # 
 # Residuals:
-#      Min       1Q   Median       3Q      Max 
-# -0.38604 -0.20281 -0.09751  0.15034  0.60690 
+#     Min      1Q  Median      3Q     Max 
+# -0.3860 -0.2028 -0.0975  0.1503  0.6069 
 # 
 # Coefficients:
 #             Estimate Std. Error t value Pr(>|t|)   
-# (Intercept) 0.419338   0.139429   3.008  0.00941 **
-# jh          0.006459   0.001584   4.078  0.00113 **
+# (Intercept)  0.41934    0.13943    3.01   0.0094 **
+# jh           0.00646    0.00158    4.08   0.0011 **
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 # 
 # Residual standard error: 0.292 on 14 degrees of freedom
-# Multiple R-squared:  0.5429,	Adjusted R-squared:  0.5103 
-# F-statistic: 16.63 on 1 and 14 DF,  p-value: 0.00113
+# Multiple R-squared:  0.543,	Adjusted R-squared:  0.51 
+# F-statistic: 16.6 on 1 and 14 DF,  p-value: 0.00113
 ```
 
-The "Coefficients:" table gives the estimated $\beta_{0}$ and $\beta_{1}$ again, this time with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is 0.4193382 $\pm$ 0.1394289 and this differs significantly from zero ($p$ = 0.0094098). The estimated value for the slope, 0.0064588 $\pm$ 0.0015838, also differs significantly from zero ($p$ = 0.0011296). 
+The "Coefficients:" table gives the estimated $\beta_{0}$ and $\beta_{1}$ again, this time with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is 0.419 $\pm$ 0.139 and this differs significantly from zero ($p$ = 0.009). The estimated value for the slope, 0.006 $\pm$ 0.002, also differs significantly from zero ($p$ = 0.001). 
 
 
-The three lines at the bottom of the output gives information about the fit of the model to the data. The "Multiple R-squared" gives the proportion of the variance in the response which is explained by the model. In our case, 0.542938 of the variance in mandible length is explained by the model and this is a significant proportion of that variance ($p$ = 0.0011296). 
+The three lines at the bottom of the output gives information about the fit of the model to the data. The "Multiple R-squared" gives the proportion of the variance in the response which is explained by the model. In our case, 0.543 of the variance in mandible length is explained by the model and this is a significant proportion of that variance ($p$ = 0.001). 
 
 
 For a single linear regression, the *p*-value for the model and the *p*-value for the slope are the same. This is also true for linear models in the form of a two-sample *t*-test but **not** the case for other linear models.
@@ -192,7 +192,7 @@ shapiro.test(mod$res)
 # 	Shapiro-Wilk normality test
 # 
 # data:  mod$res
-# W = 0.94737, p-value = 0.4493
+# W = 0.9, p-value = 0.4
 ```
 
 <img src="revisit-linear-models_files/figure-html/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto;" /><img src="revisit-linear-models_files/figure-html/unnamed-chunk-11-2.png" width="80%" style="display: block; margin: auto;" />
@@ -223,7 +223,7 @@ ggplot(data = stag, aes(x = jh, y = mand)) +
 
 ### Reporting the results
 
-There was a significant positive relationship between the concentration of Juvenile hormone and mandible length ($\beta_{1}\pm s.e.$: 0.0064588 $\pm$ 0.0015838; $p$ = 0.0011296). See figure \@ref(fig:ch1-reg-report).
+There was a significant positive relationship between the concentration of Juvenile hormone and mandible length ($\beta_{1}\pm s.e.$: 0.006 $\pm$ 0.002; $p$ = 0.001). See figure \@ref(fig:ch1-reg-report).
 
 (ref:ch1-reg-report) Relationship between the concentration of Juvenile hormone and mandible length. 
 
@@ -265,16 +265,16 @@ t.test(data = csativa, omega ~ plant, var.equal = TRUE)
 # 	Two Sample t-test
 # 
 # data:  omega by plant
-# t = -5.0289, df = 98, p-value = 2.231e-06
+# t = -5, df = 98, p-value = 2e-06
 # alternative hypothesis: true difference in means is not equal to 0
 # 95 percent confidence interval:
-#  -9.687828 -4.205372
+#  -9.69 -4.21
 # sample estimates:
 # mean in group modif  mean in group wild 
-#             49.4652             56.4118
+#                49.5                56.4
 ```
 
-The two groups means are give in the section labelled "sample estimates" and the test of whether they differ significantly is given in the forth line (beginning "t = ..."). We conclude the mean omega 3 content of the modified plants (49.4652) is significantly lower than that of the wildtype plants ($t$ = 5.0288776, $d.f.$ = 98, $p$ = 2.2305939\times 10^{-6}).
+The two groups means are give in the section labelled "sample estimates" and the test of whether they differ significantly is given in the forth line (beginning "t = ..."). We conclude the mean omega 3 content of the modified plants (49.465) is significantly lower than that of the wildtype plants ($t$ = 5.029, $d.f.$ = 98, $p$ = 2.231\times 10^{-6}).
 
 The confidence interval is on the difference between the two means.
 
@@ -314,7 +314,7 @@ mod
 # 
 # Coefficients:
 # (Intercept)    plantwild  
-#      49.465        6.947
+#       49.47         6.95
 ```
 
 
@@ -326,26 +326,26 @@ summary(mod)
 # lm(formula = omega ~ plant, data = csativa)
 # 
 # Residuals:
-#      Min       1Q   Median       3Q      Max 
-# -15.8718  -3.7026  -0.9635   4.4598  16.9182 
+#     Min      1Q  Median      3Q     Max 
+# -15.872  -3.703  -0.964   4.460  16.918 
 # 
 # Coefficients:
 #             Estimate Std. Error t value Pr(>|t|)    
-# (Intercept)  49.4652     0.9768  50.642  < 2e-16 ***
-# plantwild     6.9466     1.3813   5.029 2.23e-06 ***
+# (Intercept)   49.465      0.977   50.64  < 2e-16 ***
+# plantwild      6.947      1.381    5.03  2.2e-06 ***
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 # 
-# Residual standard error: 6.907 on 98 degrees of freedom
-# Multiple R-squared:  0.2051,	Adjusted R-squared:  0.197 
-# F-statistic: 25.29 on 1 and 98 DF,  p-value: 2.231e-06
+# Residual standard error: 6.91 on 98 degrees of freedom
+# Multiple R-squared:  0.205,	Adjusted R-squared:  0.197 
+# F-statistic: 25.3 on 1 and 98 DF,  p-value: 2.23e-06
 anova(mod)
 # Analysis of Variance Table
 # 
 # Response: omega
-#           Df Sum Sq Mean Sq F value    Pr(>F)    
-# plant      1 1206.4  1206.4   25.29 2.231e-06 ***
-# Residuals 98 4674.9    47.7                      
+#           Df Sum Sq Mean Sq F value  Pr(>F)    
+# plant      1   1206    1206    25.3 2.2e-06 ***
+# Residuals 98   4675      48                    
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
@@ -354,30 +354,6 @@ anova(mod)
 ### Getting predictions from the model
 
 
-```r
-predict(mod)
-#       1       2       3       4       5       6       7       8       9      10 
-# 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 
-#      11      12      13      14      15      16      17      18      19      20 
-# 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 
-#      21      22      23      24      25      26      27      28      29      30 
-# 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 
-#      31      32      33      34      35      36      37      38      39      40 
-# 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 
-#      41      42      43      44      45      46      47      48      49      50 
-# 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 49.4652 
-#      51      52      53      54      55      56      57      58      59      60 
-# 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 
-#      61      62      63      64      65      66      67      68      69      70 
-# 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 
-#      71      72      73      74      75      76      77      78      79      80 
-# 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 
-#      81      82      83      84      85      86      87      88      89      90 
-# 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 
-#      91      92      93      94      95      96      97      98      99     100 
-# 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118 56.4118
-```
-
 
 ```r
 predictions <- data.frame(plant = c("modif", "wild"))
@@ -385,7 +361,7 @@ predictions <- data.frame(plant = c("modif", "wild"))
 
 
 ```r
-predictions$pred <- predict(mod, newdata = predictions, interval = "prediction")
+predictions$pred <- predict(mod, newdata = predictions)
 ```
 
 
@@ -415,10 +391,11 @@ shapiro.test(mod$res)
 # 	Shapiro-Wilk normality test
 # 
 # data:  mod$res
-# W = 0.98816, p-value = 0.5204
+# W = 1, p-value = 0.5
 ```
 
-<img src="revisit-linear-models_files/figure-html/unnamed-chunk-23-1.png" width="80%" style="display: block; margin: auto;" /><img src="revisit-linear-models_files/figure-html/unnamed-chunk-23-2.png" width="80%" style="display: block; margin: auto;" />
+<img src="revisit-linear-models_files/figure-html/unnamed-chunk-22-1.png" width="80%" style="display: block; margin: auto;" /><img src="revisit-linear-models_files/figure-html/unnamed-chunk-22-2.png" width="80%" style="display: block; margin: auto;" />
+
 
 ### Creating a figure
 
@@ -441,29 +418,50 @@ csativa_summary <- csativa %>%
 ggplot() +
   geom_jitter(data = csativa, 
               aes(x = plant, y = omega), 
-              width = 0.2, colour = "grey") +
+              width = 0.25, colour = "grey") +
   geom_errorbar(data = csativa_summary,
                 aes(x = plant,
                     ymin = mean,
                     ymax = mean),
-                width = .1) +
+                width = .3) +
   geom_errorbar(data = csativa_summary,
                 aes(x = plant,
                     ymin = mean - se,
                     ymax = mean + se),
-                width = .2) +
+                width = .5) +
+  geom_segment(aes(x = 1, y = 75, xend = 2, yend = 75),
+               size = 1) +
+  geom_segment(aes(x = 1, y = 75, xend = 1, yend = 73),
+               size = 1) +
+  geom_segment(aes(x = 2, y = 75, xend = 2, yend = 73),
+               size = 1) +
+  annotate("text", x = 1.5, y = 77,  label = "***", size = 6) +
   xlab("Plant type") +
   ylab("Amount of Omega 3 (units)") +
-  ylim(0, 75) +
+  ylim(0, 90) +
   scale_x_discrete(labels = c("Modified", "Wild Type")) +
   theme_classic()
 ```
 
-<img src="revisit-linear-models_files/figure-html/unnamed-chunk-25-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="revisit-linear-models_files/figure-html/ch1-ttest-1.png" width="80%" style="display: block; margin: auto;" />
 
 ### Reporting the results
 
+```r
+res <- summary(mod)
+tval <- res$coefficients["plantwild", "t value"]
+df <- res$df[2]
+```
 
+
+The genetic modification was unsuccessful with wild type plants ($\bar{x} \pm s.e.$: 56.412 $\pm$ 1.11) have significantly higher omega 3 than modified plants(49.465 $\pm$ 0.823) ($t$ = 5.029; $d.f.$ = 98; $p$ < 0.001). See figure \@ref(fig:ch1-ttest-report).
+
+(ref:ch1-ttest-report) Relationship between the concentration of Juvenile hormone and mandible length. 
+
+<div class="figure" style="text-align: left">
+<img src="revisit-linear-models_files/figure-html/ch1-ttest-report-1.png" alt="(ref:ch1-reg-report)" width="80%" />
+<p class="caption">(\#fig:ch1-ttest-report)(ref:ch1-reg-report)</p>
+</div>
 
 
 

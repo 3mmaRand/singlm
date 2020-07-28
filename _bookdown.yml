@@ -1,12 +1,25 @@
 book_filename: "singlm"
+repo: "https://github.com/3mmaRand/singlm"
 delete_merged_file: true
-rmd_files:
-- index.Rmd
-- revisit-linear-models.Rmd
-- glm-poisson.Rmd
-- glm-binomial.Rmd
-- summary.Rmd
-- references.Rmd
+rmd_files: [
+  "index.Rmd",
+  
+  "introductory_class_revision.Rmd",
+  "what_are-linear-models.Rmd",
+  "single_linear_regression.Rmd",
+  
+  "t_test_revisit.rmd",
+  "one_way_anova_revisit.Rmd",
+  "two_way_anova_revisit.Rmd",
+  
+  "glm-poisson.Rmd",
+  
+  "glm-binomial.Rmd",
+  
+  "summary.Rmd",
+  
+  "references.Rmd"
+  ]
 output_dir: docs
 language:
   ui:

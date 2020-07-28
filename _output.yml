@@ -6,6 +6,8 @@ bookdown::pdf_book:
   keep_tex: yes
 bookdown::epub_book: default
 bookdown::gitbook:
+  includes:
+    in_header: assets/header.html
   highlight: tango
   css: assets/style.css
   config:
@@ -15,8 +17,12 @@ bookdown::gitbook:
     toc:
       collapse: section
       before: |
-        <li><a href="./">singlm</a></li>
+        <li class="toc-logo"><a href="./"><img src="images/hex-s.png"></a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     download: ["pdf", "epub", "rmd"]
-
+    sharing:
+      github: yes
+      facebook: no
+      twitter: yes
+      all: no

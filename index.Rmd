@@ -6,11 +6,15 @@ site: bookdown::bookdown_site
 documentclass: book
 bibliography: [refs/book.bib, refs/packages.bib]
 biblio-style: apalike
-link-citations: yes
+link-citations: true
 description: "The output format for this example is bookdown::gitbook."
+favicon: images/favicon.ico
+cover-image: images/android-chrome-512x512.png
+github-repo: 3mmaRand/singlm
+url: 'https\://3mmarand.github.io/singlm/'
 ---
 
-# Introduction {-#intro}
+# Preface {-#preface}
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
@@ -18,15 +22,11 @@ knitr::write_bib(c(.packages(),
                    'bookdown',
                    'knitr',
                    'rmarkdown',
-                   'tidyverse'),
+                   'tidyverse',
+                   'multcomp'),
                  'packages.bib')
 ```
 
-
-```{r index-pkg, include=FALSE}
-library(tidyverse)
-
-```
 
 ## Who is this book for?
 
@@ -34,6 +34,10 @@ The aim of this book is to give people who have a little experience of doing dat
 It might be for you have done an introductory class in data analysis which covered classical univariate tests such as single linear regression, *t*-tests, one-way ANOVA and two-way ANOVA. It assumes you have some familiarity with R and RStudio and could import data, apply `t.test()` and `aov()` functions appropriately, interpret the results and create figures using `ggplot()`. It does not assume you are so fluent you could do these things with looking anything up, just that you would understand what you were doing and how to interpret the results.
 
 Secondary aim of this book is to introduce the terminology of statistical modelling to make your transition to more advanced texts easier.
+
+## Approach of this book
+One of the reasons functions such as `t.test()` and `aov()` are taught rather than `lm()` is because the output is usually easier for those new to data analysis to understand and interpret. However, the output of `lm()` is more typical of statistical modelling functions in general and this makes it  difficult for people to take small steps forward in their the statistical repertoire. The approach taken in this book is to exploit preexisting knowledge of *t*-tests and ANOVA using `t.test()` and `aov()` to understand the output of `lm()`. This will allow us to more easily understand the output of `glm()` 
+
 
 scope of the book, what isn't covered
 
@@ -58,65 +62,13 @@ Extra information and tips are in boxes like these
 objects in R are indicated in code font like this: `mod` `stag`
 we'll be using `tidyverse` [@tidyverse2019] packages.
 
+we will use `tidyverse` throughout. Every chapter assumes it has been loaded. Other packages we will load explicitly.
+
 :::fyi
 You can learn the tidyverse
 :::
 
 
-
-
-
-##  Overview of the chapter contents
-**Chapter 1**
-In the first chapter we work through examples carried out in both `lm()` and their more more beginner friendly alternatives to gain a good understanding of the anatomy of `lm()` output.
-
-**Chapter 2**
-...
-
-**Chapter 3**
-...
-
-
-
-## Introductory class revision
-In experimental design and execution we manipulate or choose one or more variables and record how changing their values effect another variable. The variables we manipulate or choose are called explanatory or predictor variables and the other is called the response. These are also known as independent and dependent variables respectively.
-
-:::key
-Predictor, Explanatory, *x* and Independent: all terms used to describe the variables we choose.  
-Predicted, Response, *y* and Dependent: all terms used to describe the variable we measure.
-:::
-
-When we plot data, the response variable goes on the *y*-axis and the explanatory variable goes on the *x*-axis
-
-```{r echo=FALSE}
-knitr::include_graphics("images/fig_1.svg")
-```
-
-If we have two explanatory variables we might indicate the different values of one of them with colour.
-
-
-```{r echo=FALSE}
-knitr::include_graphics("images/fig_2.svg")
-```
-
-In choosing between regression, *t*-tests, one-way ANOVA and two-way ANOVA we consider how many explanatory variables we have and whether they are continuous or categorical. If we have one explanatory variable and it is continuous, we can apply a regression; if it is a categorical variable with two groups (or levels) we have the choice of a *t*-test or a one way ANOVA but when there are more than two groups we use a one-way ANOVA. A two-way ANOVA is used when there are two categorical explanatory variables.
-
-
-```{r echo=FALSE, out.width="100%"}
-knitr::include_graphics("images/fig_3.svg")
-```
-
-These apparently different tests are, in fact, the same test. They have the same underlying mathematics and, or to put it another way, the follow the same model. That model is usually known as the **General Linear Model**. 
-
-Running a test = building or fitting a model. tests of how well our data fit the model, tests for the model parameters against a null hypothesis
-
-In R *t*-tests and ANOVA, like regression, can be carried out with the `lm()` function. The output differs but the results themselves are identical. The model makes a prediction for the response variable for a given value of the explanatory variable. The difference between the predicted value and the observed value is the residual.
-
-:::key
-`lm()` can be used to perform tests using the General Linear Model including *t*-tests, ANOVA and regression for response variables which are normally distributed.
-:::
-
-The General Linear Model requires that the response variable has residuals that follow the normal distribution with variance which is homogeneous for the values of the explanatory variables. This commonly occurs when the response variable has a normal distribution. The **General_ised_** Linear Model* extends the General Linear Model by including response variables that do not follow the normal distribution. 
 
 This book introduces the the Generalised Linear Model for two types of response:
 
@@ -129,6 +81,19 @@ In R, these are analysed with the `glm()` function.
 `glm()` can be used to perform tests using the Generalised Linear Model for response variables which are counts or binary.
 :::
 
-## Approach of this book
-One of the reasons functions such as `t.test()` and `aov()` are taught rather than `lm()` is because the output is usually easier for those new to data analysis to understand and interpret. However, the output of `lm()` is more typical of statistical modelling functions in general and this makes it  difficult for people to take small steps forward in their the statistical repertoire. The approach taken in this book is to exploit preexisting knowledge of *t*-tests and ANOVA using `t.test()` and `aov()` to understand the output of `lm()`. This will allow us to more easily understand the output of `glm()` 
+
+
+reporting and figures. it is not a ggplot tutorial. the code is given but not explained. to learn more go to : https://ggplot2.tidyverse.org/
+
+
+##  Overview of the chapter contents
+**Chapter 1**
+A little revision of your introductory class. 
+
+**Chapter 2**
+In the first chapter we work through examples carried out in both `lm()` and their more more beginner friendly alternatives to gain a good understanding of the anatomy of `lm()` output.
+
+
+**Chapter 3**
+...
 

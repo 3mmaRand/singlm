@@ -1,0 +1,292 @@
+# Two-way ANOVA revisited {#two-way-anova-revisit}
+
+## Introduction to the example
+
+A group of amateur conchologists have collected live specimens of two species of rough periwinkle (intertidal, gastropod molluscs) from sites in northern England in the Spring (1) and Summer (2). Among other variables, they take a measure of the gut parasite load.  Number of parasites is related to the number of parasites seen on a slide of gut contents and larger numbers indicate a higher parasite load. The data are in S [periwinkle.txt](data-raw/periwinkle.txt).
+
+
+```{r}
+periwinkle <- read_delim("data-raw/periwinkle.txt", delim = "\t ")
+
+```
+
+
+```{r}
+periwinkle$species <- factor(periwinkle$species)
+periwinkle$season <- factor(periwinkle$season)
+```
+
+
+Do a quick plot of the data. We have two explanatory variables: one can be mapped to the *x*-axis and the is mapped to a different aesthetic. We have used `fill`. 
+
+
+```{r}
+ggplot(data = periwinkle, aes(x = season, y = para, fill = species)) +
+  geom_violin()
+```
+
+```{r}
+peri_summary <- periwinkle %>% 
+  group_by(season, species) %>% 
+  summarise(mean = mean(para),
+            sd = sd(para),
+            n = length(para),
+            se = sd / sqrt(n))
+```
+```{r echo=FALSE}
+knitr::kable(peri_summary, digits = 2)
+```
+
+## `aov()` output reminder
+
+```{r}
+mod <- aov(data = periwinkle, para ~ season * species)
+
+```
+
+
+```{r}
+summary(mod)
+```
+
+```{r}
+res <- summary(mod)[[1]]
+df_seas <- res$Df[1]
+df_sp <- res$Df[2]
+df_seasxsp <- res$Df[3]
+df_err <- res$Df[4]
+fval_seas <- res$`F value`[1]
+fval_sp <- res$`F value`[2]
+fval_seasxsp <- res$`F value`[3]
+if (res$`Pr(>F)`[1] < 0.001) {
+        pval_seas = "< 0.001"
+        }
+if (res$`Pr(>F)`[1] > 0.001) {
+        pval_seas = paste("=", round(res$`Pr(>F)`[1], 3))
+        }
+if (res$`Pr(>F)`[2] < 0.001) {
+        pval_sp = "< 0.001"
+        }
+if (res$`Pr(>F)`[2] > 0.001) {
+        pval_sp = paste("=", round(res$`Pr(>F)`[2], 3))
+        }
+if (res$`Pr(>F)`[3] < 0.001) {
+        pval_seasxsp = "< 0.001"
+        }
+if (res$`Pr(>F)`[3] > 0.001) {
+        pval_seasxsp = paste("=", round(res$`Pr(>F)`[3], 3))
+        }
+
+
+
+
+```
+
+ There was a significantly greater number of parasites in the Summer than the Spring (ANOVA: $F$ = `r fval_seas`; $d.f.$ = `r df_seas`, `r df_err`; $p$ `r pval_seas`). There was no difference between the species when averaged across the season but there was significant interaction (ANOVA: $F$ = `r fval_seasxsp`; $d.f.$ = `r df_seasxsp`, `r df_err`; $p$ `r pval_seasxsp`) between season and species with higher numbers infecting *L.nigrolineata* in the Spring whilst *L.saxatilis* was more heavily parasitized in the Summer.
+ 
+We need a post-hoc test to discover which comparisons are significant.
+
+## Post-hoc testing for `aov`
+
+```{r}
+TukeyHSD(mod)
+```
+Note that the output is wrapped because the names associated with each comparison, for example "Summer:Littorina nigrolineata-Spring:Littorina nigrolineata", are quite long.
+
+```{r echo=FALSE}
+phres <- TukeyHSD(mod)[["season:species"]]
+
+
+
+if (phres["Spring:Littorina saxatilis-Spring:Littorina nigrolineata", "p adj"] < 0.001) {
+        p_spr_ln_ls = "< 0.001"
+        }
+if (phres["Spring:Littorina saxatilis-Spring:Littorina nigrolineata", "p adj"] > 0.001) {
+        p_spr_ln_ls = paste("=", round(phres["Summer:Littorina saxatilis-Spring:Littorina nigrolineata", "p adj"], 3))
+        }
+
+if (phres["Summer:Littorina saxatilis-Spring:Littorina saxatilis", "p adj"] < 0.001) {
+        p_sum_spr_ln = "< 0.001"
+        }
+if (phres["Summer:Littorina saxatilis-Spring:Littorina saxatilis", "p adj"] > 0.001) {
+        p_sum_spr_ln = paste("=", round(phres["Summer:Littorina saxatilis-Spring:Littorina saxatilis", "p adj"], 3))
+        }
+
+```
+
+*L.saxatilis* has fewer parasites in the spring than *L.nigrolineata* ($p$ `r p_spr_ln_ls`) but this rises significantly in Summer ($p$ `r p_sum_spr_ln`) while that of *L.nigrolineata* does not.
+
+
+## Applying and interpreting `lm()`
+```{r}
+mod <- lm(data = periwinkle, para ~ season * species)
+```
+
+
+```{r}
+mod
+```
+```{r echo=FALSE}
+coef <- mod$coefficients %>% round(2)
+
+```
+
+The mean of L.nigrolineata in the Spring is (`r coef["(Intercept)"]`). It is the intercept ($\beta_{0}$) because "Littorina nigrolineata" comes before "Littorina saxatilis" and "Spring" comes before "Summer" in the alphabet.
+
+The value labelled "seasonSummer" is the difference between the intercept and the *L.nigrolineata* in the Summer. It indicates that, holding all other variables constant (in this case, species), if you change the season variable to Summer you have to add `r coef["seasonSummer"]` to `r coef["(Intercept)"]` to get the  mean of *L.nigrolineata* in the Summer.
+
+The value labelled "speciesLittorina saxatilis" is also relative to the intercept. Holding all other variables constant (in this case, season), if you change the species variable to *Littorina saxatilis* you have to add `r coef["speciesLittorina saxatilis"]` to `r coef["(Intercept)"]` to get the  mean of *L.saxatilis* in the Spring.
+ 
+Similarly, the value labelled "seasonSummer:speciesLittorina saxatilis" is relative to the intercept but the estimate, `r coef["seasonSummer:speciesLittorina saxatilis"]` is what you must add **additionally**. If you change the season variable to Summer and the species variable to *Littorina saxatilis* you have to add `r coef["seasonSummer"]` (the effect of season), `r coef["speciesLittorina saxatilis"]` (the effect of species) and `r coef["seasonSummer:speciesLittorina saxatilis"]` (the additional effect) to to `r coef["(Intercept)"]` to get the  mean of *L.saxatilis* in the Summer.
+
+
+## Getting predictions from the model
+
+You must have all the combination. these are the means for two categorical variables
+```{r}
+predictions <- data.frame(species = peri_summary$species, season = peri_summary$season)
+```
+
+
+```{r}
+predictions$pred <- predict(mod, newdata = predictions)
+```
+
+## Link to Chapter 2.1
+
+Replacing the terms shown in Figure \@ref(fig:lm-annotated) with the values in this example gives us \@ref(fig:two-way-annotated).
+
+(ref:two-way-annotated) The annotated model with the values from the myoglobin content of seal muscle example. The measured `r kableExtra::text_spec("response values are in pink", color = pal3[2], bold = TRUE)`, the `r kableExtra::text_spec("predictions are in green", color = pal3[3], bold = TRUE)`, and the `r kableExtra::text_spec("residuals, are in blue", color = pal3[1], bold = TRUE)`. One example of a measured value, a predicted value and the residual is shown for a Harbour Seal individual. The estimated model parameters, $\beta_{0}$ and $\beta_{1}$ are indicated. Compare to Figure \@ref(fig:lm-annotated).
+
+```{r two-way-annotated, echo = FALSE, fig.cap="(ref:two-way-annotated)"} 
+#knitr::include_graphics("images/fig_8.svg")
+```
+
+
+## Checking assumptions
+
+```{r}
+plot(mod, which = 2)
+plot(mod, which = 1)
+shapiro.test(mod$res)
+```
+
+## Post-hoc testing for `lm()`
+
+```{r}
+library(multcomp)
+```
+
+generic example. define linfct, mcp 
+multiple comparison procedures
+```
+
+
+```
+
+can be obtained by fitting the so-called cell-means model based on a new factor derived as the interaction of species and season:
+
+```{r}
+periwinkle$seasxspp <- interaction(periwinkle$season, periwinkle$species)
+```
+```{r}
+mod2 <- lm(data = periwinkle, para ~ seasxspp)
+```
+
+
+```{r}
+
+
+mod2_mc <- glht(mod2, linfct = mcp(seasxspp = "Tukey"))
+summary(mod2_mc)
+
+```
+
+
+## Creating a figure
+
+```{r two-one-anova}
+#summarise the data 
+ggplot() +
+  geom_point(data = periwinkle, aes(x = season,
+                                    y = para,
+                                    colour = species),
+             position = position_jitterdodge(dodge.width = 1,
+                                             jitter.width = 0.4,
+                                             jitter.height = 0),
+             size = 2) +
+  geom_errorbar(data = peri_summary, 
+                aes(x = season, ymin = mean - se, ymax = mean + se, group = species),
+                width = 0.4, size = 1,
+                position = position_dodge(width = 1)) +
+  geom_errorbar(data = peri_summary, 
+                aes(x = season, ymin = mean, ymax = mean, group = species),
+                width = 0.3, size = 1,
+                position = position_dodge(width = 1) ) +
+  scale_x_discrete(name = "Season") +
+  scale_y_continuous(name = "Number of parasites",
+                     expand = c(0, 0),
+                     limits = c(0, 128)) +
+  scale_colour_manual(values = pal4[1:2]) +
+  # Spring:Littorina nigrolineata-Summer:Littorina saxatilis *
+  annotate("segment", 
+           x = 1.25, xend = 1.75, 
+           y = 110, yend = 110,
+           colour = "black") +
+  annotate("segment", 
+           x = 1.25, xend = 1.25,
+           y = 110, yend = 105,
+           colour = "black") +
+  annotate("segment", 
+           x = 1.75, xend = 1.75,
+           y = 110, yend = 105,
+           colour = "black") +
+  annotate("text", 
+           x = 1.5,  y = 112,
+           label = "***", size = 6) +
+  # Summer:Littorina nigrolineata-Spring:Littorina saxatilis: ***
+  annotate("segment", 
+           x = 1.25, xend = 0.75,
+           y = 90, yend = 90,
+           colour = "black") +
+  annotate("segment", 
+           x = 1.25, xend = 1.25,
+           y = 90, yend = 85,
+           colour = "black") +
+  annotate("segment", 
+           x = 0.75, xend = 0.75,
+           y = 90, yend = 85,
+           colour = "black") +
+  annotate("text", x = 1,  y = 92,
+           label = "**", size = 6) +
+# Summer:Littorina saxatilis-Spring:Littorina saxatilis: ***
+  annotate("segment",
+           x = 0.75, xend = 1.75,
+           y = 120, yend = 120,
+           colour = "black") +
+  annotate("segment",
+           x = 0.75, xend = 0.75,
+           y = 120, yend = 115,
+           colour = "black") +
+  annotate("segment",
+           x = 1.75, xend = 1.75,
+           y = 120, yend = 115,
+           colour = "black") +
+  annotate("text", x = 1.25,  y = 123,
+           label = "***", size = 6) +
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        legend.position = c(0.85, 0.98)) 
+```
+
+
+## Reporting the results
+
+
+See figure \@ref(fig:fig-two-anova-report).
+
+(ref:fig-two-anova-report) periwinkles blah blah
+
+```{r fig-two-anova-report, ref.label = 'fig-two-anova', echo = FALSE, fig.height=4, fig.width=4, fig.cap="(ref:fig-two-anova-report)", out.width="60%"} 
+```
+
