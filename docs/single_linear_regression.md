@@ -1,18 +1,38 @@
 # Single linear regression
 
+You have probably carried out a single linear regression in your introductory data analysis class. It is covered here as revision.
+
 ## Introduction to the example
-This is a test you have probably carried out before.
+The concentration of Juvenile growth hormone in male stag beetles (*Lucanus cervus*) is known to influence mandible growth. See Figure \@ref(fig:lucanus-fig)
 
-The concentration of juvenile hormone in stag beetles (*Lucanus cervus*) is known to influence mandible growth. Groups of stag beetles were injected with different concentrations of juvenile hormone (pg$\mu$l^-1^) and their average mandible size (mm) determined. The data are in [stag.txt](data-raw/stag.txt).
+(ref:lucanus-fig) Male stag beetles *Lucanus cervus*, have large mandibles that resemble the antlers of a stag and give them their common and scientific name (*Cervus* is a genus of deer). By Simon A. Eugster - Own work, CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=7790887
 
-We will import the data with the `read_table2()` function from the `readr` package and plot it with `ggplot()` from the `ggplot2` package. Both packages are part of the tidyverse.
+<div class="figure" style="text-align: left">
+<img src="images/640px-Lucanus_cervus_male_top_2.jpg" alt="(ref:lucanus-fig)" width="80%" />
+<p class="caption">(\#fig:lucanus-fig)(ref:lucanus-fig)</p>
+</div>
 
+Groups of ten stag beetles were treated with different concentrations of Juvenile growth hormone (pg$\mu$l^-1^) and their average mandible size (mm) determined. The data are in [stag.txt](data-raw/stag.txt). Juvenile hormone is has been set by the experimenter and we would expect mandible size to be normally distributed. 
+
+We will import the data with the `read_table2()` function from the **`readr`** package and plot it with `ggplot()` from the **`ggplot2`** package. Both packages are part of the tidyverse.
+
+Import the data:
 
 ```r
 stag <- read_table2("data-raw/stag.txt")
+glimpse(stag)
+# Rows: 16
+# Columns: 2
+# $ jh   <dbl> 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140...
+# $ mand <dbl> 0.56, 0.35, 0.28, 1.22, 0.48, 0.86, 0.68, 0.77, 0.55, 1.18, 0....
 ```
 
-Juvenile hormone is has been set by the experimenter and mandible size has decimal places and is something we would expect to be normally distributed. Visualising our data before any further analysis is usually sensible. In this case, it will help us determine if any relationship between the two variables is linear.
+:::key
+There are 2 variables: `jh`, the concentration of Juvenile growth hormone and `mand`, the average mandible size (mm) of 10 stag beetles
+:::
+
+Visualising our data before any further analysis is sensible. In this case, it will help us determine if any relationship between the two variables is linear.
+A simple scatter plot is appropriate.
 
 
 ```r
@@ -21,20 +41,19 @@ ggplot(data = stag, aes(x = jh, y = mand)) +
 ```
 
 <img src="single_linear_regression_files/figure-html/unnamed-chunk-2-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
-The relationship between them looks roughly linear. So far, common sense suggests the assumptions of regression are met.
+The relationship between the two variables looks roughly linear. So far, common sense suggests the assumptions of regression are met.
 
 ## Applying and interpreting `lm()`
 
-The `lm()` function is used to build the regression model
+The `lm()` function is used to build the regression model:
 
 
 ```r
-# build the statistical model
 mod <- lm(data = stag, mand ~ jh)
 ```
 
 
-This can be read as: fit a linear of model of mandible size explained by juvenile growth hormone concentration. 
+This can be read as: fit a linear of model of mandible size explained by the concentration of Juvenile growth hormone.
 
 Printing `mod` to the console will reveal the estimated model parameters (coefficients) but little else:
 
@@ -52,14 +71,13 @@ mod
 
 
 
-$\beta_{0}$ is labelled "(Intercept)" and $\beta_{1}$ is labelled "jh". Thus the equation of the line is:
+$\beta_{0}$ is labelled `(Intercept)` and $\beta_{1}$ is labelled `jh`. Thus, the equation of the line is:
 
 <center> $mand$ = 0.419 + 0.006$jh$ </center>
 
-More information including statistical tests of the model and its parameters is obtained by using `summary()`
+More information including statistical tests of the model and its parameters is obtained by using `summary()`:
 
 ```r
-# examine it
 summary(mod)
 # 
 # Call:
@@ -81,42 +99,25 @@ summary(mod)
 # F-statistic: 16.6 on 1 and 14 DF,  p-value: 0.00113
 ```
 
-The "Coefficients:" table gives the estimated $\beta_{0}$ and $\beta_{1}$ again, this time with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is 0.419 $\pm$ 0.139 and this differs significantly from zero ($p$ = 0.009). The estimated value for the slope, 0.006 $\pm$ 0.002, also differs significantly from zero ($p$ = 0.001). 
+The `Coefficients` table gives the estimated $\beta_{0}$ and $\beta_{1}$ again but along with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is 0.419 $\pm$ 0.139 and this differs significantly from zero ($p$ = 0.009). The estimated value for the slope is 0.006 $\pm$ 0.002, also differs significantly from zero ($p$ = 0.001). 
+
+The three lines at the bottom of the output give information about the fit of the model to the data. The `Multiple R-squared` gives the proportion of the variance in the response which is explained by the model. In our case, 0.543 of the variance in mandible length is explained by the model and this is a significant proportion of that variance ($p$ = 0.001). 
 
 
-The three lines at the bottom of the output gives information about the fit of the model to the data. The "Multiple R-squared" gives the proportion of the variance in the response which is explained by the model. In our case, 0.543 of the variance in mandible length is explained by the model and this is a significant proportion of that variance ($p$ = 0.001). 
-
-
-For a single linear regression, the *p*-value for the model and the *p*-value for the slope are the same. This is also true for linear models in the form of a two-sample *t*-test but **not** the case for other linear models.
-
-## Getting predictions from the model
-
-The `predict()` returns the predicted values of the response. To add a column of predicted values to the dataframe: 
-
-
-```r
-stag$pred <- predict(mod)
-```
-
-This requires creating a data frame of the x values from which you want to predict
-
-```r
-predictions <- data.frame(jh = seq(0, 150, 5))
-```
-
-Note that the name and type of value of explanatory variable must be the same as it is in the model
-
-
-```r
-predictions$pred <- predict(mod, newdata = predictions)
-
-```
+The *p*-value for the model and the *p*-value for the slope are the same in a single linear regression because, except for the intercept, there is only one parameter (the slope) in the model. Linear models in the form of a two-sample *t*-test also estimate just one parameter and its *p*-value will also equal the model *p*-value. This is **not** the case for other linear models.
 
 ## Link to Chapter 2.1
 
-Replacing the terms shown in Figure \@ref(fig:lm-annotated) with the values in this example gives us \@ref(fig:stag-annotated).
+The estimated coefficients tell us mandible size is predicted to be 0.419 when Juvenile growth hormone is zero and increases by 0.006 mm for each pg$\mu$l^-1^ of Juvenile growth hormone. 
 
-(ref:stag-annotated) The annotated model with the values from the stag beetle example. The measured <span style=" font-weight: bold;    color: #d264c0 !important;" >response values are in pink</span>, the <span style=" font-weight: bold;    color: #c0d264 !important;" >predictions are in green</span>, and the <span style=" font-weight: bold;    color: #64c0d2 !important;" >residuals, are in blue</span>. One example of a measured value, a predicted value and the residual is shown for a  Juvenile hormone of 130 pg$\mu$l^-1^. The estimated model parameters, $\beta_{0}$ and $\beta_{1}$ are indicated. Compare to Figure \@ref(fig:lm-annotated).
+At a Juvenile growth hormone of 1 pg$\mu$l^-1^  the mandible is predicted to be 0.419 + 0.006 = 0.426 mm. 
+
+At 2 pg$\mu$l^-1^ the predicted mandible size is 0.419 + 0.006 + 0.006 = 0.432 mm. 
+
+
+In general mandible size is: $\beta_{0}$ + $x\times\beta_{0}$ mm at $x$ pg$\mu$l^-1^. See Figure \@ref(fig:stag-annotated) for a version of Figure \@ref(fig:lm-annotated) annotated with values from this example.
+
+(ref:stag-annotated) The model annotated with values from the stag beetle example. The measured <span style=" font-weight: bold;    color: #d264c0 !important;" >response values are in pink</span>, the <span style=" font-weight: bold;    color: #c0d264 !important;" >predictions are in green</span>, and the <span style=" font-weight: bold;    color: #64c0d2 !important;" >residuals, are in blue</span>. One example of a measured value, a predicted value and the residual is shown for a  Juvenile hormone of 130 pg$\mu$l^-1^. The estimated model parameters, $\beta_{0}$ and $\beta_{1}$ are indicated. Compare to Figure \@ref(fig:lm-annotated).
 
 <div class="figure" style="text-align: left">
 <img src="images/fig_5.svg" alt="(ref:stag-annotated)" width="80%" />
@@ -124,33 +125,83 @@ Replacing the terms shown in Figure \@ref(fig:lm-annotated) with the values in t
 </div>
 
 
-## Checking assumptions
+## Getting predictions from the model
+
+The `predict()` returns the predicted values of the response. To add a column of predicted values to the `stag` dataframe we use: 
 
 
 ```r
-plot(mod, which = 2)
-plot(mod, which = 1)
-shapiro.test(mod$res)
-# 
-# 	Shapiro-Wilk normality test
-# 
-# data:  mod$res
-# W = 0.9, p-value = 0.4
+stag$pred <- predict(mod)
+glimpse(stag)
+# Rows: 16
+# Columns: 3
+# $ jh   <dbl> 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140...
+# $ mand <dbl> 0.56, 0.35, 0.28, 1.22, 0.48, 0.86, 0.68, 0.77, 0.55, 1.18, 0....
+# $ pred <dbl> 0.419, 0.484, 0.549, 0.613, 0.678, 0.742, 0.807, 0.871, 0.936,...
+```
+This gives predictions for the actual Juvenile growth hormone concentration values used. If you want predictions for other values, you need to create a data frame of the Juvenile growth hormone values from which you want to predict. 
+The following creates a dataframe with one column of Juvenile growth hormone values from 0 to 150 in steps of 5:
+
+```r
+predict_for <- data.frame(jh = seq(0, 150, 5))
+glimpse(predict_for)
+# Rows: 31
+# Columns: 1
+# $ jh <dbl> 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80...
 ```
 
-<img src="single_linear_regression_files/figure-html/unnamed-chunk-10-1.png" width="80%" style="display: block; margin: auto auto auto 0;" /><img src="single_linear_regression_files/figure-html/unnamed-chunk-10-2.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+Note that the column is named `jh` - the same as in the dataset and the model. Its variable type must also match.
 
+:::key
+To predict responses for a new set of explanatory variable values, the name and type of explanatory variables in the new set must match those in the model.
+:::
+
+To get predicted mandible sizes for the Juvenile growth hormone values we use:
+
+```r
+predict_for$pred <- predict(mod, newdata = predict_for)
+glimpse(predict_for)
+# Rows: 31
+# Columns: 2
+# $ jh   <dbl> 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, ...
+# $ pred <dbl> 0.419, 0.452, 0.484, 0.516, 0.549, 0.581, 0.613, 0.645, 0.678,...
+```
+
+
+
+## Checking assumptions
+
+The two assumptions of the model can be checked using diagnostic plots. The Q-Q plot is obtained with:
+
+```r
+plot(mod, which = 2)
+```
+
+<img src="single_linear_regression_files/figure-html/unnamed-chunk-10-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+
+This sample is relatively small so we should expect more wiggliness than we saw in 2.2 but this looks OK.
+
+Let's look at the Residuals vs Fitted plot:
+
+
+```r
+plot(mod, which = 1)
+```
+
+<img src="single_linear_regression_files/figure-html/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+
+Again the red line wiggles a little but there is no particular pattern and it appears that the variance is homogeneous along mandible size.
 
 ## Creating a figure
 
-
+A suitable figure includes the data themselves and the model fitted:
 
 ```r
 ggplot(data = stag, aes(x = jh, y = mand)) +
         geom_point() +
         scale_x_continuous(expand = c(0.01, 0),
                            limits = c(0, 160),
-                           name = expression(paste("Juvenile hormone (pg",
+                           name = expression(paste("Juvenile growth hormone (pg",
                                                    mu,
                                                    l^-1,
                                                    ")"))) +
@@ -166,9 +217,9 @@ ggplot(data = stag, aes(x = jh, y = mand)) +
 
 ## Reporting the results
 
-There was a significant positive relationship between the concentration of Juvenile hormone and mandible length ($\beta_{1}\pm s.e.$: 0.006 $\pm$ 0.002; $p$ = 0.001). See figure \@ref(fig:fig-reg-report).
+There was a significant positive relationship between the concentration of Juvenile growth hormone and mandible length ($\beta_{1}\pm s.e.$: 0.006 $\pm$ 0.002; $p$ = 0.001). See figure \@ref(fig:fig-reg-report).
 
-(ref:fig-reg-report) Relationship between the concentration of Juvenile hormone and mandible length. 
+(ref:fig-reg-report) Relationship between the concentration of Juvenile growth hormone and mandible length. 
 
 <div class="figure" style="text-align: left">
 <img src="single_linear_regression_files/figure-html/fig-reg-report-1.png" alt="(ref:fig-reg-report)" width="60%" />

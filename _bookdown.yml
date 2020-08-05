@@ -12,6 +12,8 @@ rmd_files: [
   "one_way_anova_revisit.Rmd",
   "two_way_anova_revisit.Rmd",
   
+  "glm-intro.Rmd",
+  
   "glm-poisson.Rmd",
   
   "glm-binomial.Rmd",

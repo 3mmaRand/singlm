@@ -1,17 +1,104 @@
 # (PART) USING `glm()` FOR POISSON RESPONSES {-}
 
-# GLM for poisson responses {#pois}
+# Single continuous predictor 
+
+## Introduction to the example
+
+Does proximity to a nuclear power plant alter the risk of cancer?
+Number of cases of cancer reported by a clinic by its distance from nuclear plant (note not good epidemiology). each row is a clinic
+[caes.txt](data-raw/cases.txt)
 
 
-## intro {#pois-intro}
+```{r}
+cases <- read_table2("data-raw/cases.txt")
+```
 
-some stuff introducing pois
+
+```{r}
+ggplot(data = cases, aes(x = distance, y = cancers)) +
+  geom_point()
+```
+
+## Applying and interpreting lm()
+
+```{r}
+mod <- glm(data = cases, cancers ~ distance, family = poisson)
 
 
-## build {#pois-build}
+```
 
-some stuff about build pois
+```{r}
+mod
+```
+```{r}
+mod$coefficients
+```
 
-## output {#pois-output}
 
-some stuff about pois output
+```{r echo=FALSE}
+b0 <- mod$coefficients["(Intercept)"]
+b1 <- mod$coefficients["distance"]
+b0_resp <- exp(b0)
+b1_resp <- exp(b1)
+```
+
+The fact that the estimate for distance (`r b0`) is negative tells us that as distance increases, the number of cancers reported goes down.
+
+These estimates are on the scale of the link function, that is, they are logged (to the base e, natural logs) in this case.
+
+To understand thm on the scale of the response we apply the inverse of the ln function, the exp() function
+
+```{r}
+exp(mod$coefficients)
+```
+
+$\beta_{0}$ is labelled "(Intercept)" and $\beta_{1}$ is labelled "distance". Thus the equation of the line is:
+
+<center> $cancers$ = `r b0` $\times$ `r b1`$^{distance}$ </center>
+
+The model predicts there will be `r b0_resp` cancers at a clinic at no distance from the power plant.
+
+Recall that for a linear model with one predictor, the second estimate is the amount added to the intercept when the predictor changes by one value. Since this is glm with a log link, the value of `r b1_resp` is amount the intercept is multiplied by. Thus the model predicts there will be `r b0_resp` $\times$ `r b1_resp` =  `r b0_resp*b1_resp` cancers 1 km away and `r b0_resp` $\times$ `r b1_resp` $\times$ `r b1_resp` =  `r b0_resp*b1_resp*b1_resp` cancers 2 km away. That is: $\beta_{0}$ $\times$ $\beta_{0}^n$ mm at $n$ km away.
+
+
+
+
+```{r}
+summary(mod) 
+```
+
+
+To get a test of the model overall
+
+```{r}
+anova(mod, test = "Chisq") 
+
+```
+```{r}
+pchisq(22.732, 1, lower.tail = F)
+```
+
+## Getting predictions from the model
+
+The `predict()` function returns the predicted values of the response. To add a column of predicted values to the dataframe:
+we need to specify they should be on the scale of the responses, no the link function scale.
+
+```{r}
+cases$pred <- predict(mod, type = "response")
+```
+
+
+
+
+This gives predictions for the actual x values used. If you want predicts for other values of x you need to creating a data frame of the x values from which you want to predict
+
+
+```{r}
+predictions <- data.frame(distance = seq(0, 180, 10))
+```
+
+
+```{r}
+predictions$pred <- predict(mod, newdata = predictions, type = "response")
+```
+
