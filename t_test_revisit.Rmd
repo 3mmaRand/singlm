@@ -175,7 +175,7 @@ Replacing the terms shown in Figure \@ref(fig:t-annotated) with the values in th
 (ref:csat-annotated) The annotated model with the values from the Omega 3 content of *Cannabis sativa* example. The measured `r kableExtra::text_spec("response values are in pink", color = pal3[2], bold = TRUE)`, the `r kableExtra::text_spec("predictions are in green", color = pal3[3], bold = TRUE)`, and the `r kableExtra::text_spec("residuals, are in blue", color = pal3[1], bold = TRUE)`. One example of a measured value, a predicted value and the residual is shown for a wild type individual. The estimated model parameters, $\beta_{0}$ and $\beta_{1}$ are indicated. Compare to Figure \@ref(fig:t-annotated).
 
 ```{r csat-annotated, echo = FALSE, fig.cap="(ref:csat-annotated)"} 
-knitr::include_graphics("images/fig_6.svg")
+knitr::include_graphics("images/csativa_lm_eg.svg")
 ```
 
 

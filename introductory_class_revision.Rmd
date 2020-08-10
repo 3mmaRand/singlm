@@ -17,7 +17,7 @@ When we plot data, the response variable goes on the *y*-axis and the explanator
 
 
 ```{r expl-resp, echo=FALSE, fig.cap="(ref:expl-resp)"}
-knitr::include_graphics("images/fig_1.svg")
+knitr::include_graphics("images/expl_rep_graph.svg")
 ```
 
 
@@ -31,7 +31,7 @@ If we have one explanatory variable and it is continuous, we can apply a regress
 (ref:decision-tree) Decision tree for choosing between single linear regression, *t*-tests, one-way ANOVA and two-way ANOVA.
 
 ```{r  decision-tree, echo=FALSE, fig.cap="(ref:decision-tree)", out.width="100%"}
-knitr::include_graphics("images/fig_3.svg")
+knitr::include_graphics("images/decision_tree.svg")
 ```
 
 These apparently different tests are, in fact, the same test. They have the same underlying mathematics, or to put it another way, the follow the same model. That model is often known as the **General Linear Model**. 

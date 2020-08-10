@@ -117,7 +117,7 @@ Replacing the terms shown in Figure \@ref(fig:lm-annotated) with the values in t
 (ref:one-way-annotated) The annotated model with the values from the myoglobin content of seal muscle example. The measured `r kableExtra::text_spec("response values are in pink", color = pal3[2], bold = TRUE)`, the `r kableExtra::text_spec("predictions are in green", color = pal3[3], bold = TRUE)`, and the `r kableExtra::text_spec("residuals, are in blue", color = pal3[1], bold = TRUE)`. One example of a measured value, a predicted value and the residual is shown for a Harbour Seal individual. The estimated model parameters, $\beta_{0}$ and $\beta_{1}$ are indicated. Compare to Figure \@ref(fig:lm-annotated).
 
 ```{r one-way-annotated, echo = FALSE, fig.cap="(ref:one-way-annotated)"} 
-knitr::include_graphics("images/fig_7.svg")
+knitr::include_graphics("images/seal_lm_eg.svg")
 ```
 
 

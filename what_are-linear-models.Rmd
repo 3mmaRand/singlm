@@ -29,7 +29,7 @@ See Figure \@ref(fig:lm-annotated) for a graphical representation of linear mode
 (ref:lm-annotated) A linear model annotated with the terms used in linear modelling. The measured `r kableExtra::text_spec("response values are in pink", color = pal3[2], bold = TRUE)`, the `r kableExtra::text_spec("predictions are in green", color = pal3[3], bold = TRUE)`, and the differences between these, known as the `r kableExtra::text_spec("residuals, are in blue", color = pal3[1], bold = TRUE)`. The estimated model parameters, $\beta_{0}$ (the intercept) and $\beta_{1}$ (the slope) are indicated.
 
 ```{r lm-annotated, echo = FALSE, fig.cap="(ref:lm-annotated)"} 
-knitr::include_graphics("images/fig_4.svg")
+knitr::include_graphics("images/generic_lm.svg")
 ```
 
 

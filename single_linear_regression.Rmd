@@ -109,7 +109,7 @@ In general mandible size is: $\beta_{0}$ + $x\times\beta_{0}$ mm at $x$ pg$\mu$l
 (ref:stag-annotated) The model annotated with values from the stag beetle example. The measured `r kableExtra::text_spec("response values are in pink", color = pal3[2], bold = TRUE)`, the `r kableExtra::text_spec("predictions are in green", color = pal3[3], bold = TRUE)`, and the `r kableExtra::text_spec("residuals, are in blue", color = pal3[1], bold = TRUE)`. One example of a measured value, a predicted value and the residual is shown for a  Juvenile hormone of 130 pg$\mu$l^-1^. The estimated model parameters, $\beta_{0}$ and $\beta_{1}$ are indicated. Compare to Figure \@ref(fig:lm-annotated).
 
 ```{r stag-annotated, echo = FALSE, fig.cap="(ref:stag-annotated)"} 
-knitr::include_graphics("images/fig_5.svg")
+knitr::include_graphics("images/stag_reg_eg.svg")
 ```
 
 
