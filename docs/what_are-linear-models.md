@@ -29,7 +29,7 @@ See Figure \@ref(fig:lm-annotated) for a graphical representation of linear mode
 (ref:lm-annotated) A linear model annotated with the terms used in linear modelling. The measured <span style=" font-weight: bold;    color: #d264c0 !important;" >response values are in pink</span>, the <span style=" font-weight: bold;    color: #c0d264 !important;" >predictions are in green</span>, and the differences between these, known as the <span style=" font-weight: bold;    color: #64c0d2 !important;" >residuals, are in blue</span>. The estimated model parameters, $\beta_{0}$ (the intercept) and $\beta_{1}$ (the slope) are indicated.
 
 <div class="figure" style="text-align: left">
-<img src="images/fig_4.svg" alt="(ref:lm-annotated)" width="80%" />
+<img src="images/generic_lm.svg" alt="(ref:lm-annotated)" width="80%" />
 <p class="caption">(\#fig:lm-annotated)(ref:lm-annotated)</p>
 </div>
 

@@ -3,7 +3,6 @@
 You have probably carried out a single linear regression in your introductory data analysis class. It is covered here as revision.
 
 ## Introduction to the example
-The concentration of Juvenile growth hormone in male stag beetles (*Lucanus cervus*) is known to influence mandible growth. See Figure \@ref(fig:lucanus-fig)
 
 (ref:lucanus-fig) Male stag beetles *Lucanus cervus*, have large mandibles that resemble the antlers of a stag and give them their common and scientific name (*Cervus* is a genus of deer). By Simon A. Eugster - Own work, CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=7790887
 
@@ -12,7 +11,89 @@ The concentration of Juvenile growth hormone in male stag beetles (*Lucanus cerv
 <p class="caption">(\#fig:lucanus-fig)(ref:lucanus-fig)</p>
 </div>
 
+The concentration of Juvenile growth hormone in male stag beetles (*Lucanus cervus*) is known to influence mandible growth. See Figure \@ref(fig:lucanus-fig)
+
 Groups of ten stag beetles were treated with different concentrations of Juvenile growth hormone (pg$\mu$l^-1^) and their average mandible size (mm) determined. The data are in [stag.txt](data-raw/stag.txt). Juvenile hormone is has been set by the experimenter and we would expect mandible size to be normally distributed. 
+
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:300px; "><table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> jh </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> mand </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.56 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 0.35 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 0.28 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 1.22 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 40 </td>
+   <td style="text-align:right;"> 0.48 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 0.86 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 60 </td>
+   <td style="text-align:right;"> 0.68 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 70 </td>
+   <td style="text-align:right;"> 0.77 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 0.55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 90 </td>
+   <td style="text-align:right;"> 1.18 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 0.71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 110 </td>
+   <td style="text-align:right;"> 1.44 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 120 </td>
+   <td style="text-align:right;"> 1.32 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 130 </td>
+   <td style="text-align:right;"> 1.66 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 140 </td>
+   <td style="text-align:right;"> 1.23 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 150 </td>
+   <td style="text-align:right;"> 1.17 </td>
+  </tr>
+</tbody>
+</table></div>
+
+:::key
+There are 2 variables: `jh`, the concentration of Juvenile growth hormone and `mand`, the average mandible size (mm) of 10 stag beetles
+:::
+
 
 We will import the data with the `read_table2()` function from the **`readr`** package and plot it with `ggplot()` from the **`ggplot2`** package. Both packages are part of the tidyverse.
 
@@ -20,16 +101,10 @@ Import the data:
 
 ```r
 stag <- read_table2("data-raw/stag.txt")
-glimpse(stag)
-# Rows: 16
-# Columns: 2
-# $ jh   <dbl> 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140...
-# $ mand <dbl> 0.56, 0.35, 0.28, 1.22, 0.48, 0.86, 0.68, 0.77, 0.55, 1.18, 0....
+
 ```
 
-:::key
-There are 2 variables: `jh`, the concentration of Juvenile growth hormone and `mand`, the average mandible size (mm) of 10 stag beetles
-:::
+
 
 Visualising our data before any further analysis is sensible. In this case, it will help us determine if any relationship between the two variables is linear.
 A simple scatter plot is appropriate.
@@ -40,7 +115,7 @@ ggplot(data = stag, aes(x = jh, y = mand)) +
         geom_point()
 ```
 
-<img src="single_linear_regression_files/figure-html/unnamed-chunk-2-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="single_linear_regression_files/figure-html/unnamed-chunk-3-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 The relationship between the two variables looks roughly linear. So far, common sense suggests the assumptions of regression are met.
 
 ## Applying and interpreting `lm()`
@@ -120,7 +195,7 @@ In general mandible size is: $\beta_{0}$ + $x\times\beta_{0}$ mm at $x$ pg$\mu$l
 (ref:stag-annotated) The model annotated with values from the stag beetle example. The measured <span style=" font-weight: bold;    color: #d264c0 !important;" >response values are in pink</span>, the <span style=" font-weight: bold;    color: #c0d264 !important;" >predictions are in green</span>, and the <span style=" font-weight: bold;    color: #64c0d2 !important;" >residuals, are in blue</span>. One example of a measured value, a predicted value and the residual is shown for a  Juvenile hormone of 130 pg$\mu$l^-1^. The estimated model parameters, $\beta_{0}$ and $\beta_{1}$ are indicated. Compare to Figure \@ref(fig:lm-annotated).
 
 <div class="figure" style="text-align: left">
-<img src="images/fig_5.svg" alt="(ref:stag-annotated)" width="80%" />
+<img src="images/stag_reg_eg.svg" alt="(ref:stag-annotated)" width="80%" />
 <p class="caption">(\#fig:stag-annotated)(ref:stag-annotated)</p>
 </div>
 
@@ -177,7 +252,7 @@ The two assumptions of the model can be checked using diagnostic plots. The Q-Q 
 plot(mod, which = 2)
 ```
 
-<img src="single_linear_regression_files/figure-html/unnamed-chunk-10-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="single_linear_regression_files/figure-html/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 This sample is relatively small so we should expect more wiggliness than we saw in 2.2 but this looks OK.
 
@@ -188,7 +263,7 @@ Let's look at the Residuals vs Fitted plot:
 plot(mod, which = 1)
 ```
 
-<img src="single_linear_regression_files/figure-html/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="single_linear_regression_files/figure-html/unnamed-chunk-12-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 Again the red line wiggles a little but there is no particular pattern and it appears that the variance is homogeneous along mandible size.
 

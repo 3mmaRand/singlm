@@ -38,13 +38,52 @@ peri_summary <- periwinkle %>%
             n = length(para),
             se = sd / sqrt(n))
 ```
-
-season   species                   mean      sd    n     se
--------  -----------------------  -----  ------  ---  -----
-Spring   Littorina nigrolineata    63.8   11.92   25   2.38
-Spring   Littorina saxatilis       56.5    8.88   25   1.78
-Summer   Littorina nigrolineata    69.4   11.44   25   2.29
-Summer   Littorina saxatilis       72.9   11.24   25   2.25
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> season </th>
+   <th style="text-align:left;"> species </th>
+   <th style="text-align:right;"> mean </th>
+   <th style="text-align:right;"> sd </th>
+   <th style="text-align:right;"> n </th>
+   <th style="text-align:right;"> se </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Spring </td>
+   <td style="text-align:left;"> Littorina nigrolineata </td>
+   <td style="text-align:right;"> 63.8 </td>
+   <td style="text-align:right;"> 11.92 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 2.38 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Spring </td>
+   <td style="text-align:left;"> Littorina saxatilis </td>
+   <td style="text-align:right;"> 56.5 </td>
+   <td style="text-align:right;"> 8.88 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 1.78 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Summer </td>
+   <td style="text-align:left;"> Littorina nigrolineata </td>
+   <td style="text-align:right;"> 69.4 </td>
+   <td style="text-align:right;"> 11.44 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 2.29 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Summer </td>
+   <td style="text-align:left;"> Littorina saxatilis </td>
+   <td style="text-align:right;"> 72.9 </td>
+   <td style="text-align:right;"> 11.24 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 2.25 </td>
+  </tr>
+</tbody>
+</table>
 
 ## `aov()` output reminder
 

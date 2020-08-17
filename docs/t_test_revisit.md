@@ -8,6 +8,422 @@ In this chapter we look at an example with one categorical explanatory variable 
 
 Some plant biotechnologists developed a genetically modified line of *Cannabis sativa* to increase its omega 3 fatty acids content. They grew 50 wild type and fifty modified plants to maturity, collect the seeds and measure the amount of omega 3 fatty acids (in arbitrary units). The data are in [csativa.txt](data-raw/csativa.txt). They want to know if the wild type and modified plants differ significantly in their omega 3 fatty acid content. 
 
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:300px; "><table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> omega </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> plant </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 48.5 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 43.6 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 51.2 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 56.4 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 56.0 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 58.7 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 39.1 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 48.8 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 55.5 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 44.6 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 46.5 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 41.5 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 40.8 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 45.1 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 46.1 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 39.4 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 47.2 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 48.0 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 50.7 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 48.2 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 48.4 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 48.1 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 56.7 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 49.6 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 49.1 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 47.4 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 59.9 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 54.3 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 61.9 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 46.7 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 58.3 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 41.9 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 52.7 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 54.5 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 59.6 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 49.6 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 47.4 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 53.4 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 48.1 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 53.8 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 42.8 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 45.8 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 42.4 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 48.2 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 49.8 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 50.1 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 48.4 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 61.0 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 41.3 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 46.3 </td>
+   <td style="text-align:left;"> modif </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 58.5 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 55.5 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 58.7 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 67.7 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 41.4 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 48.0 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 64.5 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 52.2 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 54.2 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 40.5 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 59.1 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 68.5 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 47.9 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 60.5 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 63.0 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 57.5 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 58.0 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 70.2 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 67.1 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 52.7 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 60.2 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 42.5 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 60.2 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 53.8 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 45.4 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 53.2 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 63.3 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 45.3 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 65.3 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 61.9 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 49.2 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 73.3 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 70.3 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 56.3 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 56.0 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 53.5 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 63.6 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 45.9 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 54.5 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 54.6 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 50.9 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 58.2 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 54.5 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 56.6 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 54.1 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 53.5 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 56.9 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 46.0 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 50.0 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 65.7 </td>
+   <td style="text-align:left;"> wild </td>
+  </tr>
+</tbody>
+</table></div>
+
+:::key
+There are 2 variables. 
+`plant` is the explanatory variable; it is categorical with 2 levels, `modif` and `wild`.
+`omega`, a continuous variable, is the response.
+:::
 
 We again use the `read_table2()` function to import the data and visualise it with `ggplot()`
 
@@ -15,16 +431,9 @@ We again use the `read_table2()` function to import the data and visualise it wi
 
 ```r
 csativa  <-  read_table2("data-raw/csativa.txt")
-glimpse(csativa)
-# Rows: 100
-# Columns: 2
-# $ omega <dbl> 48.5, 43.6, 51.2, 56.4, 56.0, 58.7, 39.1, 48.8, 55.5, 44.6, 4...
-# $ plant <chr> "modif", "modif", "modif", "modif", "modif", "modif", "modif"...
 ```
 
-:::key
-There are 2 variables: `plant` is the explanatory variable and is categorical with 2 levels; and `omega`, a continuous variable, is the response.
-:::
+
 
 A quick plot of the data:
 
@@ -33,7 +442,7 @@ ggplot(data = csativa, aes(x = plant, y = omega)) +
   geom_violin()
 ```
 
-<img src="t_test_revisit_files/figure-html/unnamed-chunk-2-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="t_test_revisit_files/figure-html/unnamed-chunk-3-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 :::fyi
 Violin plots are a useful way to show the distribution of data in each group but not the only way. One alternative is `geom_boxplot()`.
@@ -87,29 +496,34 @@ The sign on the $t$ value and the confidence limits, and the order in which the 
 # 
 ```
 
+:::key
+`t.test()` output: the estimates are the two group means and the *p*-value is for a test on the difference between them.
+:::
+
 ## *t*-tests as linear models
 
 The equation for a *t*-test is just as it was for equation \@ref(eq:lm1):
 \begin{equation}
-E(y_{i})=\beta_{0}+\beta_{1}x_{i}
+E(y_{i})=\beta_{0}+\beta_{1}X1_{i}
 (\#eq:t-test)
 \end{equation}
 
-Remember, in a single linear regression $\beta_{0}$, the intercept, is the value of the response when the numerical explanatory variable is zero. What does this mean when the explanatory variable is categorical?
+Remember, in a single linear regression $\beta_{0}$, the intercept, is the value of the response when the numerical explanatory variable is zero. So what does this mean when the explanatory variable is categorical?
 
-The equivalent here is that the intercept is the value of the response when the categorical explanatory is at its "lowest" level. The order of the groups is determined alphabetically so the "lowest" level is the group which comes first alphabetically.
+It means the intercept is the value of the response when the categorical explanatory is at its "lowest" level where the "lowest" level is the group which comes first alphabetically.
 
-$x_{i}$ is an indicator variable that takes the value of 0 or 1 and indicates whether the $i$th value was from one group or not. Such variables are known as **dummy explanatory variables**. They are dummy in the sense that they are numerical substitutes for the categorical variable whose 'real' values are the names of the categories.
+$X1_{i}$ is an indicator variable that takes the value of 0 or 1 and indicates whether the $i$th value was from one group or not. Such variables are known as **dummy explanatory variables**. They are dummy in the sense that they are numerical substitutes for the categorical variable whose 'real' values are the names of the categories.
 
-If it has a value of 0 for a data point it means that $\beta_{1}$ will not impact the response which will take the value of $\beta_{0}$.
+You can think of $X1_{i}$ as toggling on and off the $\beta_{1}$ effect:
 
-If it has a value 1 then $\beta_{1}$ will change the response which will take the value of $\beta_{0}$ + $\beta_{1}$
+* If it has a value of 0 for a data point it means that $\beta_{1}$ will not impact the response which will be $\beta_{0}$.
+* If it has a value 1 then $\beta_{1}$ will change the response to $\beta_{0}$ + $\beta_{1}$
 
-$\beta_{1}$ is thus the *difference* between the group means,
+$\beta_{1}$ is thus the *difference* between the group means.
 
-See Figure \@ref(fig:t-annotated) for a graphical representation of the terms in a linear model when the explanatory variable is categorical with two groups. 
+A graphical representation of the terms in a linear model when the explanatory variable is categorical with two groups is given in Figure \@ref(fig:t-annotated). 
 
-(ref:t-annotated) An linear model when the explanatory variable is categorical with two groups annotated with the terms used in linear modelling. The measured <span style=" font-weight: bold;    color: #d264c0 !important;" >response values are in pink</span>, the <span style=" font-weight: bold;    color: #c0d264 !important;" >predictions are in green</span>, and the differences between these, known as the <span style=" font-weight: bold;    color: #64c0d2 !important;" >residuals, are in blue</span>. The estimated model parameters, $\beta_{0}$ (the intercept) and $\beta_{1}$ (the slope) are indicated. Compare to Figure \@ref(fig:lm-annotated).
+(ref:t-annotated) A linear model when the explanatory variable is categorical with two groups annotated with the terms used in linear modelling. The measured <span style=" font-weight: bold;    color: #d264c0 !important;" >response values are in pink</span>, the <span style=" font-weight: bold;    color: #c0d264 !important;" >predictions are in green</span>, and the differences between these, known as the <span style=" font-weight: bold;    color: #64c0d2 !important;" >residuals, are in blue</span>. The estimated model parameters are indicated: $\beta_{0}$ is the mean of group A and $\beta_{1}$ is what has to be added to $\beta_{0}$ to get the mean of group B. Compare to Figure \@ref(fig:lm-annotated).
 
 <div class="figure" style="text-align: left">
 <img src="images/generic_t.svg" alt="(ref:t-annotated)" width="80%" />
@@ -126,9 +540,9 @@ The `lm()` function is applied to this example as follows:
 mod <- lm(data = csativa, omega ~ plant)
 ```
 
-This can be read as: fit a linear of model of omega content explained by plant type. Notice that the model formula is the same in both functions.
+This can be read as: fit a linear of model of omega content explained by plant type. Notice that the model formula is the same in both the `t.test()` and the `lm()` functions.
 
-Printing `mod` to the console gives us these estimated model parameters (coefficients):
+Printing `mod` to the console gives us the estimated model parameters (coefficients):
 
 
 ```r
@@ -144,11 +558,10 @@ mod
 
 
 
-The first group of `plant` is `modif` so $\beta_{0}$ is the mean of the modified plants. $\beta_{1}$ is the coefficient labelled `plantwild`. It means when the  variable `plant` takes the value `wild`, $\beta_{1}$ must be added to $\beta_{0}$
 
-In R, the coefficients are consistently named with the variable name followed, without spaces, by the value.
+The first group of `plant` is `modif` so $\beta_{0}$ is the mean of the modified plants. $\beta_{1}$ is the coefficient labelled `plantwild`. In R, the coefficients are consistently named like this: variable name followed by the value without spaces. It means when the  variable `plant` takes the value `wild`, $\beta_{1}$ must be added to $\beta_{0}$
 
-Thus, the mean omega 3 in the modified plants is 49.465 units and that in the wild type plants is 49.465 + 6.947 =` r b0+b1` units.
+Thus, the mean omega 3 in the modified plants is 49.465 units and that in the wild type plants is 49.465 + 6.947 = 56.412 units.
 
 More information including statistical tests of the model and its parameters is obtained by using `summary()`:
 
@@ -179,30 +592,34 @@ The `Coefficients` table gives the estimated $\beta_{0}$ and $\beta_{1}$ again b
 The proportion of the variance in the omega which is explained by the model is 0.205 and this is a significant proportion of that variance ($p$ < 0.001). 
 
 
-As was true for single linear regression, the *p*-value for the model and the *p*-value for the difference between the means are the same because, except for the intercept, there is only one parameter in the model. 
+As was true for single linear regression, the *p*-value for the model and the *p*-value for the difference between the means are the same because there is only one parameter in the model after the intercept. 
 
 
 Replacing the terms shown in Figure \@ref(fig:t-annotated) with the values in this example gives us \@ref(fig:csat-annotated).
 
-(ref:csat-annotated) The annotated model with the values from the Omega 3 content of *Cannabis sativa* example. The measured <span style=" font-weight: bold;    color: #d264c0 !important;" >response values are in pink</span>, the <span style=" font-weight: bold;    color: #c0d264 !important;" >predictions are in green</span>, and the <span style=" font-weight: bold;    color: #64c0d2 !important;" >residuals, are in blue</span>. One example of a measured value, a predicted value and the residual is shown for a wild type individual. The estimated model parameters, $\beta_{0}$ and $\beta_{1}$ are indicated. Compare to Figure \@ref(fig:t-annotated).
+(ref:csat-annotated) The annotated model with the values from the Omega 3 content of *Cannabis sativa* example. The measured <span style=" font-weight: bold;    color: #d264c0 !important;" >response values are in pink</span>, the <span style=" font-weight: bold;    color: #c0d264 !important;" >predictions are in green</span>, and the <span style=" font-weight: bold;    color: #64c0d2 !important;" >residuals, are in blue</span>. One example of a measured value, a predicted value and the residual is shown for a wild type individual. The estimated model parameters are indicated: $\beta_{0}$, the mean of the modified plants, is 49.465 and $\beta_{1}$ is 6.947. Thus the mean of wildtype plants is 49.465 + 6.947 = 56.412 units. Compare to Figure \@ref(fig:t-annotated).
 
 <div class="figure" style="text-align: left">
-<img src="images/fig_6.svg" alt="(ref:csat-annotated)" width="80%" />
+<img src="images/csativa_lm_eg.svg" alt="(ref:csat-annotated)" width="80%" />
 <p class="caption">(\#fig:csat-annotated)(ref:csat-annotated)</p>
 </div>
 
 
 ## Getting predictions from the model
 
-We already have the predictions for the possible values of the explanatory variable  - there are only two!
+We already have the predictions for all possible values of the explanatory variable because there are only two!
 
-However the code for for uses predict is included here because it will make it easier to understand more complex examples where you have more than one explanatory variable some of which are categorical and some of which are continuous.
+However the code for using predict is included here because it will make it easier to understand more complex examples later. We need to create a dataframe of  values for which we want predictions and pass it as an argument to the `predict()` function.
 
 To create a dataframe with one column of Plant values:
 
 ```r
 predict_for <- data.frame(plant = c("modif", "wild"))
 ```
+
+:::key
+Remember! The variable and its values have to exactly match those in the model. 
+:::
 
 The to get the predicted omega content for the two plant types:
 
@@ -226,7 +643,7 @@ The two assumptions of the model can be checked using diagnostic plots. The Q-Q 
 plot(mod, which = 2)
 ```
 
-<img src="t_test_revisit_files/figure-html/unnamed-chunk-12-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="t_test_revisit_files/figure-html/unnamed-chunk-13-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 The residual seem to be normally distributed.
 
@@ -237,7 +654,7 @@ Let's look at the Residuals vs Fitted plot:
 plot(mod, which = 1)
 ```
 
-<img src="t_test_revisit_files/figure-html/unnamed-chunk-13-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="t_test_revisit_files/figure-html/unnamed-chunk-14-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 We get these two columns of points because the explanatory variable, `plant`, is categorical so the fitted - or predicted - values are just two means. In my view, the variance looks higher in the group with the higher mean (on the right).
 

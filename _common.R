@@ -17,6 +17,11 @@ library(tidyverse,
         quietly = TRUE, 
         warn.conflicts = FALSE)
 
+library(kableExtra, 
+        verbose = FALSE, 
+        quietly = TRUE, 
+        warn.conflicts = FALSE)
+
 # might be of use
 # options(dplyr.print_min = 6, dplyr.print_max = 6)
 

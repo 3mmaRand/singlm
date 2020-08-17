@@ -30,7 +30,8 @@ knitr::write_bib(c(.packages(),
 
 ## Who is this book for?
 
-This book is for R users who have done an introductory class in data analysis which covered classical univariate tests such as single linear regression, *t*-tests, one-way ANOVA and two-way ANOVA. I assume you have some familiarity with R and RStudio and could import data, apply `t.test()` and `aov()` functions appropriately, interpret the results and create figures using `ggplot()`. I do not assume your fluency allows you to do these things with looking anything up, just that you would understand what you were doing and how to interpret the results.
+This book is for R users who have done an introductory class in data analysis which covered classical univariate tests such as single linear regression, *t*-tests, one-way ANOVA and two-way ANOVA. It is aimed at people who have a general, but not expert, understanding of summarising and graphically representing data and choosing and applying statistical tests. A revision chapter is included to set the scene and clarify terminology used in the rest of the book.
+I assume you have some familiarity with R and RStudio and could import data, apply `t.test()`, `aov()` and `TukeyHSD()` functions appropriately, interpret the results and create figures using `ggplot()`. I do not assume your fluency allows you to do these things with looking anything up, just that you would understand what you were doing and how to interpret the results.
 
 The book has two aims. First, to to introduce Generalised Linear Models for analysing counts and binary responses using `glm()`, and secondly, to introduce the terminology of statistical modelling to make your transition to more advanced texts easier.
 

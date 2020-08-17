@@ -17,7 +17,7 @@ When we plot data, the response variable goes on the *y*-axis and the explanator
 
 
 <div class="figure" style="text-align: left">
-<img src="images/fig_1.svg" alt="(ref:expl-resp)" width="80%" />
+<img src="images/expl_rep_graph.svg" alt="(ref:expl-resp)" width="80%" />
 <p class="caption">(\#fig:expl-resp)(ref:expl-resp)</p>
 </div>
 
@@ -32,7 +32,7 @@ If we have one explanatory variable and it is continuous, we can apply a regress
 (ref:decision-tree) Decision tree for choosing between single linear regression, *t*-tests, one-way ANOVA and two-way ANOVA.
 
 <div class="figure" style="text-align: left">
-<img src="images/fig_3.svg" alt="(ref:decision-tree)" width="100%" />
+<img src="images/decision_tree.svg" alt="(ref:decision-tree)" width="100%" />
 <p class="caption">(\#fig:decision-tree)(ref:decision-tree)</p>
 </div>
 

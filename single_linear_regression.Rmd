@@ -3,7 +3,6 @@
 You have probably carried out a single linear regression in your introductory data analysis class. It is covered here as revision.
 
 ## Introduction to the example
-The concentration of Juvenile growth hormone in male stag beetles (*Lucanus cervus*) is known to influence mandible growth. See Figure \@ref(fig:lucanus-fig)
 
 (ref:lucanus-fig) Male stag beetles *Lucanus cervus*, have large mandibles that resemble the antlers of a stag and give them their common and scientific name (*Cervus* is a genus of deer). By Simon A. Eugster - Own work, CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=7790887
 
@@ -11,19 +10,32 @@ The concentration of Juvenile growth hormone in male stag beetles (*Lucanus cerv
 knitr::include_graphics("images/640px-Lucanus_cervus_male_top_2.jpg")
 ```
 
+The concentration of Juvenile growth hormone in male stag beetles (*Lucanus cervus*) is known to influence mandible growth. See Figure \@ref(fig:lucanus-fig)
+
 Groups of ten stag beetles were treated with different concentrations of Juvenile growth hormone (pg$\mu$l^-1^) and their average mandible size (mm) determined. The data are in [stag.txt](data-raw/stag.txt). Juvenile hormone is has been set by the experimenter and we would expect mandible size to be normally distributed. 
 
-We will import the data with the `read_table2()` function from the **`readr`** package and plot it with `ggplot()` from the **`ggplot2`** package. Both packages are part of the tidyverse.
-
-Import the data:
-```{r}
+```{r echo =FALSE}
 stag <- read_table2("data-raw/stag.txt")
-glimpse(stag)
+stag %>% 
+  knitr::kable() %>%
+  kable_styling()  %>%
+  scroll_box(width = "300px", height = "300px")
 ```
 
 :::key
 There are 2 variables: `jh`, the concentration of Juvenile growth hormone and `mand`, the average mandible size (mm) of 10 stag beetles
 :::
+
+
+We will import the data with the `read_table2()` function from the **`readr`** package and plot it with `ggplot()` from the **`ggplot2`** package. Both packages are part of the tidyverse.
+
+Import the data:
+```{r eval=FALSE}
+stag <- read_table2("data-raw/stag.txt")
+
+```
+
+
 
 Visualising our data before any further analysis is sensible. In this case, it will help us determine if any relationship between the two variables is linear.
 A simple scatter plot is appropriate.
