@@ -1,6 +1,6 @@
 # One-way ANOVA revisited {#one-way-anova-revisit}
 
-In this chapter again consider an example with one categorical explanatory variable. However, this time it has more than two groups (or levels). We first use the familiar `aov()` function to carry out a one-way ANOVA and then use  our understanding to help us understand the output of `lm()`. We will also make predictions from the model and report on our results.
+In this chapter we again consider an example with one categorical explanatory variable. However, this time it has more than two groups (or levels). We first use the familiar `aov()` function to carry out a one-way ANOVA and then use our understanding to help us understand the output of `lm()`. We will also make predictions from the model and report on our results.
 
 
 ## Introduction to the example
@@ -709,9 +709,9 @@ summary(mod_mc)
 # 
 # Linear Hypotheses:
 #                                      Estimate Std. Error t value Pr(>|t|)   
-# Harbour Seal - Bladdernose Seal == 0     6.69       2.08    3.22    0.005 **
-# Weddell Seal - Bladdernose Seal == 0     2.34       2.08    1.13    0.499   
-# Weddell Seal - Harbour Seal == 0        -4.35       2.08   -2.09    0.097 . 
+# Harbour Seal - Bladdernose Seal == 0     6.69       2.08    3.22   0.0051 **
+# Weddell Seal - Bladdernose Seal == 0     2.34       2.08    1.13   0.4990   
+# Weddell Seal - Harbour Seal == 0        -4.35       2.08   -2.09   0.0968 . 
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 # (Adjusted p values reported -- single-step method)

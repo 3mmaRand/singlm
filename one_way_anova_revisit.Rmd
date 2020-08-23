@@ -1,6 +1,6 @@
 # One-way ANOVA revisited {#one-way-anova-revisit}
 
-In this chapter again consider an example with one categorical explanatory variable. However, this time it has more than two groups (or levels). We first use the familiar `aov()` function to carry out a one-way ANOVA and then use  our understanding to help us understand the output of `lm()`. We will also make predictions from the model and report on our results.
+In this chapter we again consider an example with one categorical explanatory variable. However, this time it has more than two groups (or levels). We first use the familiar `aov()` function to carry out a one-way ANOVA and then use our understanding to help us understand the output of `lm()`. We will also make predictions from the model and report on our results.
 
 
 ## Introduction to the example

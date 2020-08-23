@@ -1,0 +1,143 @@
+# Single continuous explanatory {#pois-glm-single-cont}
+
+## Introduction to the example
+
+The number of cases of cancer reported by a clinic and its distance, in kilometres, from a nuclear plant were recorded and the data are in [cases.txt](data-raw/cases.txt). Researchers wanted to know if proximity to the nuclear power plant influenced the incidence of cancer. Bear in mind this is not great epidemiology - there would be very many other factors influencing the occurrence and reporting of cancer cases at a clinic.
+
+
+```{r echo=FALSE}
+cases <- read_table2("data-raw/cases.txt")
+cases %>% 
+  knitr::kable() %>%
+  kable_styling()  %>%
+  scroll_box(width = "300px", height = "300px")
+```
+
+
+:::key
+There are 2 variables: the response, `cancers`, is the number of cancer cases reported at a clinic and `distance`, gives the clinic's distance from the nuclear plant. 
+:::
+
+
+We will import the data with the `read_table2()` function and plot it with `ggplot()`.
+
+```{r eval=FALSE}
+cases <- read_table2("data-raw/cases.txt")
+```
+
+
+```{r}
+# a default scatter plot of the data
+ggplot(data = cases, aes(x = distance, y = cancers)) +
+  geom_point()
+```
+Most of the clinics reporting no cases seem to be more distance from the nuclear plant and those reporting the highest numbers are within 50km.
+
+## Applying and interpreting `glm()`
+
+We build a generalised linear model of the number of cases explained by the distance with the `glm()` function as follows:
+
+```{r}
+mod <- glm(data = cases, cancers ~ distance, family = poisson)
+```
+Printing `mod` to the console gives us the estimated model parameters:
+```{r}
+mod
+```
+```{r}
+mod$coefficients
+```
+
+
+```{r echo=FALSE}
+b0 <- mod$coefficients["(Intercept)"]
+b1 <- mod$coefficients["distance"]
+b0_resp <- exp(b0)
+b1_resp <- exp(b1)
+```
+
+The fact that the estimate for distance (`r b0`) is negative tells us that as distance increases, the number of cancers reported goes down.
+
+These estimates are on the scale of the link function, that is, they are logged (to the base e, natural logs) in this case.
+
+To understand the on the scale of the response we apply the inverse of the $ln$ function, the `exp()` function
+
+```{r}
+exp(mod$coefficients)
+```
+
+$\beta_{0}$ is labelled "(Intercept)" and $\beta_{1}$ is labelled "distance". Thus the equation of the line is:
+
+<center> $cancers$ = `r b0` $\times$ `r b1`$^{distance}$ </center>
+
+The model predicts there will be `r b0_resp` cancers at a clinic at no distance from the power plant.
+
+Recall that for a linear model with one predictor, the second estimate is the amount added to the intercept when the predictor changes by one value. Since this is glm with a log link, the value of `r b1_resp` is amount the intercept is multiplied by. Thus the model predicts there will be `r b0_resp` $\times$ `r b1_resp` =  `r b0_resp*b1_resp` cancers 1 km away and `r b0_resp` $\times$ `r b1_resp` $\times$ `r b1_resp` =  `r b0_resp*b1_resp*b1_resp` cancers 2 km away. That is: $\beta_{0}$ $\times$ $\beta_{0}^n$ mm at $n$ km away.
+
+You can work these out either by exponentiating the coefficients and then multiply the results as above or by adding the coefficients and exponentiating
+
+```{r}
+# 1km away
+exp(b0) * exp(b1)
+
+# 2km away
+exp(b0) * exp(b1) * exp(b1)
+
+# 10km away
+exp(b0) * exp(b1) * exp(b1)^10
+
+```
+
+```{r}
+# 1km away
+exp(b0 + b1)
+
+# 2km away
+exp(b0 + b1 + b1)
+
+# 10km away
+exp(b0 + 10*b1)
+```
+
+
+
+```{r}
+summary(mod) 
+```
+
+
+To get a test of the model overall
+
+```{r}
+anova(mod, test = "Chisq") 
+
+```
+```{r}
+pchisq(22.732, 1, lower.tail = F)
+```
+
+## Getting predictions from the model
+
+The `predict()` function returns the predicted values of the response. To add a column of predicted values to the dataframe:
+we need to specify they should be on the scale of the responses, no the link function scale.
+
+```{r}
+cases$pred <- predict(mod, type = "response")
+mod$fitted.values
+```
+
+
+
+
+This gives predictions for the actual x values used. If you want predicts for other values of x you need to creating a data frame of the x values from which you want to predict
+
+
+```{r}
+predictions <- data.frame(distance = seq(0, 180, 10))
+```
+
+
+```{r}
+predictions$pred <- predict(mod, newdata = predictions, type = "response")
+```
+

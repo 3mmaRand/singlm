@@ -1,6 +1,6 @@
 # (PART) INTRODUCTION {-}
 
-# Revision of your Introductory class
+# Revision of your Introductory class {#revision}
 In experimental design and execution we manipulate, or choose, one or more variables and record the effect of this manipulation on another variable. The variables we manipulate  are called explanatory or predictor variables and the other is called the response. These are also known as independent and dependent variables respectively.
 
 :::key
@@ -20,8 +20,6 @@ When we plot data, the response variable goes on the *y*-axis and the explanator
 <img src="images/expl_rep_graph.svg" alt="(ref:expl-resp)" width="80%" />
 <p class="caption">(\#fig:expl-resp)(ref:expl-resp)</p>
 </div>
-
-
 
 
 

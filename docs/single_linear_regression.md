@@ -1,6 +1,8 @@
-# Single linear regression
+# (PART) USING `lm()` FOR FAMILIAR TESTS {-}
 
-You have probably carried out a single linear regression in your introductory data analysis class. It is covered here as revision.
+# Single linear regression {#single-regression}
+
+This is probably the one general linear model you have applied out using `lm()` previously and it is covered here as revision and make more clear links between regression, *t*-tests and ANOVA.
 
 ## Introduction to the example
 

@@ -6,8 +6,9 @@ rmd_files: [
   
   "introductory_class_revision.Rmd",
   "what_are-linear-models.Rmd",
-  "single_linear_regression.Rmd",
+  "terminology.Rmd",
   
+  "single_linear_regression.Rmd",
   "t_test_revisit.rmd",
   "one_way_anova_revisit.Rmd",
   "two_way_anova_revisit.Rmd",
@@ -15,6 +16,7 @@ rmd_files: [
   "glm-intro.Rmd",
   
   "glm-poisson.Rmd",
+  "glm-poisson-single-cont.Rmd",
   
   "glm-binomial.Rmd",
   

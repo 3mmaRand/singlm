@@ -18,13 +18,14 @@ url: 'https\://3mmarand.github.io/singlm/'
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
-knitr::write_bib(c(.packages(),
-                   'bookdown',
-                   'knitr',
-                   'rmarkdown',
-                   'tidyverse',
-                   'multcomp'),
-                 'packages.bib')
+# knitr::write_bib(c(.packages(),
+#                    "bookdown",
+#                    "knitr",
+#                    "rmarkdown",
+#                    "tidyverse",
+#                    "multcomp",
+#                    "kableExtra"),
+#                  "refs/packages.bib")
 ```
 
 
@@ -102,24 +103,33 @@ This book introduces the the Generalised Linear Model for two types of discrete 
 In R, these are analysed with the `glm()` function.
 
 :::key
-`glm()` can be used to perform tests using the Generalised Linear Model for response variables which are counts or binary.
+`lm()` can be used to perform *t*-tests, ANOVAs and regression. `glm()` can be used to perform tests using the Generalised Linear Model for response variables which are counts or binary.
 :::
 
 Models are explained with reference to examples. Each example demonstrates the R code needed, how understand the output and how to report the results, including suggested **`ggplot2`**figures. 
 The code is given for figures but not extensively explained. To learn more go to  https://ggplot2.tidyverse.org/
 
+## Following along with the examples
+instructions rstudio projects, data-raw, script file, down load "data-raw/stag.txt"
 
 ##  Overview of the chapter contents
 
-**Chapter 1** provides a brief revision of an introductory data analysis class using terminology that will used throughout the remaining chapters. Single linear regression is used as an example of `lm()`. If the concepts in this chapter are very unfamiliar, you may benefit from revising your previous work. 
+**Part 1** provides a brief revision of an introductory data analysis class using terminology that will used throughout the remaining chapters. Single linear regression is used as an example of `lm()`. If the concepts in this chapter are very unfamiliar, you may benefit from revising your previous work. 
 
-In **Chapter 2**  we work through *t*-test, one-way ANOVA and two-way ANOVA examples carried out first with `t.test()` and `aov()` and then with `lm()` to gain a good understanding of the `lm()` output and interrogation for reporting.
+In **Part 2**  works through *t*-test, one-way ANOVA and two-way ANOVA examples carried out first with `t.test()` and `aov()` and then with `lm()` to gain a good understanding of the `lm()` output and interrogation for reporting.
 
 
-**Chapter 3**
+**Part 3** gives a introduction to generalised linear models.
 
-**Chapter 4**
+**Part 4** gives a introduction to generalised linear models for count data and works through several examples.
 
-**Chapter 5**
-...
+**Part 5** gives a introduction to generalised linear models for binomial data and works through several examples.
+
+## Software information
+
+I used the **`knitr`** package [@xie2015] and the **bookdown** package [@R-bookdown] to compile my book. My R session information is shown below:
+
+```{r}
+sessionInfo()
+```
 

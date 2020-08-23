@@ -1,104 +1,97 @@
-# (PART) USING `glm()` FOR POISSON RESPONSES {-}
+# (PART) POISSON GLMs {-}
 
-# Single continuous predictor 
+# Poisson GLM overview {#pois-glm-overview}
 
-## Introduction to the example
+When a response variable is the count of things it can often not be approximated by a normal distribution. Instead it follows a Poisson distribution. Such variables are always positive - they range from 0 to $\infty$. A Poisson GLM is also known as Poisson regression. The link function used in a Poisson GLM is the natural logarithm, $ln$.
 
-Does proximity to a nuclear power plant alter the risk of cancer?
-Number of cases of cancer reported by a clinic by its distance from nuclear plant (note not good epidemiology). each row is a clinic
-[caes.txt](data-raw/cases.txt)
+When you have a single explanatory variable, that model is:
 
+\begin{equation}
+ln(E(y_{i}))=\beta_{0}+\beta_{1}X1_{i}
+(\#eq:glmpois)
+\end{equation}
 
-```{r}
-cases <- read_table2("data-raw/cases.txt")
+This means that the model estimates are logged to the base $e$ and and the inverse function, `exp()` must be applied to them to interpret them in terms of the response. In other words, to make predictions about the expected value of the response we need to exponentiate the coefficients.
+
+\begin{equation}
+E(y_{i})=exp(\beta_{0}+\beta_{1})X1_{i}
+(\#eq:glmpois2)
+\end{equation}
+
+or
+
+\begin{equation}
+E(y_{i})=exp(\beta_{0}) \times exp(\beta_{1})X1_{i}
+(\#eq:glmpois3)
+\end{equation}
+
+Just like examples of general linear models with a single explanatory variable, there are two parameters in this model, $\beta_{0}$ and $\beta_{0}$ and their meaning is similar. $\beta_{0}$ is the log of the expected $y$ when $x$ is zero - the intercept. The log of $\beta_{1}$ is not the amount you *add* to $y$ for each unit change in $x$ but the amount by which multiply. This means the model is a curve. If $\beta_{1}$ is positive, $exp(\beta_{1})$ is greater than one and $y$ increases as $x$ increases; If $\beta_{1}$ is negative, $exp(\beta_{1})$ is less than one and $y$ decreases as $x$ increases. See Figure \@ref(fig:glm-pois-poss) for an illustration of the curve for positive and negative $\beta_{1}$.
+
+(ref:glm-pois-poss) Data fitted with a Poisson GLM.
+
+```{r glm-pois-poss, echo = FALSE, fig.cap="(ref:glm-pois-poss)"}
+n <- 12
+# coefficients
+beta0 <- .5
+beta1 <- 0.25
+# generate covariate values
+set.seed(11)
+x <- runif(n = n, min = 0, max = 8)
+# compute mus
+mu <- exp(beta0 + beta1 * x)
+# generate Y-values
+y <- rpois(n = n, lambda = mu)
+# data set
+df <- data.frame(y = y, x = x)
+p1 <- df %>% 
+  ggplot(aes(x = x, y = y)) + 
+  geom_point() +
+  geom_smooth(method = "glm", 
+              method.args = list(family = "poisson"),
+              se = FALSE,
+              colour = "black") +
+  annotate("text", x = 3, y = 9, label = expression(beta[1]~is~positive)) +
+  scale_x_continuous(expand = c(0, 0), limits = c(0, 8.5)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 12)) +
+  theme_classic() +
+  theme(axis.title = element_blank(),
+        axis.text = element_blank())
+
+# coefficients
+beta0 <- 2.3
+beta1 <- -0.25
+set.seed(13)
+x <- runif(n = n, min = 0, max = 8)
+# compute mus
+mu <- exp(beta0 + beta1 * x)
+# generate Y-values
+y <- rpois(n = n, lambda = mu)
+# data set
+df <- data.frame(y = y, x = x)
+p2 <- df %>% 
+  ggplot(aes(x = x, y = y)) + 
+  geom_point() +
+  geom_smooth(method = "glm", 
+              method.args = list(family = "poisson"),
+              se = FALSE,
+              colour = "black") +
+  annotate("text", x = 5, y = 9, label = expression(beta[1]~is~negative)) +
+  scale_x_continuous(expand = c(0, 0), limits = c(0, 8.5)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 12)) +
+  theme_classic() +
+  theme(axis.title = element_blank(),
+        axis.text = element_blank())
+p1 + p2
 ```
 
 
-```{r}
-ggplot(data = cases, aes(x = distance, y = cancers)) +
-  geom_point()
+blah blah blah
+
+See Figure \@ref(fig:glm-pois-annotated) for a graphical representation of generalised linear model terms. 
+
+(ref:glm-pois-annotated) A Generalised linear model with Poisson distributed errors. The measured `r kableExtra::text_spec("response values are in pink", color = pal3[2], bold = TRUE)`, the `r kableExtra::text_spec("predictions are in green", color = pal3[3], bold = TRUE)`, and the differences between these, known as the `r kableExtra::text_spec("residuals, are in blue", color = pal3[1], bold = TRUE)`. The estimated model parameters, $\beta_{0}$ and $\beta_{1}$ must be exponentiated to be interpreted on the scale of the response. When $x=0$ we predict the number of $y$ to be $exp(\beta_{0})$. For each unit of $x$, the number of y changes by a factor of $exp(\beta_{1})$
+
+
+```{r glm-pois-annotated, echo = FALSE, fig.cap="(ref:glm-pois-annotated)"} 
+knitr::include_graphics("images/generic_pois.svg")
 ```
-
-## Applying and interpreting lm()
-
-```{r}
-mod <- glm(data = cases, cancers ~ distance, family = poisson)
-
-
-```
-
-```{r}
-mod
-```
-```{r}
-mod$coefficients
-```
-
-
-```{r echo=FALSE}
-b0 <- mod$coefficients["(Intercept)"]
-b1 <- mod$coefficients["distance"]
-b0_resp <- exp(b0)
-b1_resp <- exp(b1)
-```
-
-The fact that the estimate for distance (`r b0`) is negative tells us that as distance increases, the number of cancers reported goes down.
-
-These estimates are on the scale of the link function, that is, they are logged (to the base e, natural logs) in this case.
-
-To understand thm on the scale of the response we apply the inverse of the ln function, the exp() function
-
-```{r}
-exp(mod$coefficients)
-```
-
-$\beta_{0}$ is labelled "(Intercept)" and $\beta_{1}$ is labelled "distance". Thus the equation of the line is:
-
-<center> $cancers$ = `r b0` $\times$ `r b1`$^{distance}$ </center>
-
-The model predicts there will be `r b0_resp` cancers at a clinic at no distance from the power plant.
-
-Recall that for a linear model with one predictor, the second estimate is the amount added to the intercept when the predictor changes by one value. Since this is glm with a log link, the value of `r b1_resp` is amount the intercept is multiplied by. Thus the model predicts there will be `r b0_resp` $\times$ `r b1_resp` =  `r b0_resp*b1_resp` cancers 1 km away and `r b0_resp` $\times$ `r b1_resp` $\times$ `r b1_resp` =  `r b0_resp*b1_resp*b1_resp` cancers 2 km away. That is: $\beta_{0}$ $\times$ $\beta_{0}^n$ mm at $n$ km away.
-
-
-
-
-```{r}
-summary(mod) 
-```
-
-
-To get a test of the model overall
-
-```{r}
-anova(mod, test = "Chisq") 
-
-```
-```{r}
-pchisq(22.732, 1, lower.tail = F)
-```
-
-## Getting predictions from the model
-
-The `predict()` function returns the predicted values of the response. To add a column of predicted values to the dataframe:
-we need to specify they should be on the scale of the responses, no the link function scale.
-
-```{r}
-cases$pred <- predict(mod, type = "response")
-```
-
-
-
-
-This gives predictions for the actual x values used. If you want predicts for other values of x you need to creating a data frame of the x values from which you want to predict
-
-
-```{r}
-predictions <- data.frame(distance = seq(0, 180, 10))
-```
-
-
-```{r}
-predictions$pred <- predict(mod, newdata = predictions, type = "response")
-```
-

@@ -1,5 +1,3 @@
-# (PART) USING `lm()` FOR FAMILIAR TESTS {-}
-
 # *t*-tests revisited {#t-tests-revisit}
 
 In this chapter we look at an example with one categorical explanatory variable which has two groups (or levels). We first use the familiar `t.test()` then use its output to help us understand the output of `lm()`. We will also make predictions from the model and report on our results.
