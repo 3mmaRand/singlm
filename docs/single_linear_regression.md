@@ -294,6 +294,9 @@ ggplot(data = stag, aes(x = jh, y = mand)) +
 
 ## Reporting the results
 
+*to add: principle, sig, magnitude and diection of effects, test result, figure*
+
+
 There was a significant positive relationship between the concentration of Juvenile growth hormone and mandible length ($\beta_{1}\pm s.e.$: 0.006 $\pm$ 0.002; $p$ = 0.001). See figure \@ref(fig:fig-reg-report).
 
 (ref:fig-reg-report) Relationship between the concentration of Juvenile growth hormone and mandible length. 
