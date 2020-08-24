@@ -24,21 +24,32 @@ Where:
 
 The link function is a transformation applied to the expected value of the response to link it to the explanatory variables. If you measured the response for a particular value of $x$ very many times there would be some distribution of those responses. Instead of that distribution having to be normal, it can come from a different distribution such has the Poisson or Binomial distributions. As a consequence, the residuals also come from that distribution. The fact that the residuals can follow a distribution other than normal also means the the variance no longer has to be homogeneous but can change for the values of x. 
 
+## Model fitting
 A very important difference between the general linear model (applied with `lm()`) and the generalised linear model (applied with `glm()`) is that the estimates of the coefficients are given on the scale of the link function. You cannot just read the predicted response at $x=0$ from $\beta_{0}$. You have to invert the link function to express the coefficients in terms of the response.  
 
-Another important difference between these models is in the measure of fit and the test on that measure of fit. General linear models use $R^2$, the proportion of variance explained, and a variance ratio test, the *F*-test. The measure of fit used in GLMs is **deviance**. Low deviance means a good fit and high deviance a worse fit. The test again compares deviance predictions by the model and predictions from the intercept alone (the overall mean). This deviance in predictions from the intercept alone is called the Null deviance. Instead of considering the size of the $R^2$ or adjusted $R^2$, we consider the reduction in deviance between the null model and the residual deviance (the deviance left over after the model fit).
+Another important difference between these models is in the measure of fit and the test on that measure of fit. The parameters of General linear models are chosen to minimise the sum of the squared residuals and use $R^2$, the proportion of variance explained, and a variance ratio test, the *F*-test. 
 
+In GLMS we maximise the log-likelihood, $l$, of our model to choose our parameter values. This is known as maximum likelihood estimation. The measure of fit used in GLMs is **deviance** where deviance is $-2l$. Low deviance means a good fit and high deviance a worse fit. Thus maximum likelihood estimation can be thought of as minimising deviance. The test again compares deviance predictions by the model and predictions from the intercept alone (the overall mean). This deviance in predictions from the intercept alone is called the Null deviance. Instead of considering the size of the $R^2$ we consider the reduction in deviance between the null model and the residual deviance (the deviance left over after the model fit). You can consider the null deviance to play the same role as $SST$. The difference between the null model and the full model has a chi-squared distribution and the test of whether the model is good overall is a chi-squared test of deviance in the simailar way that general linear model use the $F$ variance ration test.
 
-deviance is a goodness-of-fit statistic for a statistical model; it is often used for statistical hypothesis testing. It is a generalization of the idea of using the sum of squares of residuals in ordinary least squares to cases where model-fitting is achieved by maximum likelihood.
+:::key
+The deviance plays the same role in GLMs that SSE plays in the general linear model. It is how much variation is unexplained by the model 
+:::
+
+AIC is the equivalent of adjusted $R^2$, 
 
 Poisson GLMs are used when our response is a count. They are also known as GLMs with Poisson errors or Poisson regression. The link function is $ln$, a function you probably know. This means the coefficients have to be exponentiated using `exp()` to get predicted counts because `exp()` is the inverse of `log()` 
 
 Binomial GLMs are used when our response is binary, a zero or one, or a proportion. They are also known as GLMs with binomial errors, binomial regression or logistic regression. The link function is $logit$, a function you may not have heard of before. We will discuss what that function looks like in ......
 
+*to add: illustrations of good fit and bad fit*
+
+## More than one explanatory variable
 
 
 
 ## Generalised linear models in R
+
+### Building and viewing
 
 Poisson and binomial generalised linear models (and others) can be carried out with the `glm()` function in R. It uses the same method for specifying the model. When you have one explanatory variable the command is: 
 
@@ -79,6 +90,7 @@ summary(mod)
 
 Elements of the `glm()` object include the estimated coefficients, the predicted values and the residuals can be accessed with `mod$coeffients`, `mod$fitted.values` and `mod$residuals` respectively.
 
+### Getting predictions
 
 `mod$fitted.values` gives the predicted values for the explanatory variable values actually used in the experiment, *i.e.*, there is a prediction for each row of data. These are given on the scale of the response. This means they will be predicted counts for Poisson GLMs and predicted probabilities for Binomial GLMs.
 
@@ -89,6 +101,7 @@ The typical workflow would be:
 <code>predict_for <- data.frame(*explanatory* = *values*)  
 predict_for$pred <- predict(mod, newdata = predict_for, type = "response")</code>
 
+### Checking assumptions
 <!-- The assumptions of the model are checked using the `plot()` function which produces diagnostic plots to explore the distribution of the residuals. They are not proof of the assumptions being met but allow us to quickly determine if the assumptions are plausible, and if not, how the assumptions are violated and what data points contribute to the violation. -->
 
 
@@ -118,15 +131,8 @@ predict_for$pred <- predict(mod, newdata = predict_for, type = "response")</code
 <!-- The following are two examples in which the residuals do not have homogeneous variance and display non-linear patterns. -->
 
 
-
-
-
-fit
-
-deviance
-
-AIC
-
+## Reporting
+*to add, same principles apply*
 
 
 

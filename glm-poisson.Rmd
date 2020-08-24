@@ -14,14 +14,14 @@ ln(E(y_{i}))=\beta_{0}+\beta_{1}X1_{i}
 This means that the model estimates are logged to the base $e$ and and the inverse function, `exp()` must be applied to them to interpret them in terms of the response. In other words, to make predictions about the expected value of the response we need to exponentiate the coefficients.
 
 \begin{equation}
-E(y_{i})=exp(\beta_{0}+\beta_{1})X1_{i}
+E(y_{i})=exp(\beta_{0}+\beta_{1}X1_{i})
 (\#eq:glmpois2)
 \end{equation}
 
 or
 
 \begin{equation}
-E(y_{i})=exp(\beta_{0}) \times exp(\beta_{1})X1_{i}
+E(y_{i})=exp(\beta_{0}) \times exp(\beta_{1})^{X1_{i}}
 (\#eq:glmpois3)
 \end{equation}
 
@@ -95,3 +95,10 @@ See Figure \@ref(fig:glm-pois-annotated) for a graphical representation of gener
 ```{r glm-pois-annotated, echo = FALSE, fig.cap="(ref:glm-pois-annotated)"} 
 knitr::include_graphics("images/generic_pois.svg")
 ```
+
+## When explanatory is categorical
+
+one explanatory *use chi-squared*
+
+## More than one explanatory
+

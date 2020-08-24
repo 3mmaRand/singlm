@@ -279,6 +279,7 @@ ggplot() +
 ```
 
 ## Reporting the results
+*to add: principle, sig, magnitude and diection of effects, test result, figure*
 
 The genetic modification was unsuccessful with wild type plants ($\bar{x} \pm s.e.$: `r csativa_summary[2,"mean"]` $\pm$ `r csativa_summary[2,"se"]` units) have significantly higher omega 3 than modified plants(`r csativa_summary[1,"mean"]` $\pm$ `r csativa_summary[1,"se"]` units) ($t$ = `r tval`; $d.f.$ = `r df`; $p$ `r b1p`). See figure \@ref(fig:fig-ttest-report).
 

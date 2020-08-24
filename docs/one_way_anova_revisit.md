@@ -784,6 +784,7 @@ ggplot() +
 <img src="one_way_anova_revisit_files/figure-html/fig-one-anova-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 ## Reporting the results
+*to add: principle, sig, magnitude and diection of effects, test result, figure*
 
 ```r
 # res <- summary(mod)

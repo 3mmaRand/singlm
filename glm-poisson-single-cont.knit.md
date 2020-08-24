@@ -262,46 +262,41 @@ The model predicts there will be 2.771 cancers at a clinic at no distance from t
 
 Recall that for a linear model with one predictor, the second estimate is the amount added to the intercept when the predictor changes by one value. Since this is glm with a log link, the value of 0.979 is amount the intercept is multiplied by for each unit increase of distance. Thus the model predicts there will be 2.771 $\times$ 0.979 =  2.712 cancers 1 km away and 2.771 $\times$ 0.979 $\times$ 0.979 =  2.654 cancers 2 km away. That is: $\beta_{0}$ $\times$ $\beta_{0}^n$ mm at $n$ km away.
 
-You can work these out either by exponentiating the coefficients and then multiply the results as above or by adding the coefficients and exponentiating
+You can work these out either by exponentiating the coefficients and then multiplying the results or by adding the coefficients and exponentiating
 
 Exponentiate coefficients then multiply:
 
 ```r
 # 1km away
 exp(b0) * exp(b1)
-# (Intercept) 
-#        2.71
+# [1] 2.71
 
 # 2km away
 exp(b0) * exp(b1) * exp(b1)
-# (Intercept) 
-#        2.65
+# [1] 2.65
 
 # 10km away
 exp(b0) * exp(b1)^10
-# (Intercept) 
-#        2.23
+# [1] 2.23
 ```
 Add the coefficients then exponentiate the sum: 
 
 ```r
 # 1km away
 exp(b0 + b1)
-# (Intercept) 
-#        2.71
+# [1] 2.71
 
 # 2km away
 exp(b0 + b1 + b1)
-# (Intercept) 
-#        2.65
+# [1] 2.65
 
 # 10km away
 exp(b0 + 10*b1)
-# (Intercept) 
-#        2.23
+# [1] 2.23
 ```
 Usually, we use the `predict()` function to make predictions for particular distances.
 
+More information including statistical tests of the model and its parameters is obtained by using summary():
 
 
 ```r
@@ -331,88 +326,15 @@ summary(mod)
 ```
 
 
-To get a test of the model overall
-
-
-```r
-anova(mod, test = "Chisq") 
-# Analysis of Deviance Table
-# 
-# Model: poisson, link: log
-# 
-# Response: cancers
-# 
-# Terms added sequentially (first to last)
-# 
-# 
-#          Df Deviance Resid. Df Resid. Dev Pr(>Chi)    
-# NULL                        42       54.5             
-# distance  1     22.7        41       31.8  1.9e-06 ***
-# ---
-# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
-
-```r
-pchisq(22.732, 1, lower.tail = F)
-# [1] 1.86e-06
-```
-
-## Getting predictions from the model
-
-The `predict()` function returns the predicted values of the response. To add a column of predicted values to the dataframe:
-we need to specify they should be on the scale of the responses, no the link function scale.
-
-
-```r
-cases$pred <- predict(mod, type = "response")
-mod$fitted.values
-#      1      2      3      4      5      6      7      8      9     10     11 
-# 0.1004 0.3742 2.5519 0.7495 0.1292 0.0803 0.1492 0.4972 0.2457 0.3109 0.7692 
-#     12     13     14     15     16     17     18     19     20     21     22 
-# 0.1766 1.9157 1.6256 0.3000 0.2458 0.1255 0.9713 0.4734 0.8046 2.1067 0.6931 
-#     23     24     25     26     27     28     29     30     31     32     33 
-# 0.6317 0.1575 0.3304 1.1510 0.1060 1.3016 0.3437 0.1643 0.3092 0.2252 1.4923 
-#     34     35     36     37     38     39     40     41     42     43 
-# 0.8939 1.6846 0.6406 0.1178 0.4181 0.1168 0.1600 0.0812 0.5811 1.6970
-```
-
-
-This gives predictions for the actual x values used. If you want predicts for other values of x you need to creating a data frame of the x values from which you want to predict
 
 
 
-```r
-predictions <- data.frame(distance = seq(0, 180, 10))
-```
 
 
 
-```r
-predictions$pred <- predict(mod, newdata = predictions, type = "response")
-```
-
-## Checking assumptions
-
-## Creating a figure
 
 
-```r
-ggplot(data = cases, aes(x = distance, y = cancers)) +
-  geom_point() +
-geom_smooth(method = "glm",
-              method.args = list(family = "poisson"),
-              se = FALSE) +
-  scale_x_continuous(expand = c(0, 0),
-                     limits = c(0, 160),
-                     name = "Distance (km) of clinic from plant") +
-    scale_y_continuous(expand = c(0, 0),
-                     limits = c(0, 5),
-                     name = "Number of reported cancers") +
-  theme_classic()
-  
-```
-
-<img src="glm-poisson-single-cont_files/figure-html/unnamed-chunk-16-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 
-## Reporting the results.
+
+

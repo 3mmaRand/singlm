@@ -1,7 +1,7 @@
 --- 
 title: "singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R"
 author: "Emma Rand"
-date: "2020-08-23"
+date: "2020-08-24"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [refs/book.bib, refs/packages.bib]

@@ -343,6 +343,7 @@ ggplot() +
 ```
 
 ## Reporting the results
+*to add: principle, sig, magnitude and diection of effects, test result, figure*
 ```{r}
 # res <- summary(mod)
 # tval <- res$coefficients["specieswild", "t value"]

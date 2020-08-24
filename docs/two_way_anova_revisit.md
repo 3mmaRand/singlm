@@ -88,6 +88,8 @@ peri_summary <- periwinkle %>%
 </tbody>
 </table>
 
+*mainly incomplete from here: code and output, little commentary*
+
 ## `aov()` output reminder
 
 
@@ -414,7 +416,7 @@ ggplot() +
 
 
 ## Reporting the results
-
+*to add: principle, sig, magnitude and diection of effects, test result, figure*
 
 See figure \@ref(fig:fig-two-anova-report).
 
