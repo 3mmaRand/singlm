@@ -262,46 +262,41 @@ The model predicts there will be 2.771 cancers at a clinic at no distance from t
 
 Recall that for a linear model with one predictor, the second estimate is the amount added to the intercept when the predictor changes by one value. Since this is glm with a log link, the value of 0.979 is amount the intercept is multiplied by for each unit increase of distance. Thus the model predicts there will be 2.771 $\times$ 0.979 =  2.712 cancers 1 km away and 2.771 $\times$ 0.979 $\times$ 0.979 =  2.654 cancers 2 km away. That is: $\beta_{0}$ $\times$ $\beta_{0}^n$ mm at $n$ km away.
 
-You can work these out either by exponentiating the coefficients and then multiply the results as above or by adding the coefficients and exponentiating
+You can work these out either by exponentiating the coefficients and then multiplying the results or by adding the coefficients and exponentiating
 
 Exponentiate coefficients then multiply:
 
 ```r
 # 1km away
 exp(b0) * exp(b1)
-# (Intercept) 
-#        2.71
+# [1] 2.71
 
 # 2km away
 exp(b0) * exp(b1) * exp(b1)
-# (Intercept) 
-#        2.65
+# [1] 2.65
 
 # 10km away
 exp(b0) * exp(b1)^10
-# (Intercept) 
-#        2.23
+# [1] 2.23
 ```
 Add the coefficients then exponentiate the sum: 
 
 ```r
 # 1km away
 exp(b0 + b1)
-# (Intercept) 
-#        2.71
+# [1] 2.71
 
 # 2km away
 exp(b0 + b1 + b1)
-# (Intercept) 
-#        2.65
+# [1] 2.65
 
 # 10km away
 exp(b0 + 10*b1)
-# (Intercept) 
-#        2.23
+# [1] 2.23
 ```
 Usually, we use the `predict()` function to make predictions for particular distances.
 
+More information including statistical tests of the model and its parameters is obtained by using summary():
 
 
 ```r
@@ -329,6 +324,9 @@ summary(mod)
 # 
 # Number of Fisher Scoring iterations: 5
 ```
+The `Coefficients` table gives the estimated $\beta_{0}$ and $\beta_{1}$ again but along with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is 1.019 $\pm$ 0.309 and this differs significantly from zero ($p$ < 0.001). The estimated value for the slope is -0.021 $\pm$ 0.005, also differs significantly from zero ($p$ < 0.001). 
+
+The three lines at the bottom of the output give information about the fit of the model to the data. The `Multiple R-squared` gives the proportion of the variance in the response which is explained by the model. In our case, "r rsq" of the variance in mandible length is explained by the model and this is a significant proportion of that variance ($p$ "r modelp"). 
 
 
 To get a test of the model overall
@@ -351,6 +349,12 @@ anova(mod, test = "Chisq")
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
+
+
+
+
+
+
 
 ```r
 pchisq(22.732, 1, lower.tail = F)
@@ -401,18 +405,30 @@ ggplot(data = cases, aes(x = distance, y = cancers)) +
   geom_point() +
 geom_smooth(method = "glm",
               method.args = list(family = "poisson"),
-              se = FALSE) +
+              se = FALSE,
+            colour = "black") +
   scale_x_continuous(expand = c(0, 0),
-                     limits = c(0, 160),
+                     limits = c(0, 200),
                      name = "Distance (km) of clinic from plant") +
-    scale_y_continuous(expand = c(0, 0),
+    scale_y_continuous(expand = c(0, 0.03),
                      limits = c(0, 5),
                      name = "Number of reported cancers") +
   theme_classic()
   
 ```
 
-<img src="glm-poisson-single-cont_files/figure-html/unnamed-chunk-16-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="glm-poisson-single-cont_files/figure-html/fig-cases-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 
 ## Reporting the results.
+
+The number of case reported by a clinic
+
+See figure \@ref(fig:fig-cases-anova-report).
+
+(ref:fig-cases-report) Incidence of cancer cases reported at clinic by it distance from the nuclear plant. 
+
+<div class="figure" style="text-align: left">
+<img src="glm-poisson-single-cont_files/figure-html/fig-cases-report-1.png" alt="(ref:fig-cases-report)" width="60%" />
+<p class="caption">(\#fig:fig-cases-report)(ref:fig-cases-report)</p>
+</div>

@@ -1,4 +1,4 @@
-# Single continuous explanatory {#pois-glm-single-cont}
+# Two explanatory variables {#pois-glm-two-cont}
 
 ## Introduction to the example
 
@@ -209,7 +209,7 @@ ggplot(data = cases, aes(x = distance, y = cancers)) +
   geom_point()
 ```
 
-<img src="glm-poisson-single-cont_files/figure-html/unnamed-chunk-3-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="glm-poisson-two-explan_files/figure-html/unnamed-chunk-3-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 Most of the clinics reporting no cases seem to be more distance from the nuclear plant and those reporting the highest numbers are within 50km.
 
 ## Applying and interpreting `glm()`
@@ -324,17 +324,3 @@ summary(mod)
 # 
 # Number of Fisher Scoring iterations: 5
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-

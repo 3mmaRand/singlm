@@ -4,19 +4,20 @@ delete_merged_file: true
 rmd_files: [
   "index.Rmd",
   
-  "introductory_class_revision.Rmd",
-  "what_are-linear-models.Rmd",
+  "introductory-class-revision.Rmd",
+  "what-are-linear-models.Rmd",
   "terminology.Rmd",
   
-  "single_linear_regression.Rmd",
-  "t_test_revisit.rmd",
-  "one_way_anova_revisit.Rmd",
-  "two_way_anova_revisit.Rmd",
+  "single-linear-regression.Rmd",
+  "t-test-revisit.rmd",
+  "one-way-anova-revisit.Rmd",
+  "two-way-anova-revisit.Rmd",
   
   "glm-intro.Rmd",
   
   "glm-poisson.Rmd",
   "glm-poisson-single-cont.Rmd",
+  "glm-poisson-two-explan.Rmd",
   
   "glm-binomial.Rmd",
   

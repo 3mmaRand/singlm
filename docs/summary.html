@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 12 Summary | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</title>
+  <title>Chapter 13 Summary | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</title>
   <meta name="description" content="The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 12 Summary | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R" />
+  <meta property="og:title" content="Chapter 13 Summary | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://3mmarand.github.io/singlm/" />
   <meta property="og:image" content="https://3mmarand.github.io/singlm/images/android-chrome-512x512.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="3mmaRand/singlm" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 12 Summary | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R" />
+  <meta name="twitter:title" content="Chapter 13 Summary | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R" />
   
   <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
   <meta name="twitter:image" content="https://3mmarand.github.io/singlm/images/android-chrome-512x512.png" />
@@ -148,8 +148,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>I INTRODUCTION</b></span></li>
 <li class="chapter" data-level="1" data-path="revision.html"><a href="revision.html"><i class="fa fa-check"></i><b>1</b> Revision of your Introductory class</a></li>
 <li class="chapter" data-level="2" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html"><i class="fa fa-check"></i><b>2</b> What are General Linear Models</a><ul>
-<li class="chapter" data-level="2.1" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#what-is-a-general-linear-model"><i class="fa fa-check"></i><b>2.1</b> What is a General Linear Model?</a></li>
-<li class="chapter" data-level="2.2" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#general-linear-models-in-r"><i class="fa fa-check"></i><b>2.2</b> General linear models in R</a></li>
+<li class="chapter" data-level="2.1" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#overview"><i class="fa fa-check"></i><b>2.1</b> Overview</a></li>
+<li class="chapter" data-level="2.2" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#model-fitting"><i class="fa fa-check"></i><b>2.2</b> Model fitting</a></li>
+<li class="chapter" data-level="2.3" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#more-than-one-explanatory-variable"><i class="fa fa-check"></i><b>2.3</b> More than one explanatory variable</a></li>
+<li class="chapter" data-level="2.4" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#general-linear-models-in-r"><i class="fa fa-check"></i><b>2.4</b> General linear models in R</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#building-and-viewing"><i class="fa fa-check"></i><b>2.4.1</b> Building and viewing</a></li>
+<li class="chapter" data-level="2.4.2" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#getting-predictions"><i class="fa fa-check"></i><b>2.4.2</b> Getting predictions</a></li>
+<li class="chapter" data-level="2.4.3" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#checking-assumptions"><i class="fa fa-check"></i><b>2.4.3</b> Checking assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#reporting"><i class="fa fa-check"></i><b>2.5</b> Reporting</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="terminolgy.html"><a href="terminolgy.html"><i class="fa fa-check"></i><b>3</b> Terminolgy</a><ul>
 <li class="chapter" data-level="3.1" data-path="terminolgy.html"><a href="terminolgy.html#general-generalised"><i class="fa fa-check"></i><b>3.1</b> General? Generalised?</a></li>
@@ -162,7 +169,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="single-regression.html"><a href="single-regression.html#applying-and-interpreting-lm"><i class="fa fa-check"></i><b>4.2</b> Applying and interpreting <code>lm()</code></a></li>
 <li class="chapter" data-level="4.3" data-path="single-regression.html"><a href="single-regression.html#link-to-chapter-2.1"><i class="fa fa-check"></i><b>4.3</b> Link to Chapter 2.1</a></li>
 <li class="chapter" data-level="4.4" data-path="single-regression.html"><a href="single-regression.html#getting-predictions-from-the-model"><i class="fa fa-check"></i><b>4.4</b> Getting predictions from the model</a></li>
-<li class="chapter" data-level="4.5" data-path="single-regression.html"><a href="single-regression.html#checking-assumptions"><i class="fa fa-check"></i><b>4.5</b> Checking assumptions</a></li>
+<li class="chapter" data-level="4.5" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#checking-assumptions"><i class="fa fa-check"></i><b>4.5</b> Checking assumptions</a></li>
 <li class="chapter" data-level="4.6" data-path="single-regression.html"><a href="single-regression.html#creating-a-figure"><i class="fa fa-check"></i><b>4.6</b> Creating a figure</a></li>
 <li class="chapter" data-level="4.7" data-path="single-regression.html"><a href="single-regression.html#reporting-the-results"><i class="fa fa-check"></i><b>4.7</b> Reporting the results</a></li>
 </ul></li>
@@ -172,7 +179,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="t-tests-revisit.html"><a href="t-tests-revisit.html#t-tests-as-linear-models"><i class="fa fa-check"></i><b>5.3</b> <em>t</em>-tests as linear models</a></li>
 <li class="chapter" data-level="5.4" data-path="single-regression.html"><a href="single-regression.html#applying-and-interpreting-lm"><i class="fa fa-check"></i><b>5.4</b> Applying and interpreting <code>lm()</code></a></li>
 <li class="chapter" data-level="5.5" data-path="single-regression.html"><a href="single-regression.html#getting-predictions-from-the-model"><i class="fa fa-check"></i><b>5.5</b> Getting predictions from the model</a></li>
-<li class="chapter" data-level="5.6" data-path="single-regression.html"><a href="single-regression.html#checking-assumptions"><i class="fa fa-check"></i><b>5.6</b> Checking assumptions</a></li>
+<li class="chapter" data-level="5.6" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#checking-assumptions"><i class="fa fa-check"></i><b>5.6</b> Checking assumptions</a></li>
 <li class="chapter" data-level="5.7" data-path="single-regression.html"><a href="single-regression.html#creating-a-figure"><i class="fa fa-check"></i><b>5.7</b> Creating a figure</a></li>
 <li class="chapter" data-level="5.8" data-path="single-regression.html"><a href="single-regression.html#reporting-the-results"><i class="fa fa-check"></i><b>5.8</b> Reporting the results</a></li>
 </ul></li>
@@ -183,7 +190,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="one-way-anova-revisit.html"><a href="one-way-anova-revisit.html#one-way-anova-as-linear-models"><i class="fa fa-check"></i><b>6.4</b> One-way ANOVA as linear models</a></li>
 <li class="chapter" data-level="6.5" data-path="single-regression.html"><a href="single-regression.html#applying-and-interpreting-lm"><i class="fa fa-check"></i><b>6.5</b> Applying and interpreting <code>lm()</code></a></li>
 <li class="chapter" data-level="6.6" data-path="single-regression.html"><a href="single-regression.html#getting-predictions-from-the-model"><i class="fa fa-check"></i><b>6.6</b> Getting predictions from the model</a></li>
-<li class="chapter" data-level="6.7" data-path="single-regression.html"><a href="single-regression.html#checking-assumptions"><i class="fa fa-check"></i><b>6.7</b> Checking assumptions</a></li>
+<li class="chapter" data-level="6.7" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#checking-assumptions"><i class="fa fa-check"></i><b>6.7</b> Checking assumptions</a></li>
 <li class="chapter" data-level="6.8" data-path="one-way-anova-revisit.html"><a href="one-way-anova-revisit.html#post-hoc-testing-for-lm"><i class="fa fa-check"></i><b>6.8</b> Post-hoc testing for <code>lm()</code></a></li>
 <li class="chapter" data-level="6.9" data-path="single-regression.html"><a href="single-regression.html#creating-a-figure"><i class="fa fa-check"></i><b>6.9</b> Creating a figure</a></li>
 <li class="chapter" data-level="6.10" data-path="single-regression.html"><a href="single-regression.html#reporting-the-results"><i class="fa fa-check"></i><b>6.10</b> Reporting the results</a></li>
@@ -195,25 +202,42 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.4" data-path="single-regression.html"><a href="single-regression.html#applying-and-interpreting-lm"><i class="fa fa-check"></i><b>7.4</b> Applying and interpreting <code>lm()</code></a></li>
 <li class="chapter" data-level="7.5" data-path="single-regression.html"><a href="single-regression.html#getting-predictions-from-the-model"><i class="fa fa-check"></i><b>7.5</b> Getting predictions from the model</a></li>
 <li class="chapter" data-level="7.6" data-path="single-regression.html"><a href="single-regression.html#link-to-chapter-2.1"><i class="fa fa-check"></i><b>7.6</b> Link to Chapter 2.1</a></li>
-<li class="chapter" data-level="7.7" data-path="single-regression.html"><a href="single-regression.html#checking-assumptions"><i class="fa fa-check"></i><b>7.7</b> Checking assumptions</a></li>
+<li class="chapter" data-level="7.7" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#checking-assumptions"><i class="fa fa-check"></i><b>7.7</b> Checking assumptions</a></li>
 <li class="chapter" data-level="7.8" data-path="one-way-anova-revisit.html"><a href="one-way-anova-revisit.html#post-hoc-testing-for-lm"><i class="fa fa-check"></i><b>7.8</b> Post-hoc testing for <code>lm()</code></a></li>
 <li class="chapter" data-level="7.9" data-path="single-regression.html"><a href="single-regression.html#creating-a-figure"><i class="fa fa-check"></i><b>7.9</b> Creating a figure</a></li>
 <li class="chapter" data-level="7.10" data-path="single-regression.html"><a href="single-regression.html#reporting-the-results"><i class="fa fa-check"></i><b>7.10</b> Reporting the results</a></li>
 </ul></li>
 <li class="part"><span><b>III GENERALISED LINEAR MODELS</b></span></li>
 <li class="chapter" data-level="8" data-path="glm-overview.html"><a href="glm-overview.html"><i class="fa fa-check"></i><b>8</b> Overview</a><ul>
-<li class="chapter" data-level="8.1" data-path="glm-overview.html"><a href="glm-overview.html#generalised-linear-models-in-r"><i class="fa fa-check"></i><b>8.1</b> Generalised linear models in R</a></li>
+<li class="chapter" data-level="8.1" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#model-fitting"><i class="fa fa-check"></i><b>8.1</b> Model fitting</a></li>
+<li class="chapter" data-level="8.2" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#more-than-one-explanatory-variable"><i class="fa fa-check"></i><b>8.2</b> More than one explanatory variable</a></li>
+<li class="chapter" data-level="8.3" data-path="glm-overview.html"><a href="glm-overview.html#generalised-linear-models-in-r"><i class="fa fa-check"></i><b>8.3</b> Generalised linear models in R</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#building-and-viewing"><i class="fa fa-check"></i><b>8.3.1</b> Building and viewing</a></li>
+<li class="chapter" data-level="8.3.2" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#getting-predictions"><i class="fa fa-check"></i><b>8.3.2</b> Getting predictions</a></li>
+<li class="chapter" data-level="8.3.3" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#checking-assumptions"><i class="fa fa-check"></i><b>8.3.3</b> Checking assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#reporting"><i class="fa fa-check"></i><b>8.4</b> Reporting</a></li>
 </ul></li>
 <li class="part"><span><b>IV POISSON GLMs</b></span></li>
-<li class="chapter" data-level="9" data-path="pois-glm-overview.html"><a href="pois-glm-overview.html"><i class="fa fa-check"></i><b>9</b> Poisson GLM overview</a></li>
+<li class="chapter" data-level="9" data-path="pois-glm-overview.html"><a href="pois-glm-overview.html"><i class="fa fa-check"></i><b>9</b> Poisson GLM overview</a><ul>
+<li class="chapter" data-level="9.1" data-path="pois-glm-overview.html"><a href="pois-glm-overview.html#when-explanatory-is-categorical"><i class="fa fa-check"></i><b>9.1</b> When explanatory is categorical</a></li>
+<li class="chapter" data-level="9.2" data-path="pois-glm-overview.html"><a href="pois-glm-overview.html#more-than-one-explanatory"><i class="fa fa-check"></i><b>9.2</b> More than one explanatory</a></li>
+</ul></li>
 <li class="chapter" data-level="10" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html"><i class="fa fa-check"></i><b>10</b> Single continuous explanatory</a><ul>
 <li class="chapter" data-level="10.1" data-path="single-regression.html"><a href="single-regression.html#introduction-to-the-example"><i class="fa fa-check"></i><b>10.1</b> Introduction to the example</a></li>
 <li class="chapter" data-level="10.2" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#applying-and-interpreting-glm"><i class="fa fa-check"></i><b>10.2</b> Applying and interpreting <code>glm()</code></a></li>
 <li class="chapter" data-level="10.3" data-path="single-regression.html"><a href="single-regression.html#getting-predictions-from-the-model"><i class="fa fa-check"></i><b>10.3</b> Getting predictions from the model</a></li>
+<li class="chapter" data-level="10.4" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#checking-assumptions"><i class="fa fa-check"></i><b>10.4</b> Checking assumptions</a></li>
+<li class="chapter" data-level="10.5" data-path="single-regression.html"><a href="single-regression.html#creating-a-figure"><i class="fa fa-check"></i><b>10.5</b> Creating a figure</a></li>
+<li class="chapter" data-level="10.6" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#reporting-the-results."><i class="fa fa-check"></i><b>10.6</b> Reporting the results.</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html"><i class="fa fa-check"></i><b>11</b> Two explanatory variables</a><ul>
+<li class="chapter" data-level="11.1" data-path="single-regression.html"><a href="single-regression.html#introduction-to-the-example"><i class="fa fa-check"></i><b>11.1</b> Introduction to the example</a></li>
+<li class="chapter" data-level="11.2" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#applying-and-interpreting-glm"><i class="fa fa-check"></i><b>11.2</b> Applying and interpreting <code>glm()</code></a></li>
 </ul></li>
 <li class="part"><span><b>V BINOMIAL GLMs</b></span></li>
-<li class="chapter" data-level="11" data-path="bino-glm-overview.html"><a href="bino-glm-overview.html"><i class="fa fa-check"></i><b>11</b> Binomial GLM overview</a></li>
-<li class="chapter" data-level="12" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>12</b> Summary</a></li>
+<li class="chapter" data-level="12" data-path="bino-glm-overview.html"><a href="bino-glm-overview.html"><i class="fa fa-check"></i><b>12</b> Binomial GLM overview</a></li>
+<li class="chapter" data-level="13" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>13</b> Summary</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -236,7 +260,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="summary" class="section level1">
-<h1><span class="header-section-number">Chapter 12</span> Summary</h1>
+<h1><span class="header-section-number">Chapter 13</span> Summary</h1>
 <p>what these models have in common: Responses must be independent if they are not, you need mised models.
 key points</p>
 <p>where to go next</p>

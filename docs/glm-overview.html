@@ -219,7 +219,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4" data-path="what-are-linear-models.html"><a href="what-are-linear-models.html#reporting"><i class="fa fa-check"></i><b>8.4</b> Reporting</a></li>
 </ul></li>
 <li class="part"><span><b>IV POISSON GLMs</b></span></li>
-<li class="chapter" data-level="9" data-path="pois-glm-overview.html"><a href="pois-glm-overview.html"><i class="fa fa-check"></i><b>9</b> Poisson GLM overview</a></li>
+<li class="chapter" data-level="9" data-path="pois-glm-overview.html"><a href="pois-glm-overview.html"><i class="fa fa-check"></i><b>9</b> Poisson GLM overview</a><ul>
+<li class="chapter" data-level="9.1" data-path="pois-glm-overview.html"><a href="pois-glm-overview.html#when-explanatory-is-categorical"><i class="fa fa-check"></i><b>9.1</b> When explanatory is categorical</a></li>
+<li class="chapter" data-level="9.2" data-path="pois-glm-overview.html"><a href="pois-glm-overview.html#more-than-one-explanatory"><i class="fa fa-check"></i><b>9.2</b> More than one explanatory</a></li>
+</ul></li>
 <li class="chapter" data-level="10" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html"><i class="fa fa-check"></i><b>10</b> Single continuous explanatory</a><ul>
 <li class="chapter" data-level="10.1" data-path="single-regression.html"><a href="single-regression.html#introduction-to-the-example"><i class="fa fa-check"></i><b>10.1</b> Introduction to the example</a></li>
 <li class="chapter" data-level="10.2" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#applying-and-interpreting-glm"><i class="fa fa-check"></i><b>10.2</b> Applying and interpreting <code>glm()</code></a></li>
@@ -228,9 +231,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.5" data-path="single-regression.html"><a href="single-regression.html#creating-a-figure"><i class="fa fa-check"></i><b>10.5</b> Creating a figure</a></li>
 <li class="chapter" data-level="10.6" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#reporting-the-results."><i class="fa fa-check"></i><b>10.6</b> Reporting the results.</a></li>
 </ul></li>
+<li class="chapter" data-level="11" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html"><i class="fa fa-check"></i><b>11</b> Two explanatory variables</a><ul>
+<li class="chapter" data-level="11.1" data-path="single-regression.html"><a href="single-regression.html#introduction-to-the-example"><i class="fa fa-check"></i><b>11.1</b> Introduction to the example</a></li>
+<li class="chapter" data-level="11.2" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#applying-and-interpreting-glm"><i class="fa fa-check"></i><b>11.2</b> Applying and interpreting <code>glm()</code></a></li>
+</ul></li>
 <li class="part"><span><b>V BINOMIAL GLMs</b></span></li>
-<li class="chapter" data-level="11" data-path="bino-glm-overview.html"><a href="bino-glm-overview.html"><i class="fa fa-check"></i><b>11</b> Binomial GLM overview</a></li>
-<li class="chapter" data-level="12" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>12</b> Summary</a></li>
+<li class="chapter" data-level="12" data-path="bino-glm-overview.html"><a href="bino-glm-overview.html"><i class="fa fa-check"></i><b>12</b> Binomial GLM overview</a></li>
+<li class="chapter" data-level="13" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>13</b> Summary</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -327,10 +334,10 @@ predict_for$pred &lt;- predict(mod, newdata = predict_for, type = “response”
 <!-- The assumptions of the model are checked using the `plot()` function which produces diagnostic plots to explore the distribution of the residuals. They are not proof of the assumptions being met but allow us to quickly determine if the assumptions are plausible, and if not, how the assumptions are violated and what data points contribute to the violation. -->
 <!-- The two plots which are most useful are the "Q-Q" plot (plot 2) and the "Residuals vs Fitted" plot (plot 1). These are given as values to the `which` argument of `plot()`. -->
 <!-- The Q-Q plot is a scatterplot of the residuals (standardised to a mean of zero and a standard deviation of 1) against what is expected if the residuals are normally distributed.  -->
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="glm-overview.html#cb1-1"></a><span class="co"># plot(mod, which = 2)</span></span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="glm-overview.html#cb70-1"></a><span class="co"># plot(mod, which = 2)</span></span></code></pre></div>
 <!-- The following are two examples in which the residuals are not normally distributed. -->
 <!-- The Residuals vs Fitted plot shows if residuals have homogeneous variance or have non-linear patterns. Non-linear relationship between explanatory variables and the response will usually show in this plot if the model does not capture the non-linear relationship. For the assumptions to be met, the residuals should be equally spread around a horizontal line: -->
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="glm-overview.html#cb2-1"></a><span class="co"># plot(mod, which = 1)</span></span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="glm-overview.html#cb71-1"></a><span class="co"># plot(mod, which = 1)</span></span></code></pre></div>
 <!-- The following are two examples in which the residuals do not have homogeneous variance and display non-linear patterns. -->
 </div>
 </div>

@@ -131,7 +131,7 @@ summary(mod)
 ```
 The `Coefficients` table gives the estimated $\beta_{0}$ and $\beta_{1}$ again but along with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is `r b0` $\pm$ `r b0se` and this differs significantly from zero ($p$ `r b0p`). The estimated value for the slope is `r b1` $\pm$ `r b1se`, also differs significantly from zero ($p$ `r b1p`). 
 
-The three lines at the bottom of the output give information about the fit of the model to the data. The `Multiple R-squared` gives the proportion of the variance in the response which is explained by the model. In our case, `r rsq` of the variance in mandible length is explained by the model and this is a significant proportion of that variance ($p$ `r modelp`). 
+The three lines at the bottom of the output give information about the fit of the model to the data. The `Multiple R-squared` gives the proportion of the variance in the response which is explained by the model. In our case, "r rsq" of the variance in mandible length is explained by the model and this is a significant proportion of that variance ($p$ "r modelp"). 
 
 
 To get a test of the model overall
