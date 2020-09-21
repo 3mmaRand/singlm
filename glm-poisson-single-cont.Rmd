@@ -10,7 +10,7 @@ cases <- read_table2("data-raw/cases.txt")
 cases %>% 
   knitr::kable() %>%
   kable_styling()  %>%
-  scroll_box(width = "300px", height = "300px")
+  scroll_box(height = "300px")
 ```
 
 
@@ -74,11 +74,23 @@ if (res$coefficients["distance", "Pr(>|z|)"] < 0.001) {
         }
 if (res$coefficients["distance", "Pr(>|z|)"] > 0.001) {
         b1p = paste("=", round(res$coefficients["distance", "Pr(>|z|)"], 3))
+}
+
+res2 <- anova(mod, test = "Chisq") 
+if (res2$`Pr(>Chi)`[2] < 0.001) {
+        modelp = "< 0.001"
         }
+if (res2$`Pr(>Chi)`[2] > 0.001) {
+        modelp = paste("=", round(res2$`Pr(>Chi)`[2], 3))
+}
+
 ```
+
+We will postpone discussing the information in the last three lines until we view the model summary.
+
 $\beta_{0}$ is labelled "(Intercept)" and $\beta_{1}$ is labelled "distance". Thus the equation of the line is:
 
-<center> $ln(cancers)$ = `r b0` $\times$ `r b1`$\times distance$ </center>
+<center> $ln(cancers)$ = `r b0` $+$ `r b1`$\times distance$ </center>
 
 The fact that the estimate for distance (`r b1`) is negative tells us that as distance increases, the number of cancers reported goes down.
 
@@ -90,14 +102,14 @@ To understand the parameters the on the scale of the response we apply the inver
 exp(mod$coefficients)
 ```
 
-So
+So the equation of the model is:
 <center> $cancers$ = `r b0_resp` $\times$ `r b1_resp`$^{distance}$ </center>
 
 The model predicts there will be `r b0_resp` cancers at a clinic at no distance from the power plant.
 
-Recall that for a linear model with one predictor, the second estimate is the amount added to the intercept when the predictor changes by one value. Since this is glm with a log link, the value of `r b1_resp` is amount the intercept is multiplied by for each unit increase of distance. Thus the model predicts there will be `r b0_resp` $\times$ `r b1_resp` =  `r b0_resp*b1_resp` cancers 1 km away and `r b0_resp` $\times$ `r b1_resp` $\times$ `r b1_resp` =  `r b0_resp*b1_resp*b1_resp` cancers 2 km away. That is: $\beta_{0}$ $\times$ $\beta_{0}^n$ mm at $n$ km away.
+Recall that for a linear model with one predictor, the second estimate is the amount added to the intercept when the predictor changes by one value. Since this is GLM with a log link, the value of `r b1_resp` is amount the intercept is multiplied by for each unit increase of distance. Thus the model predicts there will be `r b0_resp` $\times$ `r b1_resp` =  `r b0_resp*b1_resp` cancers 1 km away and `r b0_resp` $\times$ `r b1_resp` $\times$ `r b1_resp` =  `r b0_resp*b1_resp*b1_resp` cancers 2 km away. That is: $\beta_{0}$ $\times$ $\beta_{0}^n$ mm at $n$ km away.
 
-You can work these out either by exponentiating the coefficients and then multiplying the results or by adding the coefficients and exponentiating
+You can work these out either by exponentiating the coefficients and then multiplying the results or by adding the coefficients and exponentiating.
 
 Exponentiate coefficients then multiply:
 ```{r}
@@ -124,21 +136,22 @@ exp(b0 + 10*b1)
 ```
 Usually, we use the `predict()` function to make predictions for particular distances.
 
-More information including statistical tests of the model and its parameters is obtained by using summary():
+More information including statistical tests of the model and its parameters is obtained by using `summary()`:
 
 ```{r}
 summary(mod) 
 ```
 The `Coefficients` table gives the estimated $\beta_{0}$ and $\beta_{1}$ again but along with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is `r b0` $\pm$ `r b0se` and this differs significantly from zero ($p$ `r b0p`). The estimated value for the slope is `r b1` $\pm$ `r b1se`, also differs significantly from zero ($p$ `r b1p`). 
 
-The three lines at the bottom of the output give information about the fit of the model to the data. The `Multiple R-squared` gives the proportion of the variance in the response which is explained by the model. In our case, "r rsq" of the variance in mandible length is explained by the model and this is a significant proportion of that variance ($p$ "r modelp"). 
+Towards the bottom of the output there is information about the model fit. The null deviance (what exists if we predict the number of cases from the mean, $\beta_{0}$) is `r null_dev` with `r df_null` degrees of freedom and the residual deviance (left over after our model is fitted) is `r resid_dev` with `r df_resid` $d.f.$. The model fits a 1 parameters and thus accounts for 1 $d.f.$ for a reduction in deviance by `r mod_dev`.
+
+To get a test of whether the reduction in deviance is significant for each term in the the model formula we use:
 
 
 To get a test of the model overall
 
 ```{r}
 anova(mod, test = "Chisq") 
-
 ```
 
 
@@ -150,14 +163,20 @@ anova(mod, test = "Chisq")
 pchisq(22.732, 1, lower.tail = F)
 ```
 
+
+
+
+```{r}
+pchisq(22.732, 1, lower.tail = F)
+```
+
 ## Getting predictions from the model
 
 The `predict()` function returns the predicted values of the response. To add a column of predicted values to the dataframe:
-we need to specify they should be on the scale of the responses, no the link function scale.
+we need to specify they should be on the scale of the responses, not on the link function scale.
 
 ```{r}
 cases$pred <- predict(mod, type = "response")
-mod$fitted.values
 ```
 
 
@@ -175,6 +194,14 @@ predictions$pred <- predict(mod, newdata = predictions, type = "response")
 
 ## Checking assumptions
 
+```{r}
+plot(mod, which = 2)
+```
+
+```{r}
+plot(mod, which = 1)
+```
+
 ## Creating a figure
 
 ```{r fig-cases}
@@ -185,7 +212,7 @@ geom_smooth(method = "glm",
               se = FALSE,
             colour = "black") +
   scale_x_continuous(expand = c(0, 0),
-                     limits = c(0, 200),
+                     limits = c(0, 190),
                      name = "Distance (km) of clinic from plant") +
     scale_y_continuous(expand = c(0, 0.03),
                      limits = c(0, 5),
@@ -197,9 +224,7 @@ geom_smooth(method = "glm",
 
 ## Reporting the results.
 
-The number of case reported by a clinic
-
-See figure \@ref(fig:fig-cases-anova-report).
+The number of cases reported by a clinic significantly decreases by a factor of `r b0_resp` for each kilometre from the nuclear plant (`r modelp`). See figure \@ref(fig:fig-cases-report).
 
 (ref:fig-cases-report) Incidence of cancer cases reported at clinic by it distance from the nuclear plant. 
 

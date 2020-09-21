@@ -14,7 +14,7 @@ In this chapter we again consider an example with one categorical explanatory va
 
 The myoglobin concentration of skeletal muscle (in grams per kilogram of muscle) for three species of seal (see Figure \@ref(fig:weddell-fig)) is given  [seal.txt](data-raw/seal.text). 
 
-<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:300px; "><table class="table" style="margin-left: auto; margin-right: auto;">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; "><table class="table" style="margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
    <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> species </th>
@@ -507,7 +507,7 @@ The *p*-value, adjusted for multiple comparisons is given in the `p adj` column.
 
 The comparisons being made are known as contrasts and this terminology will appear later.
 
-## One-way ANOVA as linear models
+## One-way ANOVAs as linear models
 
 The equation for a one-way ANOVA test is an extension of equation \@ref(eq:t-test) for a *t*-test. It has the same form but additional parameters. If there are three groups, the model is:
 
@@ -565,10 +565,12 @@ mod
 ```
 
 
+The equation for the model is:
+<center> $myoglobin$ = 42.316 + 6.694$speciesHarbour Seal$ + 2.344$speciesWeddell Seal$</center>
+
 The first group of `seal` is `Bladdernose Seal` so $\beta_{0}$ is the mean of the Bladdernose seals. $\beta_{1}$ is the coefficient labelled `speciesHarbour Seal` and means when the  variable `species` takes the value `Harbour Seal`, $\beta_{1}$ must be added to $\beta_{0}$. The last parameter, $\beta_{2}$, is the coefficient labelled `speciesWeddell Seal` and means when the  variable `species` takes the value `Weddell Seal`, $\beta_{2}$ must be added to $\beta_{0}$.
 
-
-Thus, the mean myoglobin in Bladdernose seals is 42.316 kg g^1^, that in Harbour Seals is 42.316 + 6.694 = 49.01 kg g^1^ and in Weddell Seals is 42.316 + 2.344 = 44.66kg g^1^.
+The mean myoglobin in Bladdernose seals is 42.316 kg g^-1^, that in Harbour Seals is 42.316 + 6.694 = 49.01 kg g^-1^ and in Weddell Seals is 42.316 + 2.344 = 44.66kg g^-1^.
 
 More information including statistical tests of the model and its parameters is obtained by using `summary()`:
 
@@ -603,7 +605,7 @@ The proportion of the variance in the omega which is explained by the model is 0
 This is the first time we have a model where the *p*-value for the model and the *p*-values for the $\beta$ parameters differ. This is because we are fitting two parameters after the intercept. 
 
 
-Replacing the terms shown in Figure \@ref(fig:t-annotated) with the values in this example gives us \@ref(fig:csat-annotated).
+Replacing the terms shown in Figure \@ref(fig:one-way-annotated) with the values in this example gives us \@ref(fig:seal-annotated).
 
 (ref:seal-annotated) The annotated model with the values from the Seal species example. The measured <span style=" font-weight: bold;    color: #d264c0 !important;" >response values are in pink</span>, the <span style=" font-weight: bold;    color: #c0d264 !important;" >predictions are in green</span>, and the <span style=" font-weight: bold;    color: #64c0d2 !important;" >residuals, are in blue</span>. One example of a measured value, a predicted value and the residual is shown for an individual harbour seal. The estimated model parameters are indicated: $\beta_{0}$, the mean of the Bladdernose Seals, is 42.316 kg g^1^;  $\beta_{1}$ is 6.694 thus the mean of Harbour Seals 42.316 + 6.694 = 49.01 kg g^-1; and $\beta_{2}$ is 2.344 thus the mean of Weddell Seals 42.316 + 2.344 = 49.01 kg g^-1^. Compare to Figure \@ref(fig:one-way-annotated).
 
@@ -745,7 +747,7 @@ The numbers are how the model parameters are needed to make the contrast and the
 Therefore: 
 * Harbour Seal - Bladdernose Seal is: $\beta_{0} + \beta_{1} - \beta_{0} = \beta_{1}$ and there is a one in the `speciesHarbour Seal` column and zeros else where
 * Weddell Seal - Bladdernose Seal is: $\beta_{0} + \beta_{2} - \beta_{0} = \beta_{2}$ and there is a one in the `speciesWeddell Seal` column and zeros else where
-* Weddell Seal - Harbour Seal is: $\beta_{0} + \beta_{2} - (\beta_{0} + \beta_{1}) = \beta_{2} + \beta_{1}$ and there is a 1 in the the `speciesWeddell Seal` column and a -1 in the  `speciesHarbour Seal` column.
+* Weddell Seal - Harbour Seal is: $\beta_{0} + \beta_{2} - (\beta_{0} + \beta_{1}) = \beta_{2} - \beta_{1}$ and there is a 1 in the the `speciesWeddell Seal` column and a -1 in the  `speciesHarbour Seal` column.
 
 ## Creating a figure
 

@@ -6,4 +6,7 @@ Before we get started, I need to explain some potentially confusing terminology.
 
 ## Testing modelling fitting
 
+t.test fit and test simult; lm fit then test
+
+
 ## paramters, coefficients estimates

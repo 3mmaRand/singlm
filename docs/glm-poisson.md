@@ -35,8 +35,6 @@ Just like examples of general linear models with a single explanatory variable, 
 </div>
 
 
-blah blah blah
-
 See Figure \@ref(fig:glm-pois-annotated) for a graphical representation of generalised linear model terms. 
 
 (ref:glm-pois-annotated) A Generalised linear model with Poisson distributed errors. The measured <span style=" font-weight: bold;    color: #d264c0 !important;" >response values are in pink</span>, the <span style=" font-weight: bold;    color: #c0d264 !important;" >predictions are in green</span>, and the differences between these, known as the <span style=" font-weight: bold;    color: #64c0d2 !important;" >residuals, are in blue</span>. The estimated model parameters, $\beta_{0}$ and $\beta_{1}$ must be exponentiated to be interpreted on the scale of the response. When $x=0$ we predict the number of $y$ to be $exp(\beta_{0})$. For each unit of $x$, the number of y changes by a factor of $exp(\beta_{1})$
@@ -53,3 +51,42 @@ one explanatory *use chi-squared*
 
 ## More than one explanatory
 
+\begin{equation}
+ln(E(y_{i}))=\beta_{0}+\beta_{1}X1_{i}+\beta_{2}X2_{i}+...+\beta_{p}Xp_{i}
+(\#eq:glmpois4)
+\end{equation}
+
+To make predictions about the expected value of the response we need to exponentiate the coefficients.
+
+\begin{equation}
+E(y_{i})=exp(\beta_{0}+\beta_{1}X1_{i}+\beta_{2}X2_{i}+...+\beta_{p}Xp_{i})
+(\#eq:glmpois5)
+\end{equation}
+
+<!-- ### Checking assumptions -->
+<!-- The assumptions of the model are checked using the `plot()` function which produces diagnostic plots to explore the distribution of the residuals. They are not proof of the assumptions being met but allow us to quickly determine if the assumptions are plausible, and if not, how the assumptions are violated and what data points contribute to the violation. -->
+
+
+<!-- The two plots which are most useful are  the "Residuals vs Fitted" plot (plot 1) and the "Q-Q" plot (plot 2). These are given as values to the `which` argument of `plot()`. -->
+
+
+<!-- The Residuals vs Fitted plot shows if residuals have homogeneous variance or have non-linear patterns. Non-linear relationship between explanatory variables and the response will usually show in this plot if the model does not capture the non-linear relationship. For the assumptions to be met, the residuals should be equally spread around a horizontal line: -->
+
+
+<!-- The following are two examples in which the residuals do not have homogeneous variance and display non-linear patterns. -->
+
+
+<!-- The Q-Q plot is a scatterplot of the residuals (standardised to a mean of zero and a standard deviation of 1) against what is expected if the residuals are normally distributed.  -->
+
+
+<!-- The following are two examples in which the residuals are not normally distributed. -->
+
+
+
+
+
+
+
+
+## Reporting
+*to add, same principles apply*

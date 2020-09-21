@@ -5,7 +5,7 @@
 The number of cases of cancer reported by a clinic and its distance, in kilometres, from a nuclear plant were recorded and the data are in [cases.txt](data-raw/cases.txt). Researchers wanted to know if proximity to the nuclear power plant influenced the incidence of cancer. Bear in mind this is not great epidemiology - there would be very many other factors influencing the occurrence and reporting of cancer cases at a clinic.
 
 
-<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:300px; "><table class="table" style="margin-left: auto; margin-right: auto;">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; "><table class="table" style="margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
    <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> cancers </th>
@@ -238,9 +238,12 @@ mod
 
 
 
+
+We will postpone discussing the information in the last three lines until we view the model summary.
+
 $\beta_{0}$ is labelled "(Intercept)" and $\beta_{1}$ is labelled "distance". Thus the equation of the line is:
 
-<center> $ln(cancers)$ = 1.019 $\times$ -0.021$\times distance$ </center>
+<center> $ln(cancers)$ = 1.019 $+$ -0.021$\times distance$ </center>
 
 The fact that the estimate for distance (-0.021) is negative tells us that as distance increases, the number of cancers reported goes down.
 
@@ -255,14 +258,14 @@ exp(mod$coefficients)
 #       2.771       0.979
 ```
 
-So
+So the equation of the model is:
 <center> $cancers$ = 2.771 $\times$ 0.979$^{distance}$ </center>
 
 The model predicts there will be 2.771 cancers at a clinic at no distance from the power plant.
 
-Recall that for a linear model with one predictor, the second estimate is the amount added to the intercept when the predictor changes by one value. Since this is glm with a log link, the value of 0.979 is amount the intercept is multiplied by for each unit increase of distance. Thus the model predicts there will be 2.771 $\times$ 0.979 =  2.712 cancers 1 km away and 2.771 $\times$ 0.979 $\times$ 0.979 =  2.654 cancers 2 km away. That is: $\beta_{0}$ $\times$ $\beta_{0}^n$ mm at $n$ km away.
+Recall that for a linear model with one predictor, the second estimate is the amount added to the intercept when the predictor changes by one value. Since this is GLM with a log link, the value of 0.979 is amount the intercept is multiplied by for each unit increase of distance. Thus the model predicts there will be 2.771 $\times$ 0.979 =  2.712 cancers 1 km away and 2.771 $\times$ 0.979 $\times$ 0.979 =  2.654 cancers 2 km away. That is: $\beta_{0}$ $\times$ $\beta_{0}^n$ mm at $n$ km away.
 
-You can work these out either by exponentiating the coefficients and then multiplying the results or by adding the coefficients and exponentiating
+You can work these out either by exponentiating the coefficients and then multiplying the results or by adding the coefficients and exponentiating.
 
 Exponentiate coefficients then multiply:
 
@@ -296,7 +299,7 @@ exp(b0 + 10*b1)
 ```
 Usually, we use the `predict()` function to make predictions for particular distances.
 
-More information including statistical tests of the model and its parameters is obtained by using summary():
+More information including statistical tests of the model and its parameters is obtained by using `summary()`:
 
 
 ```r
@@ -326,7 +329,9 @@ summary(mod)
 ```
 The `Coefficients` table gives the estimated $\beta_{0}$ and $\beta_{1}$ again but along with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is 1.019 $\pm$ 0.309 and this differs significantly from zero ($p$ < 0.001). The estimated value for the slope is -0.021 $\pm$ 0.005, also differs significantly from zero ($p$ < 0.001). 
 
-The three lines at the bottom of the output give information about the fit of the model to the data. The `Multiple R-squared` gives the proportion of the variance in the response which is explained by the model. In our case, "r rsq" of the variance in mandible length is explained by the model and this is a significant proportion of that variance ($p$ "r modelp"). 
+Towards the bottom of the output there is information about the model fit. The null deviance (what exists if we predict the number of cases from the mean, $\beta_{0}$) is 54.522 with 42 degrees of freedom and the residual deviance (left over after our model is fitted) is 31.79 with 41 $d.f.$. The model fits a 1 parameters and thus accounts for 1 $d.f.$ for a reduction in deviance by 22.732.
+
+To get a test of whether the reduction in deviance is significant for each term in the the model formula we use:
 
 
 To get a test of the model overall
@@ -361,23 +366,23 @@ pchisq(22.732, 1, lower.tail = F)
 # [1] 1.86e-06
 ```
 
+
+
+
+
+```r
+pchisq(22.732, 1, lower.tail = F)
+# [1] 1.86e-06
+```
+
 ## Getting predictions from the model
 
 The `predict()` function returns the predicted values of the response. To add a column of predicted values to the dataframe:
-we need to specify they should be on the scale of the responses, no the link function scale.
+we need to specify they should be on the scale of the responses, not on the link function scale.
 
 
 ```r
 cases$pred <- predict(mod, type = "response")
-mod$fitted.values
-#      1      2      3      4      5      6      7      8      9     10     11 
-# 0.1004 0.3742 2.5519 0.7495 0.1292 0.0803 0.1492 0.4972 0.2457 0.3109 0.7692 
-#     12     13     14     15     16     17     18     19     20     21     22 
-# 0.1766 1.9157 1.6256 0.3000 0.2458 0.1255 0.9713 0.4734 0.8046 2.1067 0.6931 
-#     23     24     25     26     27     28     29     30     31     32     33 
-# 0.6317 0.1575 0.3304 1.1510 0.1060 1.3016 0.3437 0.1643 0.3092 0.2252 1.4923 
-#     34     35     36     37     38     39     40     41     42     43 
-# 0.8939 1.6846 0.6406 0.1178 0.4181 0.1168 0.1600 0.0812 0.5811 1.6970
 ```
 
 
@@ -397,6 +402,20 @@ predictions$pred <- predict(mod, newdata = predictions, type = "response")
 
 ## Checking assumptions
 
+
+```r
+plot(mod, which = 2)
+```
+
+<img src="glm-poisson-single-cont_files/figure-html/unnamed-chunk-17-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+
+
+```r
+plot(mod, which = 1)
+```
+
+<img src="glm-poisson-single-cont_files/figure-html/unnamed-chunk-18-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+
 ## Creating a figure
 
 
@@ -408,7 +427,7 @@ geom_smooth(method = "glm",
               se = FALSE,
             colour = "black") +
   scale_x_continuous(expand = c(0, 0),
-                     limits = c(0, 200),
+                     limits = c(0, 190),
                      name = "Distance (km) of clinic from plant") +
     scale_y_continuous(expand = c(0, 0.03),
                      limits = c(0, 5),
@@ -422,9 +441,7 @@ geom_smooth(method = "glm",
 
 ## Reporting the results.
 
-The number of case reported by a clinic
-
-See figure \@ref(fig:fig-cases-anova-report).
+The number of cases reported by a clinic significantly decreases by a factor of 2.771 for each kilometre from the nuclear plant (< 0.001). See figure \@ref(fig:fig-cases-report).
 
 (ref:fig-cases-report) Incidence of cancer cases reported at clinic by it distance from the nuclear plant. 
 

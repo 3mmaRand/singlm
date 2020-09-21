@@ -50,7 +50,9 @@ p1 <- df %>%
               method.args = list(family = "poisson"),
               se = FALSE,
               colour = "black") +
-  annotate("text", x = 3, y = 9, label = expression(beta[1]~is~positive)) +
+  annotate("text", x = 3, y = 9, 
+           label = expression(beta[1]~is~positive),
+           size = 7) +
   scale_x_continuous(expand = c(0, 0), limits = c(0, 8.5)) +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 12)) +
   theme_classic() +
@@ -75,7 +77,9 @@ p2 <- df %>%
               method.args = list(family = "poisson"),
               se = FALSE,
               colour = "black") +
-  annotate("text", x = 5, y = 9, label = expression(beta[1]~is~negative)) +
+  annotate("text", x = 5, y = 9, 
+           label = expression(beta[1]~is~negative),
+           size = 7) +
   scale_x_continuous(expand = c(0, 0), limits = c(0, 8.5)) +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 12)) +
   theme_classic() +
@@ -84,8 +88,6 @@ p2 <- df %>%
 p1 + p2
 ```
 
-
-blah blah blah
 
 See Figure \@ref(fig:glm-pois-annotated) for a graphical representation of generalised linear model terms. 
 
@@ -102,3 +104,79 @@ one explanatory *use chi-squared*
 
 ## More than one explanatory
 
+\begin{equation}
+ln(E(y_{i}))=\beta_{0}+\beta_{1}X1_{i}+\beta_{2}X2_{i}+...+\beta_{p}Xp_{i}
+(\#eq:glmpois4)
+\end{equation}
+
+To make predictions about the expected value of the response we need to exponentiate the coefficients.
+
+\begin{equation}
+E(y_{i})=exp(\beta_{0}+\beta_{1}X1_{i}+\beta_{2}X2_{i}+...+\beta_{p}Xp_{i})
+(\#eq:glmpois5)
+\end{equation}
+
+<!-- ### Checking assumptions -->
+<!-- The assumptions of the model are checked using the `plot()` function which produces diagnostic plots to explore the distribution of the residuals. They are not proof of the assumptions being met but allow us to quickly determine if the assumptions are plausible, and if not, how the assumptions are violated and what data points contribute to the violation. -->
+
+```{r echo=FALSE}
+# n <- 100
+# beta0 <- 2.3
+# beta1 <- -0.28
+# set.seed(13)
+# x <- runif(n = n, min = 0, max = 15)
+# # compute mus
+# mu <- exp(beta0 + beta1 * x)
+# # generate Y-values
+# y <- rpois(n = n, lambda = mu)
+# # data set
+# df <- data.frame(y = y, x = x)
+# mod <- glm(data = df, y ~ x, family = poisson)
+
+```
+<!-- The two plots which are most useful are  the "Residuals vs Fitted" plot (plot 1) and the "Q-Q" plot (plot 2). These are given as values to the `which` argument of `plot()`. -->
+
+
+<!-- The Residuals vs Fitted plot shows if residuals have homogeneous variance or have non-linear patterns. Non-linear relationship between explanatory variables and the response will usually show in this plot if the model does not capture the non-linear relationship. For the assumptions to be met, the residuals should be equally spread around a horizontal line: -->
+```{r echo=FALSE, out.width="60%"}
+# plot(mod, which = 1)
+```
+
+<!-- The following are two examples in which the residuals do not have homogeneous variance and display non-linear patterns. -->
+```{r echo=FALSE, out.width="60%"}
+# set.seed(100)
+# y <-  (b0 + b1 * x) + rexp(n,rate = 0.1)
+# df <- data.frame(x = x, y = y)
+# mod2 <- lm(data = df, x ~ y)
+# plot(mod2, which = 1)
+# plot(mod3, which = 1)
+```
+
+<!-- The Q-Q plot is a scatterplot of the residuals (standardised to a mean of zero and a standard deviation of 1) against what is expected if the residuals are normally distributed.  -->
+```{r echo=FALSE, out.width="60%"}
+# plot(mod, which = 2)
+```
+
+<!-- The following are two examples in which the residuals are not normally distributed. -->
+```{r echo=FALSE, out.width="60%"}
+# set.seed(100)
+# y <-  (b0 + b1 * x) + rexp(n,rate = 5)
+# df <- data.frame(x = x, y = y)
+# mod2 <- lm(data = df, x ~ y)
+# plot(mod2, which = 2)
+```
+
+
+
+```{r echo=FALSE, out.width="60%"}
+# set.seed(1234)
+# y <-  (b0 + b1 * x) + rpois(n,lambda = 1)
+# df <- data.frame(x = x, y = y)
+# mod3 <- lm(data = df, x ~ y)
+# plot(mod3, which = 2)
+```
+
+
+
+## Reporting
+*to add, same principles apply*

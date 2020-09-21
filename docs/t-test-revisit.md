@@ -6,7 +6,7 @@ In this chapter we look at an example with one categorical explanatory variable 
 
 Some plant biotechnologists developed a genetically modified line of *Cannabis sativa* to increase its omega 3 fatty acids content. They grew 50 wild type and fifty modified plants to maturity, collect the seeds and measure the amount of omega 3 fatty acids (in arbitrary units). The data are in [csativa.txt](data-raw/csativa.txt). They want to know if the wild type and modified plants differ significantly in their omega 3 fatty acid content. 
 
-<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:300px; "><table class="table" style="margin-left: auto; margin-right: auto;">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; "><table class="table" style="margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
    <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> omega </th>
@@ -449,6 +449,47 @@ Violin plots are a useful way to show the distribution of data in each group but
 
 The modified plant have a lower mean omega 3 content than the wild type plants. The modification appears not to be successful. In fact, it may have significantly lowered the omega 3 content!
 
+Let’s create a summary of the data that will be useful for plotting later:
+
+```r
+csativa_summary <- csativa %>%
+  group_by(plant) %>%
+  summarise(mean = mean(omega),
+            std = sd(omega),
+            n = length(omega),
+            se = std/sqrt(n))
+```
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> plant </th>
+   <th style="text-align:right;"> mean </th>
+   <th style="text-align:right;"> std </th>
+   <th style="text-align:right;"> n </th>
+   <th style="text-align:right;"> se </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> modif </td>
+   <td style="text-align:right;"> 49.5 </td>
+   <td style="text-align:right;"> 5.82 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 0.82 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> wild </td>
+   <td style="text-align:right;"> 56.4 </td>
+   <td style="text-align:right;"> 7.85 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 1.11 </td>
+  </tr>
+</tbody>
+</table>
+
+Our summary confirms what we see in the plot.
+
 Statistical comparison of the two means can be done with either the `t.test()` or `lm()` functions; these are **exactly** equivalent but present the results differently. We will use our understanding of applying and interpreting `t.test()` to develop our understanding of `lm()` output
 
 ## `t.test()` output reminder
@@ -556,6 +597,8 @@ mod
 
 
 
+The equation for the model is:
+<center> $omega$ = 49.465 + 6.947$plantwild$ </center>
 
 The first group of `plant` is `modif` so $\beta_{0}$ is the mean of the modified plants. $\beta_{1}$ is the coefficient labelled `plantwild`. In R, the coefficients are consistently named like this: variable name followed by the value without spaces. It means when the  variable `plant` takes the value `wild`, $\beta_{1}$ must be added to $\beta_{0}$
 
@@ -641,7 +684,7 @@ The two assumptions of the model can be checked using diagnostic plots. The Q-Q 
 plot(mod, which = 2)
 ```
 
-<img src="t-test-revisit_files/figure-html/unnamed-chunk-13-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="t-test-revisit_files/figure-html/unnamed-chunk-15-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 The residual seem to be normally distributed.
 
@@ -652,22 +695,11 @@ Let's look at the Residuals vs Fitted plot:
 plot(mod, which = 1)
 ```
 
-<img src="t-test-revisit_files/figure-html/unnamed-chunk-14-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
+<img src="t-test-revisit_files/figure-html/unnamed-chunk-16-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 We get these two columns of points because the explanatory variable, `plant`, is categorical so the fitted - or predicted - values are just two means. In my view, the variance looks higher in the group with the higher mean (on the right).
 
 ## Creating a figure
-
-
-
-```r
-csativa_summary <- csativa %>%
-  group_by(plant) %>%
-  summarise(mean = mean(omega),
-            std = sd(omega),
-            n = length(omega),
-            se = std/sqrt(n))
-```
 
 
 

@@ -4,15 +4,6 @@ delete_merged_file: true
 rmd_files: [
   "index.Rmd",
   
-  "introductory-class-revision.Rmd",
-  "what-are-linear-models.Rmd",
-  "terminology.Rmd",
-  
-  "single-linear-regression.Rmd",
-  "t-test-revisit.rmd",
-  "one-way-anova-revisit.Rmd",
-  "two-way-anova-revisit.Rmd",
-  
   "glm-intro.Rmd",
   
   "glm-poisson.Rmd",

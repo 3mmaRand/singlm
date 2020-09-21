@@ -1,7 +1,7 @@
 --- 
 title: "singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R"
 author: "Emma Rand"
-date: "2020-08-24"
+date: "September 2020"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [refs/book.bib, refs/packages.bib]
@@ -9,7 +9,7 @@ biblio-style: apalike
 link-citations: true
 description: "The output format for this example is bookdown::gitbook."
 favicon: images/favicon.ico
-cover-image: images/android-chrome-512x512.png
+cover-image: images/hex-s.png
 github-repo: 3mmaRand/singlm
 url: 'https\://3mmarand.github.io/singlm/'
 ---
@@ -21,13 +21,20 @@ url: 'https\://3mmarand.github.io/singlm/'
 
 ## Who is this book for?
 
-This book is for R users who have done an introductory class in data analysis which covered classical univariate tests such as single linear regression, *t*-tests, one-way ANOVA and two-way ANOVA. It is aimed at people who have a general, but not expert, understanding of summarising and graphically representing data and choosing and applying statistical tests. A revision chapter is included to set the scene and clarify terminology used in the rest of the book.
-I assume you have some familiarity with R and RStudio and could import data, apply `t.test()`, `aov()` and `TukeyHSD()` functions appropriately, interpret the results and create figures using `ggplot()`. I do not assume your fluency allows you to do these things with looking anything up, just that you would understand what you were doing and how to interpret the results.
+This book is for R users who have done an introductory class in data analysis which covered hypothesis testing and applying and interpreting linear models in R with the `lm()` function. I assume you are familiar with , but not expert in using R and RStudio to import data, analyse it and interpret the results and create figures using `ggplot()`. 
 
-The book has two aims. First, to to introduce Generalised Linear Models for analysing counts and binary responses using `glm()`, and secondly, to introduce the terminology of statistical modelling to make your transition to more advanced texts easier.
+The book aims to teach you how to use and interpret the `glm()` function in R for two types of response data which are are not normally distributed: Poisson distributed (counts) responses and binomially distributed responses (binary outcomes). 
 
+## Approach of this book
 
-## Formatting options 
+:::key
+`glm()` can be used to perform tests using the Generalised Linear Model for response variables which are counts or binary.
+:::
+
+Models are explained with reference to examples. Each example demonstrates the R code needed, how understand the output and how to report the results, including suggested **`ggplot2`**figures. 
+The code is given for figures but not extensively explained. To learn more go to  https://ggplot2.tidyverse.org/
+
+## Options on the toolbar 
 
 You can change the appearance of the book using the toolbar at the top of the page. The menu on the left can be hidden, the font size increased or decreased and the colour altered to a dark or sepia theme.
 
@@ -38,20 +45,21 @@ Code and any output appears in blocks formatted like this:
 
 
 ```r
-stag <- read_table2("data-raw/stag.txt")
-glimpse(stag)
-# Rows: 16
+cases <- read_table2("data-raw/cases.txt")
+glimpse(cases)
+# Rows: 43
 # Columns: 2
-# $ jh   <dbl> 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140...
-# $ mand <dbl> 0.56, 0.35, 0.28, 1.22, 0.48, 0.86, 0.68, 0.77, 0.55, 1.18, 0....
+# $ cancers  <dbl> 0, 0, 4, 0, 0, 0, 0, 1, 0, 0, 2, 0, 2, 1, 1, 0, 0, 1, 1, 1...
+# $ distance <dbl> 154.37, 93.14, 3.83, 60.83, 142.61, 164.72, 135.92, 79.92,...
 ```
 
 Lines of output start with a `#`. The content of a code block can be copied using the icon in its top right.
 
 Within the text:
-- packages are indicated in bold code font like this: **`ggplot2`**
-- functions are indicated in code font with brackets after their name like this: `ggplot()`
-- R objects are indicated in code font like this: `stag`
+
+- packages are indicated in bold code font like this: **`ggplot2`**  
+- functions are indicated in code font with brackets after their name like this: `ggplot()`  
+- R objects are indicated in code font like this: `cases`  
 
 Key points are summarised throughout the book using boxes like this:
 
@@ -66,65 +74,62 @@ Extra information and tips are in boxes like these
 :::
 
 
-I use packages from the **`tidyverse`** [@tidyverse2019] throughout and chapters assume it has been loaded. If you get an error like this: 
+## Following along with the examples
+Readers may wish to code along and the following gives guidance on how best to do that.
+
+I recommend starting a new RStudio project and creating a folder inside that project called `data-raw` where you will save the data files, and scripts for each example. Links to the data files are given in the text and these can be downloaded to your `data-raw` folder by right-clicking the link choosing the option to save.
 
 
-```r
-# Error in read_table2("data-raw/stag.txt") : 
-#  could not find function "read_table2"
+For example, if you call your Project `poisson` and you have just started [Chapter 3](#pois-glm-single-cont), your folder structure would look like this:
+
+```
+-- poisson
+   |-- poisson.Rproj
+   |-- cases_poisson.R
+   |-- data-raw
+      |-- cases.text
+
 ```
 
-Then load the **`tidyverse`** like this:
+Using this structure will mean the paths to files needed in your code are the same as those given in the book.
+
+The content of a code block can be copied using the icon in its top right corner.
+
+I use packages from the **`tidyverse`** [@tidyverse2019] including **`ggplot2`** [@ggplot2-book], **`dplyr`** [@dplyr], **`tidyr`** [@tidyr] and **`readr`** [@readr] throughout the book. All the code assumes you have loaded the core **`tidyverse`** packages with: 
 
 
 ```r
 library(tidyverse)
 ```
 
+If you run examples and get an error like this: 
 
-All other packages will be loaded explicitly where needed with `library()` statements. 
+
+```r
+# Error in read_table2("data-raw/cases.txt") : 
+#  could not find function "read_table2"
+```
+
+It is likely you need to load the **`tidyverse`** as shown above.
+
+All other packages will be loaded explicitly with `library()` statements where needed. 
 
 
-## Approach of this book
-
-Regression, *t*-tests and one-way ANOVA are fundamentally the same test and can all be carried out with the `lm()` function in R. However, it is common for *t*-tests and ANOVA to be taught using the `t.test()` and `aov()` functions respectively. One reason for this is because their outputs are easier for beginners to understand and interpret. 
-
-However, the output of `lm()` is more typical of statistical modelling functions in general and not using `lm()` for the relatively simple cases makes it more difficult for people to extend their the statistical repertoire. The approach taken in this book is to exploit preexisting knowledge of *t*-tests and ANOVA using `t.test()` and `aov()` to understand the output of `lm()`. This will make it easier to understand the output of `glm()`. 
-
-## Outline
+## Overview of the chapter contents
 This book introduces the the Generalised Linear Model for two types of discrete response:
 
-1. Binomially distributed: when a response variable can take one of only two values, such as "yes" or "no", "alive" or "dead", "present" or "absent".  
-2. Poisson distributed: when a response variable is the number of things.
+1.Poisson distributed: when a response variable is the number of things.   
+2. Binomially distributed: when a response variable can take one of only two values, such as "yes" or "no", "alive" or "dead", "present" or "absent".
 
 In R, these are analysed with the `glm()` function.
 
-:::key
-`lm()` can be used to perform *t*-tests, ANOVAs and regression. `glm()` can be used to perform tests using the Generalised Linear Model for response variables which are counts or binary.
-:::
-
-Models are explained with reference to examples. Each example demonstrates the R code needed, how understand the output and how to report the results, including suggested **`ggplot2`**figures. 
-The code is given for figures but not extensively explained. To learn more go to  https://ggplot2.tidyverse.org/
-
-## Following along with the examples
-instructions rstudio projects, data-raw, script file, down load "data-raw/stag.txt"
 
 ##  Overview of the chapter contents
 
-**Part 1** provides a brief revision of an introductory data analysis class using terminology that will used throughout the remaining chapters. Single linear regression is used as an example of `lm()`. If the concepts in this chapter are very unfamiliar, you may benefit from revising your previous work. 
-
-In **Part 2**  works through *t*-test, one-way ANOVA and two-way ANOVA examples carried out first with `t.test()` and `aov()` and then with `lm()` to gain a good understanding of the `lm()` output and interrogation for reporting.
-
-
-**Part 3** gives a introduction to generalised linear models.
-
-**Part 4** gives a introduction to generalised linear models for count data and works through several examples.
-
-**Part 5** gives a introduction to generalised linear models for binomial data and works through several examples.
 
 ## Software information
 
-I used the **`knitr`** package [@xie2015] and the **bookdown** package [@R-bookdown] to compile my book. My R session information is shown below:
+I used the **`knitr`** package [@xie2015] and the **bookdown** package [@R-bookdown] to compile this book. My R session information is shown below:
 
 
 ```r
@@ -146,19 +151,19 @@ sessionInfo()
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-#  [1] patchwork_1.0.1  kableExtra_1.1.0 forcats_0.5.0    stringr_1.4.0   
-#  [5] dplyr_1.0.2      purrr_0.3.4      readr_1.3.1      tidyr_1.1.1     
+#  [1] patchwork_1.0.1  kableExtra_1.2.1 forcats_0.5.0    stringr_1.4.0   
+#  [5] dplyr_1.0.2      purrr_0.3.4      readr_1.3.1      tidyr_1.1.2     
 #  [9] tibble_3.0.3     ggplot2_3.3.2    tidyverse_1.3.0 
 # 
 # loaded via a namespace (and not attached):
 #  [1] tidyselect_1.1.0  xfun_0.16         haven_2.3.1       colorspace_1.4-1 
-#  [5] vctrs_0.3.2       generics_0.0.2    htmltools_0.5.0   viridisLite_0.3.0
+#  [5] vctrs_0.3.4       generics_0.0.2    htmltools_0.5.0   viridisLite_0.3.0
 #  [9] yaml_2.2.1        utf8_1.1.4        blob_1.2.1        rlang_0.4.7      
 # [13] pillar_1.4.6      glue_1.4.1        withr_2.2.0       DBI_1.1.0        
 # [17] dbplyr_1.4.4      modelr_0.1.8      readxl_1.3.1      lifecycle_0.2.0  
 # [21] munsell_0.5.0     gtable_0.3.0      cellranger_1.1.0  rvest_0.3.6      
 # [25] evaluate_0.14     knitr_1.29        fansi_0.4.1       broom_0.7.0      
-# [29] Rcpp_1.0.5        scales_1.1.1      backports_1.1.7   webshot_0.5.2    
+# [29] Rcpp_1.0.5        scales_1.1.1      backports_1.1.9   webshot_0.5.2    
 # [33] jsonlite_1.7.0    fs_1.5.0          hms_0.5.3         digest_0.6.25    
 # [37] stringi_1.4.6     bookdown_0.20     grid_4.0.2        cli_2.0.2        
 # [41] tools_4.0.2       magrittr_1.5      crayon_1.3.4      pkgconfig_2.0.3  

@@ -2,43 +2,45 @@
 
 ## Introduction to the example
 
-The number of cases of cancer reported by a clinic and its distance, in kilometres, from a nuclear plant were recorded and the data are in [cases.txt](data-raw/cases.txt). Researchers wanted to know if proximity to the nuclear power plant influenced the incidence of cancer. Bear in mind this is not great epidemiology - there would be very many other factors influencing the occurrence and reporting of cancer cases at a clinic.
+he number of insect prey individuals of a particular bird species manages to collect varies. In an effort to understand this variation, researchers recorded the number of prey an individual caught, its age (in years) and how it spent the majority of it’s time (as a single individual, in a pair or in a group of many). The data are in [birds.txt](data-raw/birds.txt). 
 
 
 ```{r echo=FALSE}
-cases <- read_table2("data-raw/cases.txt")
-cases %>% 
+birds <- read_table2("data-raw/birds.txt")
+birds %>% 
   knitr::kable() %>%
   kable_styling()  %>%
-  scroll_box(width = "300px", height = "300px")
+  scroll_box(height = "300px")
 ```
 
 
 :::key
-There are 2 variables: the response, `cancers`, is the number of cancer cases reported at a clinic and `distance`, gives the clinic's distance from the nuclear plant. 
+There are 3 variables: the response, `prey`, is the number of caught by an individual; `age`, gives the individual's agein years (to one tenth of a year); and `group` indicates how the individuals spent the majority of its time.
 :::
 
 
 We will import the data with the `read_table2()` function and plot it with `ggplot()`.
 
 ```{r eval=FALSE}
-cases <- read_table2("data-raw/cases.txt")
+birds <- read_table2("data-raw/birds.txt")
 ```
 
+We need to be able to show the different group behaviours
 
 ```{r}
 # a default scatter plot of the data
-ggplot(data = cases, aes(x = distance, y = cancers)) +
+ggplot(data = birds, aes(x = age, y = prey, colour = group)) +
   geom_point()
 ```
-Most of the clinics reporting no cases seem to be more distance from the nuclear plant and those reporting the highest numbers are within 50km.
+Individuals that spend most of their time with many individuals catch more prey and this effect is increased with age. Individuals that spend most of their time alone do not seem to improve with age.
+
 
 ## Applying and interpreting `glm()`
 
 We build a generalised linear model of the number of cases explained by the distance with the `glm()` function as follows:
 
 ```{r}
-mod <- glm(data = cases, cancers ~ distance, family = poisson)
+mod <- glm(data = birds, prey ~ group * age, family = poisson)
 ```
 Printing `mod` to the console gives us the estimated model parameters:
 ```{r}
@@ -49,38 +51,102 @@ mod
 ```{r echo=FALSE}
 res <- summary(mod)
 b0 <- res$coefficients["(Intercept)", "Estimate"]
-b1 <- res$coefficients["distance", "Estimate"]
+b1 <- res$coefficients["grouppair", "Estimate"]
+b2 <- res$coefficients["groupsingle", "Estimate"]
+b3 <- res$coefficients["age", "Estimate"]
+b4 <- res$coefficients["grouppair:age", "Estimate"]
+b5 <- res$coefficients["groupsingle:age", "Estimate"]
 b0se <- res$coefficients["(Intercept)", "Std. Error"]
-b1se <- res$coefficients["distance", "Std. Error"]
-zval <- res$coefficients["distance", "z value"]
+b1se <- res$coefficients["grouppair", "Std. Error"]
+b2se <- res$coefficients["groupsingle", "Std. Error"]
+b3se <- res$coefficients["age", "Std. Error"]
+b4se <- res$coefficients["grouppair:age", "Std. Error"]
+b5se <- res$coefficients["groupsingle:age", "Std. Error"]
+
 b0_resp <- exp(b0)
 b1_resp <- exp(b1)
+b2_resp <- exp(b2)
+b3_resp <- exp(b3)
+b4_resp <- exp(b4)
+b5_resp <- exp(b5)
 resid_dev <- res$deviance
 df_resid <- res$df.residual
 null_dev <- res$null.deviance
 df_null <- res$df.null
 mod_dev <- null_dev - resid_dev
 AIC <- res$aic
-df <- res$df[2]
 
 if (res$coefficients["(Intercept)", "Pr(>|z|)"] < 0.001) {
         b0p = "< 0.001"
         }
 if (res$coefficients["(Intercept)", "Pr(>|z|)"] > 0.001) {
         b0p = paste("=", round(res$coefficients["(Intercept)", "Pr(>|t|)"], 3))
-        }
-if (res$coefficients["distance", "Pr(>|z|)"] < 0.001) {
+}
+
+if (res$coefficients["grouppair", "Pr(>|z|)"] < 0.001) {
         b1p = "< 0.001"
         }
-if (res$coefficients["distance", "Pr(>|z|)"] > 0.001) {
-        b1p = paste("=", round(res$coefficients["distance", "Pr(>|z|)"], 3))
+if (res$coefficients["grouppair", "Pr(>|z|)"] > 0.001) {
+        b1p = paste("=", round(res$coefficients["grouppair", "Pr(>|z|)"], 3))
+}
+
+if (res$coefficients["groupsingle", "Pr(>|z|)"] < 0.001) {
+        b2p = "< 0.001"
         }
+if (res$coefficients["groupsingle", "Pr(>|z|)"] > 0.001) {
+        b2p = paste("=", round(res$coefficients["groupsingle", "Pr(>|z|)"], 3))
+}
+
+if (res$coefficients["age", "Pr(>|z|)"] < 0.001) {
+        b3p = "< 0.001"
+        }
+if (res$coefficients["age", "Pr(>|z|)"] > 0.001) {
+        b3p = paste("=", round(res$coefficients["age", "Pr(>|z|)"], 3))
+}
+
+if (res$coefficients["grouppair:age", "Pr(>|z|)"] < 0.001) {
+        b4p = "< 0.001"
+        }
+if (res$coefficients["grouppair:age", "Pr(>|z|)"] > 0.001) {
+        b4p = paste("=", round(res$coefficients["grouppair:age", "Pr(>|z|)"], 3))
+}
+
+if (res$coefficients["groupsingle:age", "Pr(>|z|)"] < 0.001) {
+        b5p = "< 0.001"
+        }
+if (res$coefficients["groupsingle:age", "Pr(>|z|)"] > 0.001) {
+        b5p = paste("=", round(res$coefficients["groupsingle:age", "Pr(>|z|)"], 3))
+}
+
+
+
+
+res2 <- anova(mod, test = "Chisq") 
+if (res2$`Pr(>Chi)`[2] < 0.001) {
+        group_p = "< 0.001"
+        }
+if (res2$`Pr(>Chi)`[2] > 0.001) {
+        group_p = paste("=", round(res2$`Pr(>Chi)`[2], 3))
+}
+if (res2$`Pr(>Chi)`[3] < 0.001) {
+        age_p = "< 0.001"
+        }
+if (res2$`Pr(>Chi)`[3] > 0.001) {
+        age_p = paste("=", round(res2$`Pr(>Chi)`[3], 3))
+}
+if (res2$`Pr(>Chi)`[4] < 0.001) {
+        interaction_p = "< 0.001"
+        }
+if (res2$`Pr(>Chi)`[4] > 0.001) {
+        interaction_p = paste("=", round(res2$`Pr(>Chi)`[4], 3))
+}
 ```
-$\beta_{0}$ is labelled "(Intercept)" and $\beta_{1}$ is labelled "distance". Thus the equation of the line is:
 
-<center> $ln(cancers)$ = `r b0` $\times$ `r b1`$\times distance$ </center>
+$\beta_{0}$ is labelled "(Intercept)" and $\beta_{1}$ to $\beta_{5}$ are labelled "grouppair", "groupsingle", "age", "grouppair:age" and "groupsingle:age" Thus the equation of the line is:
 
-The fact that the estimate for distance (`r b1`) is negative tells us that as distance increases, the number of cancers reported goes down.
+<center> $ln(prey)$ = `r b0` $+$ `r b1`$\times grouppair$ $+$ `r b2`$\times groupsingle$ $+$ `r b3`$\times age$ $+$ `r b4`$\times grouppair:age$ $+$ `r b5`$\times groupsingle:age$ </center>
+
+The intercept is the log of the expected number of prey items caught by 0 aged birds that spend the majority of their time in a group of many. The fact that the estimate for grouppair (`r b1`) is negative tells us that as such those in pairs catch fewer. Single birds also catch fewer. The positive coefficient for age indicates that more prey are caught with age.
 
 These estimates are on the scale of the link function, that is, they are logged (to the base e, natural logs) in this case.
 
@@ -90,42 +156,83 @@ To understand the parameters the on the scale of the response we apply the inver
 exp(mod$coefficients)
 ```
 
-So
-<center> $cancers$ = `r b0_resp` $\times$ `r b1_resp`$^{distance}$ </center>
+These estimates are on the scale of the link function, that is, they are logged (to the base e, natural logs) in this case.
 
-The model predicts there will be `r b0_resp` cancers at a clinic at no distance from the power plant.
+To understand the parameters the on the scale of the response we apply the inverse of the $ln$ function, the `exp()` function
 
-Recall that for a linear model with one predictor, the second estimate is the amount added to the intercept when the predictor changes by one value. Since this is glm with a log link, the value of `r b1_resp` is amount the intercept is multiplied by for each unit increase of distance. Thus the model predicts there will be `r b0_resp` $\times$ `r b1_resp` =  `r b0_resp*b1_resp` cancers 1 km away and `r b0_resp` $\times$ `r b1_resp` $\times$ `r b1_resp` =  `r b0_resp*b1_resp*b1_resp` cancers 2 km away. That is: $\beta_{0}$ $\times$ $\beta_{0}^n$ mm at $n$ km away.
-
-You can work these out either by exponentiating the coefficients and then multiplying the results or by adding the coefficients and exponentiating
-
-Exponentiate coefficients then multiply:
 ```{r}
-# 1km away
-exp(b0) * exp(b1)
-
-# 2km away
-exp(b0) * exp(b1) * exp(b1)
-
-# 10km away
-exp(b0) * exp(b1)^10
-
+exp(mod$coefficients)
 ```
-Add the coefficients then exponentiate the sum: 
-```{r}
-# 1km away
-exp(b0 + b1)
 
-# 2km away
-exp(b0 + b1 + b1)
+So:
 
-# 10km away
-exp(b0 + 10*b1)
-```
-Usually, we use the `predict()` function to make predictions for particular distances.
+$prey$ = `r b0_resp` $\times$ `r b1_resp`$^{grouppair}$ $\times$ `r b2_resp`$^{groupsingle}$ $\times$ `r b1_resp`$^{grouppair}$ $\times$ `r b4_resp`$^{grouppair:age}$ $\times$ `r b5_resp`$^{groupsingle:age}$
 
-More information including statistical tests of the model and its parameters is obtained by using summary():
+More information including statistical tests of the model and its parameters is obtained by using `summary()`:
 
 ```{r}
 summary(mod) 
+```
+
+The `Coefficients` table gives the estimated $\beta s$ again but this time with their standard errors and tests of whether the estimates differ from zero. For example, The estimated value for the intercept is `r b0` $\pm$ `r b0se` and this differs significantly from zero ($p$ `r b0p`). The estimated value for $\beta_{1}$ is `r b1` $\pm$ `r b1se` does not differ significantly from zero ($p$ `r b1p`). At age 0, birds in pairs do not catch significantly fewer prey. 
+
+Towards the bottom of the output there is information about the model fit. The null deviance (what exists if we predict the number of prey from the mean of birds in groups of many, $\beta_{0}$) is `r null_dev` with `r df_null` degrees of freedom and the residual deviance (left over after our model is fitted) is `r resid_dev` with `r df_resid` $d.f.$. The model fits a five parameters and thus accounts for 5 $d.f.$ for a reduction in deviance by `r mod_dev`.
+
+To get a test of whether the reduction in deviance is significant for each term in the the model formula we use:
+
+```{r}
+anova(mod, test = "Chisq") 
+```
+
+All three terms in the model significantly reduce the deviance: group ($p=$`r group_p`), age ($p=$`r age_p`) and the interaction between them ($p=$`r interaction_p`). The effect of age is not the same for individuals in groups of different sizes.
+
+## Getting predictions from the model
+The `predict()` function returns the predicted values of the response. To add a column of predicted values to the dataframe: we need to specify they should be on the scale of the responses, not on the scale of the link function.
+```{r}
+birds$pred <- predict(mod, type = "response")
+```
+
+This gives predictions for the ages used. If you want predictions for other ages you need to create a data frame of the values from which you want to predict
+
+To predict for ages 0, 1 and 7 for each group size we can use:
+
+```{r}
+predict_for <- data.frame(group = rep(c("many", "pair", "single"), each = 3),
+                      age = rep(c(c(0, 1, 7)), times = 3))
+```
+
+We then specify this dataframe in the `predict()` function using the `newdata` argument          
+```{r}
+
+# then predicting
+predict_for$pred <- predict(mod, newdata = predict_for, type = "response")
+```
+
+## Creating a figure
+
+```{r fig-birds}
+ggplot(data = birds, aes(x = age, y = prey, colour = group)) +
+  geom_point() +
+  geom_smooth(method = "glm",
+              method.args = list(family = "poisson"),
+              se = FALSE) +
+  scale_color_manual(values = pal4, name = "Group size") +
+  scale_x_continuous(expand = c(0, 0),
+                     limits = c(0, 7.5),
+                     name = "Age (years)") +
+  scale_y_continuous(expand = c(0, 0.03),
+                     limits = c(0, 110),
+                     name = "Number of prey caught") +
+  theme_classic()
+  
+```
+
+
+## Reporting the results.
+
+.... . See figure \@ref(fig:fig-birds).
+
+(ref:fig-birds-report) tum tee tum
+
+```{r fig-birds-report, ref.label = 'fig-birds', echo = FALSE, fig.height=4, fig.width=4, fig.cap="(ref:fig-birds-report)", out.width="60%"} 
 ```
