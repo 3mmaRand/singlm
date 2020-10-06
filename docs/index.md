@@ -21,15 +21,11 @@ url: 'https\://3mmarand.github.io/singlm/'
 
 ## Who is this book for?
 
-This book is for R users who have done an introductory class in data analysis which covered hypothesis testing and applying and interpreting linear models in R with the `lm()` function. I assume you are familiar with , but not expert in using R and RStudio to import data, analyse it and interpret the results and create figures using `ggplot()`. 
+This book is for R users who have done an introductory class in data analysis which covered hypothesis testing and applying and interpreting linear models in R with the `lm()` function. I assume you are familiar with, but not expert in, using R and RStudio to import data, analyse it and interpret the results and create figures using `ggplot()`. 
 
-The book aims to teach you how to use and interpret the `glm()` function in R for two types of response data which are are not normally distributed: Poisson distributed (counts) responses and binomially distributed responses (binary outcomes). 
+The book aims to teach you how to use and interpret the `glm()` function in R for two types of response data which are are not normally distributed: Poisson distributed responses (counts) and binomially distributed responses (binary outcomes). 
 
 ## Approach of this book
-
-:::key
-`glm()` can be used to perform tests using the Generalised Linear Model for response variables which are counts or binary.
-:::
 
 Models are explained with reference to examples. Each example demonstrates the R code needed, how understand the output and how to report the results, including suggested **`ggplot2`**figures. 
 The code is given for figures but not extensively explained. To learn more go to  https://ggplot2.tidyverse.org/
@@ -77,14 +73,14 @@ Extra information and tips are in boxes like these
 ## Following along with the examples
 Readers may wish to code along and the following gives guidance on how best to do that.
 
-I recommend starting a new RStudio project and creating a folder inside that project called `data-raw` where you will save the data files, and scripts for each example. Links to the data files are given in the text and these can be downloaded to your `data-raw` folder by right-clicking the link choosing the option to save.
+I recommend starting a new RStudio project and creating a folder inside that project called `data-raw` where you will save the data files. Links to the data files are given in the text and these can be downloaded to your `data-raw` folder by right-clicking the link choosing the option to save. Then make a new script file for each example to carry our the analysis for that example.
 
 
-For example, if you call your Project `poisson` and you have just started [Chapter 3](#pois-glm-single-cont), your folder structure would look like this:
+For example, if you call your Project `singlm` and you have just started [Chapter 3](#pois-glm-single-cont), your folder structure would look like this:
 
 ```
--- poisson
-   |-- poisson.Rproj
+-- singlm
+   |-- singlm.Rproj
    |-- cases_poisson.R
    |-- data-raw
       |-- cases.text
@@ -92,8 +88,6 @@ For example, if you call your Project `poisson` and you have just started [Chapt
 ```
 
 Using this structure will mean the paths to files needed in your code are the same as those given in the book.
-
-The content of a code block can be copied using the icon in its top right corner.
 
 I use packages from the **`tidyverse`** [@tidyverse2019] including **`ggplot2`** [@ggplot2-book], **`dplyr`** [@dplyr], **`tidyr`** [@tidyr] and **`readr`** [@readr] throughout the book. All the code assumes you have loaded the core **`tidyverse`** packages with: 
 
@@ -123,8 +117,10 @@ This book introduces the the Generalised Linear Model for two types of discrete 
 
 In R, these are analysed with the `glm()` function.
 
+:::key
+`glm()` can be used to perform tests using the Generalised Linear Model for response variables which are counts or binary.
+:::
 
-##  Overview of the chapter contents
 
 
 ## Software information

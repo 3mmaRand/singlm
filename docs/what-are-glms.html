@@ -142,8 +142,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="0.4" data-path="index.html"><a href="index.html#conventions-used-in-the-book"><i class="fa fa-check"></i><b>0.4</b> Conventions used in the book</a></li>
 <li class="chapter" data-level="0.5" data-path="index.html"><a href="index.html#following-along-with-the-examples"><i class="fa fa-check"></i><b>0.5</b> Following along with the examples</a></li>
 <li class="chapter" data-level="0.6" data-path="index.html"><a href="index.html#overview-of-the-chapter-contents"><i class="fa fa-check"></i><b>0.6</b> Overview of the chapter contents</a></li>
-<li class="chapter" data-level="0.7" data-path="index.html"><a href="index.html#overview-of-the-chapter-contents-1"><i class="fa fa-check"></i><b>0.7</b> Overview of the chapter contents</a></li>
-<li class="chapter" data-level="0.8" data-path="index.html"><a href="index.html#software-information"><i class="fa fa-check"></i><b>0.8</b> Software information</a></li>
+<li class="chapter" data-level="0.7" data-path="index.html"><a href="index.html#software-information"><i class="fa fa-check"></i><b>0.7</b> Software information</a></li>
 </ul></li>
 <li class="part"><span><b>I Introduction</b></span></li>
 <li class="chapter" data-level="1" data-path="what-are-glms.html"><a href="what-are-glms.html"><i class="fa fa-check"></i><b>1</b> What are GLMs?</a><ul>
@@ -167,9 +166,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#introduction-to-the-example"><i class="fa fa-check"></i><b>3.1</b> Introduction to the example</a></li>
 <li class="chapter" data-level="3.2" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#applying-and-interpreting-glm"><i class="fa fa-check"></i><b>3.2</b> Applying and interpreting <code>glm()</code></a></li>
 <li class="chapter" data-level="3.3" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#getting-predictions-from-the-model"><i class="fa fa-check"></i><b>3.3</b> Getting predictions from the model</a></li>
-<li class="chapter" data-level="3.4" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#checking-assumptions"><i class="fa fa-check"></i><b>3.4</b> Checking assumptions</a></li>
-<li class="chapter" data-level="3.5" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#creating-a-figure"><i class="fa fa-check"></i><b>3.5</b> Creating a figure</a></li>
-<li class="chapter" data-level="3.6" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#reporting-the-results."><i class="fa fa-check"></i><b>3.6</b> Reporting the results.</a></li>
+<li class="chapter" data-level="3.4" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#creating-a-figure"><i class="fa fa-check"></i><b>3.4</b> Creating a figure</a></li>
+<li class="chapter" data-level="3.5" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#reporting-the-results."><i class="fa fa-check"></i><b>3.5</b> Reporting the results.</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html"><i class="fa fa-check"></i><b>4</b> Two explanatory variables</a><ul>
 <li class="chapter" data-level="4.1" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#introduction-to-the-example"><i class="fa fa-check"></i><b>4.1</b> Introduction to the example</a></li>
@@ -230,24 +228,34 @@ function(E(y_{i}))=\beta_{0}+\beta_{1}X1_{i}
 <ul>
 <li><span class="math inline">\(function()\)</span> is the link function</li>
 </ul>
-<p>The link function is a transformation applied to the expected value of the response to link it to the explanatory variables. If you measured the response for a particular value of <span class="math inline">\(x\)</span> very many times there would be some distribution of those responses. Instead of that distribution having to be normal, it can come from a different distribution such as the Poisson or Binomial distributions. As a consequence, the residuals also come from that distribution. The fact that the residuals can follow a distribution other than normal also means the the variance no longer has to be homogeneous but can change for the values of x.</p>
+<p>The link function is a transformation applied to the expected value of the response to link it to the explanatory variables.</p>
+<p>If you measured the response for a particular value of <span class="math inline">\(x\)</span> very many times there would be some distribution of those responses. Instead of that distribution having to be normal, it can come from a different distribution such as the Poisson or Binomial distributions. As a consequence, the residuals also come from that distribution. The fact that the residuals can follow a distribution other than normal also means the the variance no longer has to be homogeneous but can change for the values of x.</p>
 <p>You can see that the two model equations are similar in structure. This is with good reason -
-you can think of the general linear model as a special case of generalised linear model when no transformation to the expected value, E(y_{i})$, is required.</p>
+you can think of the general linear model as a special case of generalised linear model when no transformation to the expected value, <span class="math inline">\(E(y_{i})\)</span>, is required.</p>
 </div>
 <div id="model-fitting" class="section level2">
 <h2><span class="header-section-number">1.2</span> Model fitting</h2>
 <p>A very important difference between the general linear model (applied with <code>lm()</code>) and the generalised linear model (applied with <code>glm()</code>) is that the estimates of the coefficients are given on the scale of the link function. You cannot just read the predicted response at <span class="math inline">\(x=0\)</span> from <span class="math inline">\(\beta_{0}\)</span> - you have to invert the link function to express the coefficients in terms of the response.</p>
-<p>Another important difference between these models is in the measure of fit and the test on that measure of fit. The parameters of General linear models are chosen to minimise the sum of the squared residuals and use <span class="math inline">\(R^2\)</span>, the proportion of variance explained, and a variance ratio test, the <em>F</em>-test.</p>
-<p>In GLMS we maximise the log-likelihood, <span class="math inline">\(l\)</span>, of our model to choose our parameter values. This is known as maximum likelihood estimation. The measure of fit used in GLMs is <strong>deviance</strong> where deviance is <span class="math inline">\(-2l\)</span>. Low deviance means a good fit and high deviance a worse fit. Thus maximum likelihood estimation can be thought of as minimising deviance. The test again compares deviance predictions by the model and predictions from the intercept alone (the overall mean). This deviance in predictions from the intercept alone is called the Null deviance. Instead of considering the size of the <span class="math inline">\(R^2\)</span> we consider the reduction in deviance between the null model and the residual deviance (the deviance left over after the model fit). You can consider the null deviance to play the same role as <span class="math inline">\(SSE\)</span>. The difference between the null model and the residual deviance of the full model has a chi-squared distribution and the test of whether the model is good overall is a chi-squared test of deviance in the similar way that general linear model use the <span class="math inline">\(F\)</span> variance ration test.</p>
+<p>Another important difference between these models is in the measure of fit and the test on that measure of fit. The parameters of General linear models are chosen to minimise the sum of the squared residuals and use <span class="math inline">\(R^2\)</span>, the proportion of variance explained. A variance ratio test, the <em>F</em>-test, is used to determine if the proportion of variance explained is significant.</p>
+<p>In GLMS we maximise the log-likelihood of our model (<span class="math inline">\(l\)</span>) to choose our parameter values. This is known as maximum likelihood estimation. The measure of fit used in GLMs is <strong>deviance</strong> where deviance is <span class="math inline">\(-2l\)</span>. Low deviance means a good fit and high deviance a worse fit. Thus maximum likelihood estimation can be thought of as minimising deviance. The test again compares the deviance of predictions from the model with deviance in an intercept only model. This deviance in predictions from the intercept alone is called the Null deviance.</p>
+<p>Instead of considering the size of the <span class="math inline">\(R^2\)</span> we consider the reduction in deviance between the null model and the residual deviance (the deviance left over after the model fit). You can consider the residual deviance to play the same role as <span class="math inline">\(SSE\)</span>. The difference between the null model deviance and the residual deviance of the full model has a chi-squared distribution and the test of whether the model is good overall is a “chi-squared test of deviance” This is analogous to the way that general linear model uses the <span class="math inline">\(F\)</span> variance ratio test.</p>
 <div class="key">
-<p>The deviance plays the same role in GLMs that SSE plays in the general linear model. It is how much variation is unexplained by the model</p>
+<p>The residual deviance plays the same role in GLMs that <span class="math inline">\(SSE\)</span> plays in the general linear model. It is how much ‘variation’ is unexplained by the model</p>
 </div>
-<p>AIC is measure of fit that plays the same role in GLMs that adjusted <span class="math inline">\(R^2\)</span> plays in the general linear model. It is trade-off between the goodness of fit of the model and the simplicity of the model. AIC values can also be determined for general linear models (but adjusted <span class="math inline">\(R^2\)</span> cannot be calculated for GLMs).</p>
+<p>The Akaike Information Criterion (AIC) is measure of fit that plays the same role in GLMs that adjusted <span class="math inline">\(R^2\)</span> plays in the general linear model. It is trade-off between the goodness of fit of the model and the simplicity of the model. AIC values can also be determined for general linear models (but adjusted <span class="math inline">\(R^2\)</span> cannot be calculated for GLMs).</p>
+
+<div class="figure" style="text-align: left"><span id="fig:Akaike-fig"></span>
+<img src="images/Akaike.jpg" alt="Hirotugu Akaike. By The Institute of Statistical Mathematics - The Institute of Statistical Mathematics, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=64389664" width="80%" />
+<p class="caption">
+Figure 1.1: Hirotugu Akaike. By The Institute of Statistical Mathematics - The Institute of Statistical Mathematics, CC BY-SA 4.0, <a href="https://commons.wikimedia.org/w/index.php?curid=64389664" class="uri">https://commons.wikimedia.org/w/index.php?curid=64389664</a>
+</p>
+</div>
 </div>
 <div id="types-of-glm" class="section level2">
 <h2><span class="header-section-number">1.3</span> Types of GLM</h2>
-<p>Poisson GLMs are used when our response is a count. They are also known as GLMs with Poisson errors or Poisson regression. The link function is <span class="math inline">\(ln\)</span>, a function you probably know. This means the coefficients have to be exponentiated using <code>exp()</code> to get predicted counts because <code>exp()</code> is the inverse of <code>log()</code></p>
-<p>Binomial GLMs are used when our response is binary, a zero or one, or a proportion. They are also known as GLMs with binomial errors, binomial regression or logistic regression. The link function is <span class="math inline">\(logit\)</span>, a function you may not have heard of before.</p>
+<p>Poisson GLMs are used when our response is a count. They are also known as GLMs with Poisson errors or Poisson regression. The link function is the natural logarithm, <span class="math inline">\(ln\)</span>, a function you probably know. This means the predictions are log counts and the coefficients have to be exponentiated using <code>exp()</code> to get predicted counts because <code>exp()</code> is the inverse of <code>log()</code>.</p>
+<p>In R, the <code>log()</code> function computes natural logarithms (<em>i.e.</em>, logs to the base <span class="math inline">\(e\)</span> by default.</p>
+<p>Binomial GLMs are used when our response is binary, a zero or one, or a proportion. For example, the response could be died (0) or survived (1), absent (0) or present (1) or right-handed (0) or left-handed (1). Binomial GLMs are also known as GLMs with binomial errors, binomial regression or logistic regression. The link function is <span class="math inline">\(logit\)</span>, a function you may not have heard of before. The predictions are “log-odds” and the coefficients have to be exponentiated using <code>exp()</code> and interpreted as odds. Often the easiest way to understand the predictions is to use the <code>predict()</code> function to get predictions on the scale of the response. If the binomial variable is died (0) or survived(1) these will be probabilities of survival.</p>
 </div>
 <div id="more-than-one-explanatory-variable" class="section level2">
 <h2><span class="header-section-number">1.4</span> More than one explanatory variable</h2>
@@ -262,28 +270,27 @@ function(E(y_{i}))=\beta_{0}+\beta_{1}X1_{i}+\beta_{2}X2_{i}+...+\beta_{p}Xp_{i}
 <h2><span class="header-section-number">1.5</span> Generalised linear models in R</h2>
 <div id="building-and-viewing" class="section level3">
 <h3><span class="header-section-number">1.5.1</span> Building and viewing</h3>
-<p>Poisson and binomial generalised linear models (and others) can be carried out with the <code>glm()</code> function in R. It uses the same method for specifying the model. When you have one explanatory variable the command is:</p>
+<p>Poisson and binomial generalised linear models (and others) can be carried out with the <code>glm()</code> function in R. It uses the same method for specifying the model that other functions including <code>lm()</code> use.</p>
+<p>When you have one explanatory variable the command is:</p>
 <p><code>glm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory</em>, family = <em>distribution</em>(link = <em>linkfunction</em>))</code></p>
 <p>For a Poisson GLM this is:</p>
 <p><code>glm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory</em>, family = poisson(link = log))</code></p>
-<p>In R, the log() function compute natural logarithms (<em>i.e.</em>, logs to the base <span class="math inline">\(e\)</span> by default</p>
-<p>For a binomial distribution this is:</p>
+<p>For a binomial GLM this is:</p>
 <p><code>glm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory</em>, family = binomial(link = “logit”))</code></p>
 <p>The model formula can be developed in the same way we’ve seen previously. When you have two explanatory variable we add the second explanatory variable to the formula using a <code>+</code> or a <code>*</code>. The command is:</p>
 <p><code>glm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory1</em> + <em>explanatory2</em>, family = <em>distribution</em>(link = <em>linkfunction</em>))</code></p>
 <p>or</p>
 <p><code>glm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory1</em> * <em>explanatory2</em>, family = <em>distribution</em>(link = <em>linkfunction</em>))</code></p>
-<p>A model with <code>explanatory1 + explanatory2</code> considers the effects of the two variables independently. A model with <code>explanatory1 + explanatory2</code> considers the effects of the two variables <em>and</em> any interaction between them.</p>
+<p>A model with <code>explanatory1 + explanatory2</code> considers the effects of the two variables independently. A model with <code>explanatory1 * explanatory2</code> considers the effects of the two variables <em>and</em> any interaction between them.</p>
 <p>We usually assign the output of <code>glm()</code> commands to an object and view it with <code>summary()</code>. The typical workflow would be:</p>
 <p><code>
 mod &lt;- glm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory</em>, family = <em>distribution</em>(link = <em>linkfunction</em>))<br />
 summary(mod)
 </code></p>
-<!-- There are two sorts of statistical tests in the output of `summary(mod)`: tests of whether each coefficient is significantly different from zero; a test of whether the model as a whole explains a significant amount of the variation in the response. -->
 <div class="key">
 <p><code>glm()</code> can be used to perform tests using the Generalised Linear Model including Poisson and Binomial regression.</p>
 </div>
-<p>Elements of the <code>glm()</code> object include the estimated coefficients, the predicted values and the residuals can be accessed with <code>mod$coeffients</code>, <code>mod$fitted.values</code> and <code>mod$residuals</code> respectively.</p>
+<p>Elements of the <code>glm()</code> object include the estimated coefficients can be accessed with <code>mod$coeffients</code>.</p>
 </div>
 <div id="getting-predictions" class="section level3">
 <h3><span class="header-section-number">1.5.2</span> Getting predictions</h3>
@@ -296,7 +303,7 @@ summary(mod)
 <code>
 anova(mod, test = “Chisq”)
 </code></p>
-<p>To get predictions for a different set of values make a dataframe of the different set of values and use the <code>predict()</code> function. When using the <code>predict()</code> function we have to specify that we want our predictions on the scale of the response rather than the scale of the link function using the <code>type</code> argument.
+<p>To get predictions for a different set of values you need to make a dataframe of the different set of values and use the <code>predict()</code> function. When using the <code>predict()</code> function we have to specify that we want our predictions on the scale of the response rather than the scale of the link function using the <code>type</code> argument.
 The typical workflow would be:</p>
 <p><code>predict_for &lt;- data.frame(<em>explanatory</em> = <em>values</em>)<br />
 predict_for$pred &lt;- predict(mod, newdata = predict_for, type = “response”)</code></p>

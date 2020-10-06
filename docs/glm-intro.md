@@ -32,31 +32,43 @@ Where:
 
  - $function()$ is the link function
 
-The link function is a transformation applied to the expected value of the response to link it to the explanatory variables. If you measured the response for a particular value of $x$ very many times there would be some distribution of those responses. Instead of that distribution having to be normal, it can come from a different distribution such as the Poisson or Binomial distributions. As a consequence, the residuals also come from that distribution. The fact that the residuals can follow a distribution other than normal also means the the variance no longer has to be homogeneous but can change for the values of x. 
+The link function is a transformation applied to the expected value of the response to link it to the explanatory variables. 
+
+If you measured the response for a particular value of $x$ very many times there would be some distribution of those responses. Instead of that distribution having to be normal, it can come from a different distribution such as the Poisson or Binomial distributions. As a consequence, the residuals also come from that distribution. The fact that the residuals can follow a distribution other than normal also means the the variance no longer has to be homogeneous but can change for the values of x. 
 
 You can see that the two model equations are similar in structure. This is with good reason - 
-you can think of the general linear model as a special case of generalised linear model when no transformation to the expected value, E(y_{i})$, is required.
+you can think of the general linear model as a special case of generalised linear model when no transformation to the expected value, $E(y_{i})$, is required.
 
 ## Model fitting
 A very important difference between the general linear model (applied with `lm()`) and the generalised linear model (applied with `glm()`) is that the estimates of the coefficients are given on the scale of the link function. You cannot just read the predicted response at $x=0$ from $\beta_{0}$ - you have to invert the link function to express the coefficients in terms of the response.  
 
-Another important difference between these models is in the measure of fit and the test on that measure of fit. The parameters of General linear models are chosen to minimise the sum of the squared residuals and use $R^2$, the proportion of variance explained, and a variance ratio test, the *F*-test. 
+Another important difference between these models is in the measure of fit and the test on that measure of fit. The parameters of General linear models are chosen to minimise the sum of the squared residuals and use $R^2$, the proportion of variance explained. A variance ratio test, the *F*-test, is used to determine if the proportion of variance explained is significant.
 
-In GLMS we maximise the log-likelihood, $l$, of our model to choose our parameter values. This is known as maximum likelihood estimation. The measure of fit used in GLMs is **deviance** where deviance is $-2l$. Low deviance means a good fit and high deviance a worse fit. Thus maximum likelihood estimation can be thought of as minimising deviance. The test again compares deviance predictions by the model and predictions from the intercept alone (the overall mean). This deviance in predictions from the intercept alone is called the Null deviance. Instead of considering the size of the $R^2$ we consider the reduction in deviance between the null model and the residual deviance (the deviance left over after the model fit). You can consider the null deviance to play the same role as $SSE$. The difference between the null model and the residual deviance of the full model has a chi-squared distribution and the test of whether the model is good overall is a chi-squared test of deviance in the similar way that general linear model use the $F$ variance ration test.
+In GLMS we maximise the log-likelihood of our model ($l$) to choose our parameter values. This is known as maximum likelihood estimation. The measure of fit used in GLMs is **deviance** where deviance is $-2l$. Low deviance means a good fit and high deviance a worse fit. Thus maximum likelihood estimation can be thought of as minimising deviance. The test again compares the deviance of predictions from the model with deviance in an intercept only model. This deviance in predictions from the intercept alone is called the Null deviance.
+
+Instead of considering the size of the $R^2$ we consider the reduction in deviance between the null model and the residual deviance (the deviance left over after the model fit). You can consider the residual deviance to play the same role as $SSE$. The difference between the null model deviance and the residual deviance of the full model has a chi-squared distribution and the test of whether the model is good overall is a "chi-squared test of deviance" This is analogous to the way that general linear model uses the $F$ variance ratio test.
 
 :::key
-The deviance plays the same role in GLMs that SSE plays in the general linear model. It is how much variation is unexplained by the model 
+The residual deviance plays the same role in GLMs that $SSE$ plays in the general linear model. It is how much 'variation' is unexplained by the model 
 :::
 
-AIC is measure of fit that plays the same role in GLMs that adjusted $R^2$ plays in the general linear model. It is trade-off between the goodness of fit of the model and the simplicity of the model. AIC values can also be determined for general linear models (but adjusted $R^2$ cannot be calculated for GLMs).
+The Akaike Information Criterion (AIC) is measure of fit that plays the same role in GLMs that adjusted $R^2$ plays in the general linear model. It is trade-off between the goodness of fit of the model and the simplicity of the model. AIC values can also be determined for general linear models (but adjusted $R^2$ cannot be calculated for GLMs).
+
+(ref:Akaike-fig) Hirotugu Akaike. By The Institute of Statistical Mathematics - The Institute of Statistical Mathematics, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=64389664
+
+<div class="figure" style="text-align: left">
+<img src="images/Akaike.jpg" alt="(ref:Akaike-fig)" width="80%" />
+<p class="caption">(\#fig:Akaike-fig)(ref:Akaike-fig)</p>
+</div>
+
 
 ## Types of GLM
 
-Poisson GLMs are used when our response is a count. They are also known as GLMs with Poisson errors or Poisson regression. The link function is $ln$, a function you probably know. This means the coefficients have to be exponentiated using `exp()` to get predicted counts because `exp()` is the inverse of `log()` 
+Poisson GLMs are used when our response is a count. They are also known as GLMs with Poisson errors or Poisson regression. The link function is the natural logarithm, $ln$, a function you probably know. This means the predictions are log counts and the coefficients have to be exponentiated using `exp()` to get predicted counts because `exp()` is the inverse of `log()`. 
 
-Binomial GLMs are used when our response is binary, a zero or one, or a proportion. They are also known as GLMs with binomial errors, binomial regression or logistic regression. The link function is $logit$, a function you may not have heard of before. 
+In R, the `log()` function computes natural logarithms (*i.e.*, logs to the base $e$ by default.
 
-
+Binomial GLMs are used when our response is binary, a zero or one, or a proportion. For example, the response could be died (0) or survived (1), absent (0) or present (1) or right-handed (0) or left-handed (1). Binomial GLMs are also known as GLMs with binomial errors, binomial regression or logistic regression. The link function is $logit$, a function you may not have heard of before. The predictions are "log-odds" and the coefficients have to be exponentiated using `exp()` and interpreted as odds. Often the easiest way to understand the predictions is to use the `predict()` function to get predictions on the scale of the response. If the binomial variable is died (0) or survived(1) these will be probabilities of survival.
 
 ## More than one explanatory variable
 
@@ -72,7 +84,9 @@ function(E(y_{i}))=\beta_{0}+\beta_{1}X1_{i}+\beta_{2}X2_{i}+...+\beta_{p}Xp_{i}
 
 ### Building and viewing
 
-Poisson and binomial generalised linear models (and others) can be carried out with the `glm()` function in R. It uses the same method for specifying the model. When you have one explanatory variable the command is: 
+Poisson and binomial generalised linear models (and others) can be carried out with the `glm()` function in R. It uses the same method for specifying the model that other functions including `lm()` use. 
+
+When you have one explanatory variable the command is: 
 
 <code>glm(data = *dataframe*, *response* ~ *explanatory*, family = *distribution*(link = *linkfunction*))</code>
 
@@ -80,9 +94,7 @@ For a Poisson GLM this is:
 
 <code>glm(data = *dataframe*, *response* ~ *explanatory*, family = poisson(link = log))</code>
 
-In R, the log() function compute natural logarithms (*i.e.*, logs to the base $e$ by default
-
-For a binomial distribution this is:
+For a binomial GLM this is:
 
 <code>glm(data = *dataframe*, *response* ~ *explanatory*, family = binomial(link = "logit"))</code>
 
@@ -94,7 +106,7 @@ or
 
 <code>glm(data = *dataframe*, *response* ~ *explanatory1* * *explanatory2*, family = *distribution*(link = *linkfunction*))</code>
 
-A model with `explanatory1 + explanatory2` considers the effects of the two variables independently. A model with `explanatory1 + explanatory2` considers the effects of the two variables *and* any interaction between them. 
+A model with `explanatory1 + explanatory2` considers the effects of the two variables independently. A model with `explanatory1 * explanatory2` considers the effects of the two variables *and* any interaction between them. 
 
 We usually assign the output of `glm()` commands to an object and view it with `summary()`. The typical workflow would be:
 
@@ -103,13 +115,11 @@ mod <- glm(data = *dataframe*, *response* ~ *explanatory*, family = *distributio
 summary(mod)
 </code>
 
-<!-- There are two sorts of statistical tests in the output of `summary(mod)`: tests of whether each coefficient is significantly different from zero; a test of whether the model as a whole explains a significant amount of the variation in the response. -->
-
 :::key
 `glm()` can be used to perform tests using the Generalised Linear Model including Poisson and Binomial regression.
 :::
 
-Elements of the `glm()` object include the estimated coefficients, the predicted values and the residuals can be accessed with `mod$coeffients`, `mod$fitted.values` and `mod$residuals` respectively.
+Elements of the `glm()` object include the estimated coefficients  can be accessed with `mod$coeffients`.
 
 ### Getting predictions
 
@@ -123,7 +133,7 @@ With a glm() you have to ask for a chi-squared test of deviance. It answers the 
 anova(mod, test = "Chisq")
 </code>
 
-To get predictions for a different set of values make a dataframe of the different set of values and use the `predict()` function. When using the `predict()` function we have to specify that we want our predictions on the scale of the response rather than the scale of the link function using the `type` argument.
+To get predictions for a different set of values you need to make a dataframe of the different set of values and use the `predict()` function. When using the `predict()` function we have to specify that we want our predictions on the scale of the response rather than the scale of the link function using the `type` argument.
 The typical workflow would be:
 
 <code>predict_for <- data.frame(*explanatory* = *values*)  

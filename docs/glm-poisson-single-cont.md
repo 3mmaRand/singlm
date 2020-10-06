@@ -261,9 +261,9 @@ exp(mod$coefficients)
 So the equation of the model is:
 <center> $cancers$ = 2.771 $\times$ 0.979$^{distance}$ </center>
 
-The model predicts there will be 2.771 cancers at a clinic at no distance from the power plant.
+The model predicts there will be 2.771 cancers at a clinic at 0 km from the power plant.
 
-Recall that for a linear model with one predictor, the second estimate is the amount added to the intercept when the predictor changes by one value. Since this is GLM with a log link, the value of 0.979 is amount the intercept is multiplied by for each unit increase of distance. Thus the model predicts there will be 2.771 $\times$ 0.979 =  2.712 cancers 1 km away and 2.771 $\times$ 0.979 $\times$ 0.979 =  2.654 cancers 2 km away. That is: $\beta_{0}$ $\times$ $\beta_{0}^n$ mm at $n$ km away.
+Recall that for a linear model with one predictor, the second estimate is the amount *added* to the intercept when the predictor changes by one value. Since this is GLM with a log link, the value of 0.979 is amount the intercept is multiplied by for each unit increase of distance. Thus the model predicts there will be 2.771 $\times$ 0.979 =  2.712 cancers 1 km away and 2.771 $\times$ 0.979 $\times$ 0.979 =  2.654 cancers 2 km away. That is: $\beta_{0}$ $\times$ $\beta_{0}^n$ mm at $n$ km away.
 
 You can work these out either by exponentiating the coefficients and then multiplying the results or by adding the coefficients and exponentiating.
 
@@ -297,7 +297,7 @@ exp(b0 + b1 + b1)
 exp(b0 + 10*b1)
 # [1] 2.23
 ```
-Usually, we use the `predict()` function to make predictions for particular distances.
+Usually, we use the `predict()` function to make predictions for particular distances (see later).
 
 More information including statistical tests of the model and its parameters is obtained by using `summary()`:
 
@@ -329,12 +329,12 @@ summary(mod)
 ```
 The `Coefficients` table gives the estimated $\beta_{0}$ and $\beta_{1}$ again but along with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is 1.019 $\pm$ 0.309 and this differs significantly from zero ($p$ < 0.001). The estimated value for the slope is -0.021 $\pm$ 0.005, also differs significantly from zero ($p$ < 0.001). 
 
-Towards the bottom of the output there is information about the model fit. The null deviance (what exists if we predict the number of cases from the mean, $\beta_{0}$) is 54.522 with 42 degrees of freedom and the residual deviance (left over after our model is fitted) is 31.79 with 41 $d.f.$. The model fits a 1 parameters and thus accounts for 1 $d.f.$ for a reduction in deviance by 22.732.
+Towards the bottom of the output there is information about the model fit. The null deviance (what exists if we predict the number of cases from an intercept, $\beta_{0}$, only model) is 54.522 with 42 degrees of freedom and the residual deviance (left over after our model is fitted) is 31.79 with 41 $d.f.$. The model fits a 1 parameter, $\beta_{1}$, and thus accounts for 1 $d.f.$ for a reduction in deviance by 22.732.
 
 To get a test of whether the reduction in deviance is significant for each term in the the model formula we use:
 
 
-To get a test of the model overall
+To get a test of the model overall:
 
 
 ```r
@@ -355,25 +355,7 @@ anova(mod, test = "Chisq")
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-
-
-
-
-
-
-```r
-pchisq(22.732, 1, lower.tail = F)
-# [1] 1.86e-06
-```
-
-
-
-
-
-```r
-pchisq(22.732, 1, lower.tail = F)
-# [1] 1.86e-06
-```
+There is a significant reduction in deviance for our model (p < 0.001).
 
 ## Getting predictions from the model
 
@@ -386,35 +368,31 @@ cases$pred <- predict(mod, type = "response")
 ```
 
 
-This gives predictions for the actual x values used. If you want predicts for other values of x you need to creating a data frame of the x values from which you want to predict
+This gives predictions for the actual $x$ values used. If you want predicts for other values of $x$ you need to creating a data frame of the $x$ values from which you want to predict
 
-
+For example, to predict for distances from 0 to 180 km in steps of 10 km:
 
 ```r
-predictions <- data.frame(distance = seq(0, 180, 10))
+predict_for <- data.frame(distance = seq(0, 180, 10))
 ```
 
 
 
 ```r
-predictions$pred <- predict(mod, newdata = predictions, type = "response")
+predict_for$pred <- predict(mod, newdata = predict_for, type = "response")
 ```
 
-## Checking assumptions
+<!-- ## Checking assumptions -->
 
 
 ```r
-plot(mod, which = 2)
+#plot(mod, which = 2)
 ```
-
-<img src="glm-poisson-single-cont_files/figure-html/unnamed-chunk-17-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 
 ```r
-plot(mod, which = 1)
+#plot(mod, which = 1)
 ```
-
-<img src="glm-poisson-single-cont_files/figure-html/unnamed-chunk-18-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 ## Creating a figure
 
@@ -441,9 +419,9 @@ geom_smooth(method = "glm",
 
 ## Reporting the results.
 
-The number of cases reported by a clinic significantly decreases by a factor of 2.771 for each kilometre from the nuclear plant (< 0.001). See figure \@ref(fig:fig-cases-report).
+The number of cases reported by a clinic significantly decreases by a factor of 2.771 $\pm$ 0.005 for each kilometre from the nuclear plant (p < 0.001). See figure \@ref(fig:fig-cases-report). For a clinic at the plant, 1.019 $\pm$ 0.309 cases are expected
 
-(ref:fig-cases-report) Incidence of cancer cases reported at clinic by it distance from the nuclear plant. 
+(ref:fig-cases-report) Incidence of cancer cases reported at clinic by it distance from the nuclear plant. The line gives predictions for a GLM with Poisson distributed errors, $y$ = 2.771 $\times$ 0.979$^{x}$.
 
 <div class="figure" style="text-align: left">
 <img src="glm-poisson-single-cont_files/figure-html/fig-cases-report-1.png" alt="(ref:fig-cases-report)" width="60%" />

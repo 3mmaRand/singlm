@@ -2,7 +2,7 @@
 
 ## Introduction to the example
 
-he number of insect prey individuals of a particular bird species manages to collect varies. In an effort to understand this variation, researchers recorded the number of prey an individual caught, its age (in years) and how it spent the majority of it’s time (as a single individual, in a pair or in a group of many). The data are in [birds.txt](data-raw/birds.txt). 
+The number of insect prey caught by individuals of a particular bird species varies. In an effort to understand this variation, researchers recorded the number of prey an individual caught, its age (in years) and how it spent the majority of it’s time (as a single individual, in a pair or in a group of many). The data are in [birds.txt](data-raw/birds.txt). 
 
 
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; "><table class="table" style="margin-left: auto; margin-right: auto;">
@@ -169,7 +169,7 @@ he number of insect prey individuals of a particular bird species manages to col
 
 
 :::key
-There are 3 variables: the response, `prey`, is the number of caught by an individual; `age`, gives the individual's agein years (to one tenth of a year); and `group` indicates how the individuals spent the majority of its time.
+There are 3 variables: the response, `prey`, is the number of caught by an individual; `age`, gives the individual's age in years (to one tenth of a year); and `group` indicates how the individuals spent the majority of its time.
 :::
 
 
@@ -224,24 +224,9 @@ mod
 
 $\beta_{0}$ is labelled "(Intercept)" and $\beta_{1}$ to $\beta_{5}$ are labelled "grouppair", "groupsingle", "age", "grouppair:age" and "groupsingle:age" Thus the equation of the line is:
 
-<center> $ln(prey)$ = 2.794 $+$ -0.416$\times grouppair$ $+$ -1.406$\times groupsingle$ $+$ 0.293$\times age$ $+$ -0.168$\times grouppair:age$ $+$ -0.323$\times groupsingle:age$ </center>
+<center> $ln(prey)$ = 2.794 $+$ -0.416$\times grouppair$ $+$ -1.406$\times groupsingle$ $+$ 0.293$\times age$ $+$ -0.168$\times grouppair:age$ $+$ -0.323$\times groupsingle:age$ </center>  
 
-The intercept is the log of the expected number of prey items caught by 0 aged birds that spend the majority of their time in a group of many. The fact that the estimate for grouppair (-0.416) is negative tells us that as such those in pairs catch fewer. Single birds also catch fewer. The positive coefficient for age indicates that more prey are caught with age.
-
-These estimates are on the scale of the link function, that is, they are logged (to the base e, natural logs) in this case.
-
-To understand the parameters the on the scale of the response we apply the inverse of the $ln$ function, the `exp()` function
-
-
-```r
-exp(mod$coefficients)
-#     (Intercept)       grouppair     groupsingle             age   grouppair:age 
-#          16.338           0.660           0.245           1.340           0.845 
-# groupsingle:age 
-#           0.724
-```
-
-These estimates are on the scale of the link function, that is, they are logged (to the base e, natural logs) in this case.
+The intercept is the log of the expected number of prey items caught by 0 aged birds that spend the majority of their time in a group of many. The fact that the estimate for grouppair (-0.416) is negative tells us that those in pairs aged 0 catch fewer. Aged 0 single birds also catch fewer. The positive coefficient for age indicates that more prey are caught with age.
 
 To understand the parameters the on the scale of the response we apply the inverse of the $ln$ function, the `exp()` function
 
@@ -257,6 +242,11 @@ exp(mod$coefficients)
 So:
 
 $prey$ = 16.338 $\times$ 0.66$^{grouppair}$ $\times$ 0.245$^{groupsingle}$ $\times$ 0.66$^{grouppair}$ $\times$ 0.845$^{grouppair:age}$ $\times$ 0.724$^{groupsingle:age}$
+
+Birds aged 0 that spend most of their time with many others are expected to catch 16.338 prey. The paired birds aged 0 are expected to catch 16.338 $\times$ 0.66 = 10.778 prey and the lone birds aged 0, 16.338 $\times$ 0.245 = 10.778 prey.
+
+Birds that spend most of their time with many others catch 1.34 times more prey with each year that they age.
+
 
 More information including statistical tests of the model and its parameters is obtained by using `summary()`:
 
@@ -293,7 +283,7 @@ summary(mod)
 
 The `Coefficients` table gives the estimated $\beta s$ again but this time with their standard errors and tests of whether the estimates differ from zero. For example, The estimated value for the intercept is 2.794 $\pm$ 0.181 and this differs significantly from zero ($p$ < 0.001). The estimated value for $\beta_{1}$ is -0.416 $\pm$ 0.408 does not differ significantly from zero ($p$ = 0.308). At age 0, birds in pairs do not catch significantly fewer prey. 
 
-Towards the bottom of the output there is information about the model fit. The null deviance (what exists if we predict the number of prey from the mean of birds in groups of many, $\beta_{0}$) is 848.806 with 29 degrees of freedom and the residual deviance (left over after our model is fitted) is 21.048 with 24 $d.f.$. The model fits a five parameters and thus accounts for 5 $d.f.$ for a reduction in deviance by 827.758.
+Towards the bottom of the output there is information about the model fit. The null deviance (what exists if we predict the number of prey from the mean of birds in groups of many aged 0, $\beta_{0}$) is 848.806 with 29 degrees of freedom and the residual deviance (left over after our model is fitted) is 21.048 with 24 $d.f.$. The model fits a five parameters and thus accounts for 5 $d.f.$ for a reduction in deviance by 827.758.
 
 To get a test of whether the reduction in deviance is significant for each term in the the model formula we use:
 
@@ -318,9 +308,10 @@ anova(mod, test = "Chisq")
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-All three terms in the model significantly reduce the deviance: group ($p=$< 0.001), age ($p=$< 0.001) and the interaction between them ($p=$= 0.007). The effect of age is not the same for individuals in groups of different sizes.
+All three terms in the model significantly reduce the deviance: group ($p$ < 0.001), age ($p$ < 0.001) and the interaction between them ($p$ = 0.007). This means that group size matters, age matters and the effect of age is not the same for individuals in groups of different sizes.
 
 ## Getting predictions from the model
+
 The `predict()` function returns the predicted values of the response. To add a column of predicted values to the dataframe: we need to specify they should be on the scale of the responses, not on the scale of the link function.
 
 ```r
@@ -329,21 +320,130 @@ birds$pred <- predict(mod, type = "response")
 
 This gives predictions for the ages used. If you want predictions for other ages you need to create a data frame of the values from which you want to predict
 
-To predict for ages 0, 1 and 7 for each group size we can use:
+To predict for ages 0, mean(age) and 7 for each group size we can use:
 
 
 ```r
 predict_for <- data.frame(group = rep(c("many", "pair", "single"), each = 3),
-                      age = rep(c(c(0, 1, 7)), times = 3))
+                      age = rep(c(c(0, mean(birds$age), 7)), times = 3))
 ```
+
+We want predictions for three ages so need to repeat the group name each three times. We repeat the list of ages three times because there are three group sizes. The result is:
+
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; "><table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> group </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> age </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> many </td>
+   <td style="text-align:right;"> 0.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> many </td>
+   <td style="text-align:right;"> 4.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> many </td>
+   <td style="text-align:right;"> 7.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pair </td>
+   <td style="text-align:right;"> 0.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pair </td>
+   <td style="text-align:right;"> 4.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pair </td>
+   <td style="text-align:right;"> 7.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> single </td>
+   <td style="text-align:right;"> 0.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> single </td>
+   <td style="text-align:right;"> 4.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> single </td>
+   <td style="text-align:right;"> 7.0 </td>
+  </tr>
+</tbody>
+</table></div>
 
 We then specify this dataframe in the `predict()` function using the `newdata` argument          
 
 ```r
-
-# then predicting
 predict_for$pred <- predict(mod, newdata = predict_for, type = "response")
 ```
+
+
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; "><table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> group </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> age </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> pred </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> many </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 16.34 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> many </td>
+   <td style="text-align:right;"> 4.7 </td>
+   <td style="text-align:right;"> 64.71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> many </td>
+   <td style="text-align:right;"> 7.0 </td>
+   <td style="text-align:right;"> 126.73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pair </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 10.78 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pair </td>
+   <td style="text-align:right;"> 4.7 </td>
+   <td style="text-align:right;"> 19.33 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pair </td>
+   <td style="text-align:right;"> 7.0 </td>
+   <td style="text-align:right;"> 25.70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> single </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 4.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> single </td>
+   <td style="text-align:right;"> 4.7 </td>
+   <td style="text-align:right;"> 3.48 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> single </td>
+   <td style="text-align:right;"> 7.0 </td>
+   <td style="text-align:right;"> 3.25 </td>
+  </tr>
+</tbody>
+</table></div>
+This sort of information is helpful in explaining our results.
+
+
+
 
 ## Creating a figure
 
@@ -370,9 +470,9 @@ ggplot(data = birds, aes(x = age, y = prey, colour = group)) +
 
 ## Reporting the results.
 
-.... . See figure \@ref(fig:fig-birds).
+There is a significant effect of group size (p < 0.001) on the number of prey items caught with averaged aged birds catching 64.7 prey if they spend their time in large groups, 19.3 prey for paired birds and only 3.5 prey for lone birds. There is also a significant effect of age (p < 0.001) overall but this varies for birds in different group sizes (p = 0.007). Birds in large groups improve by a factor of 1.34 for each year, paired birds by a factor of 1.132 and single birds not at all. See figure \@ref(fig:fig-birds-report).
 
-(ref:fig-birds-report) tum tee tum
+(ref:fig-birds-report) The effect of age and group size on the number of prey items caught by an individual. The line gives predictions for a GLM with Poisson distributed errors.
 
 <div class="figure" style="text-align: left">
 <img src="glm-poisson-two-explan_files/figure-html/fig-birds-report-1.png" alt="(ref:fig-birds-report)" width="60%" />

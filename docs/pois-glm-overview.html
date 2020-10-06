@@ -142,8 +142,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="0.4" data-path="index.html"><a href="index.html#conventions-used-in-the-book"><i class="fa fa-check"></i><b>0.4</b> Conventions used in the book</a></li>
 <li class="chapter" data-level="0.5" data-path="index.html"><a href="index.html#following-along-with-the-examples"><i class="fa fa-check"></i><b>0.5</b> Following along with the examples</a></li>
 <li class="chapter" data-level="0.6" data-path="index.html"><a href="index.html#overview-of-the-chapter-contents"><i class="fa fa-check"></i><b>0.6</b> Overview of the chapter contents</a></li>
-<li class="chapter" data-level="0.7" data-path="index.html"><a href="index.html#overview-of-the-chapter-contents-1"><i class="fa fa-check"></i><b>0.7</b> Overview of the chapter contents</a></li>
-<li class="chapter" data-level="0.8" data-path="index.html"><a href="index.html#software-information"><i class="fa fa-check"></i><b>0.8</b> Software information</a></li>
+<li class="chapter" data-level="0.7" data-path="index.html"><a href="index.html#software-information"><i class="fa fa-check"></i><b>0.7</b> Software information</a></li>
 </ul></li>
 <li class="part"><span><b>I Introduction</b></span></li>
 <li class="chapter" data-level="1" data-path="what-are-glms.html"><a href="what-are-glms.html"><i class="fa fa-check"></i><b>1</b> What are GLMs?</a><ul>
@@ -167,9 +166,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#introduction-to-the-example"><i class="fa fa-check"></i><b>3.1</b> Introduction to the example</a></li>
 <li class="chapter" data-level="3.2" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#applying-and-interpreting-glm"><i class="fa fa-check"></i><b>3.2</b> Applying and interpreting <code>glm()</code></a></li>
 <li class="chapter" data-level="3.3" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#getting-predictions-from-the-model"><i class="fa fa-check"></i><b>3.3</b> Getting predictions from the model</a></li>
-<li class="chapter" data-level="3.4" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#checking-assumptions"><i class="fa fa-check"></i><b>3.4</b> Checking assumptions</a></li>
-<li class="chapter" data-level="3.5" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#creating-a-figure"><i class="fa fa-check"></i><b>3.5</b> Creating a figure</a></li>
-<li class="chapter" data-level="3.6" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#reporting-the-results."><i class="fa fa-check"></i><b>3.6</b> Reporting the results.</a></li>
+<li class="chapter" data-level="3.4" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#creating-a-figure"><i class="fa fa-check"></i><b>3.4</b> Creating a figure</a></li>
+<li class="chapter" data-level="3.5" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#reporting-the-results."><i class="fa fa-check"></i><b>3.5</b> Reporting the results.</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html"><i class="fa fa-check"></i><b>4</b> Two explanatory variables</a><ul>
 <li class="chapter" data-level="4.1" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#introduction-to-the-example"><i class="fa fa-check"></i><b>4.1</b> Introduction to the example</a></li>
@@ -204,7 +202,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="pois-glm-overview" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Poisson GLM overview</h1>
-<p>When a response variable is the count of things it can often not be approximated by a normal distribution. Instead it follows a Poisson distribution. Such variables are always positive - they range from 0 to <span class="math inline">\(\infty\)</span>. A Poisson GLM is also known as Poisson regression. The link function used in a Poisson GLM is the natural logarithm, <span class="math inline">\(ln\)</span>.</p>
+<p>When a response variable is the count of objects, individuals or events it often follows a Poisson distribution. Such variables are always positive - they range from 0 to <span class="math inline">\(\infty\)</span>. A Poisson GLM is also known as Poisson regression. The link function used in a Poisson GLM is the natural logarithm, <span class="math inline">\(ln\)</span>.</p>
 <p>When you have a single explanatory variable, that model is:</p>
 <p><span class="math display" id="eq:glmpois">\[\begin{equation}
 ln(E(y_{i}))=\beta_{0}+\beta_{1}X1_{i}
@@ -220,7 +218,7 @@ E(y_{i})=exp(\beta_{0}+\beta_{1}X1_{i})
 E(y_{i})=exp(\beta_{0}) \times exp(\beta_{1})^{X1_{i}}
 \tag{2.3}
 \end{equation}\]</span></p>
-<p>Just like examples of general linear models with a single explanatory variable, there are two parameters in this model, <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{0}\)</span> and their meaning is similar. <span class="math inline">\(\beta_{0}\)</span> is the log of the expected <span class="math inline">\(y\)</span> when <span class="math inline">\(x\)</span> is zero - the intercept. The log of <span class="math inline">\(\beta_{1}\)</span> is not the amount you <em>add</em> to <span class="math inline">\(y\)</span> for each unit change in <span class="math inline">\(x\)</span> but the amount by which multiply. This means the model is a curve. If <span class="math inline">\(\beta_{1}\)</span> is positive, <span class="math inline">\(exp(\beta_{1})\)</span> is greater than one and <span class="math inline">\(y\)</span> increases as <span class="math inline">\(x\)</span> increases; If <span class="math inline">\(\beta_{1}\)</span> is negative, <span class="math inline">\(exp(\beta_{1})\)</span> is less than one and <span class="math inline">\(y\)</span> decreases as <span class="math inline">\(x\)</span> increases. See Figure <a href="pois-glm-overview.html#fig:glm-pois-poss">2.1</a> for an illustration of the curve for positive and negative <span class="math inline">\(\beta_{1}\)</span>.</p>
+<p>Just like examples of general linear models with a single explanatory variable, there are two parameters in this model, <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{0}\)</span> and their meaning is similar. <span class="math inline">\(\beta_{0}\)</span> is the log of the expected <span class="math inline">\(y\)</span> when <span class="math inline">\(x\)</span> is zero (i.e., the intercept). The log of <span class="math inline">\(\beta_{1}\)</span> is not the amount you <em>add</em> to <span class="math inline">\(y\)</span> for each unit change in <span class="math inline">\(x\)</span> but the amount by which to <em>multiply</em>. This means the model is a curve. If <span class="math inline">\(\beta_{1}\)</span> is positive, <span class="math inline">\(exp(\beta_{1})\)</span> is greater than one and <span class="math inline">\(y\)</span> increases as <span class="math inline">\(x\)</span> increases; if <span class="math inline">\(\beta_{1}\)</span> is negative, <span class="math inline">\(exp(\beta_{1})\)</span> is less than one and <span class="math inline">\(y\)</span> decreases as <span class="math inline">\(x\)</span> increases. See Figure <a href="pois-glm-overview.html#fig:glm-pois-poss">2.1</a> for an illustration of the curve for positive and negative <span class="math inline">\(\beta_{1}\)</span>.</p>
 
 <div class="figure" style="text-align: left"><span id="fig:glm-pois-poss"></span>
 <img src="glm-poisson_files/figure-html/glm-pois-poss-1.png" alt="Data fitted with a Poisson GLM." width="80%" />
@@ -231,14 +229,14 @@ Figure 2.1: Data fitted with a Poisson GLM.
 <p>See Figure <a href="pois-glm-overview.html#fig:glm-pois-annotated">2.2</a> for a graphical representation of generalised linear model terms.</p>
 
 <div class="figure" style="text-align: left"><span id="fig:glm-pois-annotated"></span>
-<img src="images/generic_pois.svg" alt="A Generalised linear model with Poisson distributed errors. The measured response values are in pink, the predictions are in green, and the differences between these, known as the residuals, are in blue. The estimated model parameters, \(\beta_{0}\) and \(\beta_{1}\) must be exponentiated to be interpreted on the scale of the response. When \(x=0\) we predict the number of \(y\) to be \(exp(\beta_{0})\). For each unit of \(x\), the number of y changes by a factor of \(exp(\beta_{1})\)" width="80%" />
+<img src="images/generic_pois.svg" alt="A Generalised linear model with Poisson distributed errors. The measured response values are in pink, the predictions are in green, and the differences between these, known as the residuals, are in blue. The estimated model parameters, \(\beta_{0}\) and \(\beta_{1}\) must be exponentiated to be interpreted on the scale of the response. When \(x=0\) we predict the number of \(y\) to be \(exp(\beta_{0})\). For each unit of \(x\), the number of \(y\) changes by a factor of \(exp(\beta_{1})\)" width="80%" />
 <p class="caption">
-Figure 2.2: A Generalised linear model with Poisson distributed errors. The measured <span style=" font-weight: bold;    color: #d264c0 !important;">response values are in pink</span>, the <span style=" font-weight: bold;    color: #c0d264 !important;">predictions are in green</span>, and the differences between these, known as the <span style=" font-weight: bold;    color: #64c0d2 !important;">residuals, are in blue</span>. The estimated model parameters, <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> must be exponentiated to be interpreted on the scale of the response. When <span class="math inline">\(x=0\)</span> we predict the number of <span class="math inline">\(y\)</span> to be <span class="math inline">\(exp(\beta_{0})\)</span>. For each unit of <span class="math inline">\(x\)</span>, the number of y changes by a factor of <span class="math inline">\(exp(\beta_{1})\)</span>
+Figure 2.2: A Generalised linear model with Poisson distributed errors. The measured <span style=" font-weight: bold;    color: #d264c0 !important;">response values are in pink</span>, the <span style=" font-weight: bold;    color: #c0d264 !important;">predictions are in green</span>, and the differences between these, known as the <span style=" font-weight: bold;    color: #64c0d2 !important;">residuals, are in blue</span>. The estimated model parameters, <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> must be exponentiated to be interpreted on the scale of the response. When <span class="math inline">\(x=0\)</span> we predict the number of <span class="math inline">\(y\)</span> to be <span class="math inline">\(exp(\beta_{0})\)</span>. For each unit of <span class="math inline">\(x\)</span>, the number of <span class="math inline">\(y\)</span> changes by a factor of <span class="math inline">\(exp(\beta_{1})\)</span>
 </p>
 </div>
 <div id="when-explanatory-is-categorical" class="section level2">
 <h2><span class="header-section-number">2.1</span> When explanatory is categorical</h2>
-<p>one explanatory <em>use chi-squared</em></p>
+<p>If your response is a count and you just one categorical explanatory variable you do not need a Poisson GLMS. Use a chi-squared test</p>
 </div>
 <div id="more-than-one-explanatory" class="section level2">
 <h2><span class="header-section-number">2.2</span> More than one explanatory</h2>
@@ -261,7 +259,9 @@ E(y_{i})=exp(\beta_{0}+\beta_{1}X1_{i}+\beta_{2}X2_{i}+...+\beta_{p}Xp_{i})
 </div>
 <div id="reporting" class="section level2">
 <h2><span class="header-section-number">2.3</span> Reporting</h2>
-<p><em>to add, same principles apply</em></p>
+<p>The important information to include when reporting the results of fitting a Poisson GLM are the most notable predictions and the significance, direction and magnitude of effects. You need to ensure your reader will understand what the data are saying even if all the numbers and statistical information was removed. For example, variable <span class="math inline">\(Y\)</span> increase with variables <span class="math inline">\(X1\)</span>.</p>
+<p>In relatively simple models, reporting group means or a slope, and statistical test information is enough. In more complex models with many variables is it common to give all the estimated model coefficients in a table.</p>
+<p>In addition, your figure should show both the data and the model. This is honest and allows your interpretation to be evaluated.</p>
 
 </div>
 </div>
