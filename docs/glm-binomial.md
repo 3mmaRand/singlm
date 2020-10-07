@@ -1,6 +1,6 @@
 # (PART) BINOMIAL GLMs {-}
 
-# Binomial GLM overview {#bino-glm-overview}
+# Binomial GLM overview {#bino-glm-overview-5}
 
 When a response variable can take only one of two values such as 0 and 1, dead and alive, no and yes or failure and success it follows a binomial distribution and can be modelled with a binomial GLM.  A binomial GLM is also known as logistic regression. 
 Although the observations themselves can have only one of two values, the scale of the response is a probability representing the probability of 1, alive, yes or success. The link function used in a binomial GLM is the "logit" function also known as "log-odds". This means the model estimates are also log-odds. This can make it tricky to interpret the estimates but two things can help us. First, the principle about the sign of $\beta_{1}$ still applies: positive $\beta_{1}$ indicates an increase in the response with an increase in $X1$ and negative $\beta_{1}$ indicates a decrease in the response with an increase in $X1$. Second, we can use the `predict()` function to get values on the scale of the response, a probability, rather than the log-odds

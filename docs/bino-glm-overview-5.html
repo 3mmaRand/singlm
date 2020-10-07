@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</title>
+  <title>Chapter 5 Binomial GLM overview | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</title>
   <meta name="description" content="The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R" />
+  <meta property="og:title" content="Chapter 5 Binomial GLM overview | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://3mmarand.github.io/singlm/" />
   <meta property="og:image" content="https://3mmarand.github.io/singlm/images/hex-s.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="3mmaRand/singlm" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R" />
+  <meta name="twitter:title" content="Chapter 5 Binomial GLM overview | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R" />
   
   <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
   <meta name="twitter:image" content="https://3mmarand.github.io/singlm/images/hex-s.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="summary.html"/>
-
+<link rel="prev" href="pois-glm-two-cont.html"/>
+<link rel="next" href="summary.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -200,40 +200,57 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="bino-glm-overview-5" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Binomial GLM overview</h1>
+<p>When a response variable can take only one of two values such as 0 and 1, dead and alive, no and yes or failure and success it follows a binomial distribution and can be modelled with a binomial GLM. A binomial GLM is also known as logistic regression.
+Although the observations themselves can have only one of two values, the scale of the response is a probability representing the probability of 1, alive, yes or success. The link function used in a binomial GLM is the “logit” function also known as “log-odds”. This means the model estimates are also log-odds. This can make it tricky to interpret the estimates but two things can help us. First, the principle about the sign of <span class="math inline">\(\beta_{1}\)</span> still applies: positive <span class="math inline">\(\beta_{1}\)</span> indicates an increase in the response with an increase in <span class="math inline">\(X1\)</span> and negative <span class="math inline">\(\beta_{1}\)</span> indicates a decrease in the response with an increase in <span class="math inline">\(X1\)</span>. Second, we can use the <code>predict()</code> function to get values on the scale of the response, a probability, rather than the log-odds</p>
+<p>When you have a single explanatory variable, that model is:</p>
+<p><span class="math display" id="eq:glmbino">\[\begin{equation}
+ln\left(\frac{E(y_{i})}{1-E(y_{i})}\right)=\beta_{0}+\beta_{1}X1_{i}
+\tag{5.1}
+\end{equation}\]</span></p>
+<p>This means that the model estimates are odds logged to the base <span class="math inline">\(e\)</span> and and the inverse function, <code>exp()</code> must be applied to them to interpret as odds.</p>
+<p><span class="math display" id="eq:glmbino2">\[\begin{equation}
+\frac{E(y_{i})}{1-E(y_{i})}=exp(\beta_{0}+\beta_{1}X1_{i})
+\tag{5.2}
+\end{equation}\]</span></p>
+<p>or</p>
+<p><span class="math display" id="eq:glmbino3">\[\begin{equation}
+\frac{E(y_{i})}{1-E(y_{i})}=exp(\beta_{0}) \times exp(\beta_{1})^{X1_{i}}
+\tag{5.3}
+\end{equation}\]</span></p>
+<p>This looks complicated. Using the predict function because important in reporting the results.</p>
+<p>Just like Poisson GLM with a single explanatory variable, there are two parameters in this model, <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{0}\)</span> and their meaning is similar. Let us assume our response is failure or success. Then <span class="math inline">\(\beta_{0}\)</span> is the log odds of success when the explanatory variable is 0 and <span class="math inline">\(\beta_{0}\)</span> is the change in the log odds of success for each unit change in the explanatory.</p>
+<!-- of the expected $y$ when $x$ is zero - the intercept. The log of $\beta_{1}$ is not the amount you *add* to $y$ for each unit change in $x$ but the amount by which multiply. This means the model is a curve. If $\beta_{1}$ is positive, $exp(\beta_{1})$ is greater than one and $y$ increases as $x$ increases; If $\beta_{1}$ is negative, $exp(\beta_{1})$ is less than one and $y$ decreases as $x$ increases. See Figure \@ref(fig:glm-bino-poss) for an illustration of the curve for positive and negative $\beta_{1}$. -->
+<p>What exactly are odds? An odds is the probability of one outcome divided by the probability of not that outcome. For example, for a fair coin where heads and tails are equally likely, the odds of a head in a coin toss is 1 because:</p>
+<p><span class="math inline">\(\frac{P(H)}{P( not\:head)} = \frac{0.5}{ 1- 0.5} = 1\)</span></p>
+<p>If you had an unfair coin where the probability of a head was <span class="math inline">\(\frac{3}{4}\)</span> then the odds of a head are:</p>
+<p><span class="math inline">\(\frac{P(H)}{P( not\:head)} = \frac{0.75}{ 1- 0.75} = 3\)</span></p>
+<p>A head is three times as likely as a tail. If instead probability of a head was <span class="math inline">\(\frac{1}{4}\)</span> then the odds of a head are:</p>
+<p><span class="math inline">\(\frac{P(H)}{P( not\:head)} = \frac{0.25}{ 1- 0.25} = 0.33333\)</span></p>
+<p>A head is a third as likely as a tail.</p>
 
-<div id="refs" class="references">
-<div>
-<p>Wickham, Hadley. 2016. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.</p>
+<div class="figure" style="text-align: left"><span id="fig:glm-bino-poss"></span>
+<img src="glm-binomial_files/figure-html/glm-bino-poss-1.png" alt="Data fitted with a binomial GLM." width="80%" />
+<p class="caption">
+Figure 5.1: Data fitted with a binomial GLM.
+</p>
 </div>
-<div>
-<p>———. 2020. <em>Tidyr: Tidy Messy Data</em>. <a href="https://CRAN.R-project.org/package=tidyr">https://CRAN.R-project.org/package=tidyr</a>.</p>
-</div>
-<div>
-<p>Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. “Welcome to the tidyverse.” <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.</p>
-</div>
-<div>
-<p>Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2020. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.</p>
-</div>
-<div>
-<p>Wickham, Hadley, Jim Hester, and Romain Francois. 2018. <em>Readr: Read Rectangular Text Data</em>. <a href="https://CRAN.R-project.org/package=readr">https://CRAN.R-project.org/package=readr</a>.</p>
-</div>
-<div>
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.</p>
-</div>
-<div>
-<p>———. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
-</div>
+<p>See Figure <a href="#fig:glm-bino-annotated"><strong>??</strong></a> for a graphical representation of generalised linear model terms.</p>
+
+<p>For the binomial families the response can be specified in one of three ways:</p>
+<p>As a factor: ‘success’ is interpreted as the factor not having the first level (and hence usually of having the second level).</p>
+<p>As a numerical vector with values between 0 and 1, interpreted as the proportion of successful cases (with the total number of cases given by the weights).</p>
+<p>As a two-column integer matrix: the first column gives the number of successes and the second the number of failures.</p>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="summary.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="pois-glm-two-cont.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="summary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -264,7 +281,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/3mmaRand/singlm/edit/master/references.Rmd",
+"link": "https://github.com/3mmaRand/singlm/edit/master/glm-binomial.Rmd",
 "text": "Make an edit suggestion"
 },
 "history": {
@@ -275,7 +292,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["singlm.pdf", "singlm.epub", "https://github.com/3mmaRand/singlm/raw/master/references.Rmd"],
+"download": ["singlm.pdf", "singlm.epub", "https://github.com/3mmaRand/singlm/raw/master/glm-binomial.Rmd"],
 "toc": {
 "collapse": "section"
 }

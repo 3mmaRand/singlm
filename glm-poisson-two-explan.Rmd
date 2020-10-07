@@ -1,6 +1,6 @@
 # Two explanatory variables {#pois-glm-two-cont}
 
-## Introduction to the example
+## Introduction to the example {#intro-4}
 
 The number of insect prey caught by individuals of a particular bird species varies. In an effort to understand this variation, researchers recorded the number of prey an individual caught, its age (in years) and how it spent the majority of it’s time (as a single individual, in a pair or in a group of many). The data are in [birds.txt](data-raw/birds.txt). 
 
@@ -35,7 +35,7 @@ ggplot(data = birds, aes(x = age, y = prey, colour = group)) +
 Individuals that spend most of their time with many individuals catch more prey and this effect is increased with age. Individuals that spend most of their time alone do not seem to improve with age.
 
 
-## Applying and interpreting `glm()`
+## Applying and interpreting `glm()`  {#apply-interp-4}
 
 We build a generalised linear model of the number of cases explained by the distance with the `glm()` function as follows:
 
@@ -234,7 +234,7 @@ av_age_single <- predict_for %>%
 
 
 
-## Creating a figure
+## Creating a figure  {#fig-4}
 
 ```{r fig-birds}
 ggplot(data = birds, aes(x = age, y = prey, colour = group)) +
@@ -254,7 +254,7 @@ ggplot(data = birds, aes(x = age, y = prey, colour = group)) +
 ```
 
 
-## Reporting the results.
+## Reporting the results  {#report-4}
 
 There is a significant effect of group size (p `r group_p`) on the number of prey items caught with averaged aged birds catching `r av_age_many` prey if they spend their time in large groups, `r av_age_pair` prey for paired birds and only `r av_age_single` prey for lone birds. There is also a significant effect of age (p `r age_p`) overall but this varies for birds in different group sizes (p `r interaction_p`). Birds in large groups improve by a factor of `r b3_resp` for each year, paired birds by a factor of `r b3_resp*b4_resp` and single birds not at all. See figure \@ref(fig:fig-birds-report).
 

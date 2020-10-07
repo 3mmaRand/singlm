@@ -1,6 +1,6 @@
 # Single continuous explanatory {#pois-glm-single-cont}
 
-## Introduction to the example
+## Introduction to the example {#intro-3}
 
 The number of cases of cancer reported by a clinic and its distance, in kilometres, from a nuclear plant were recorded and the data are in [cases.txt](data-raw/cases.txt). Researchers wanted to know if proximity to the nuclear power plant influenced the incidence of cancer. Bear in mind this is not great epidemiology - there would be very many other factors influencing the occurrence and reporting of cancer cases at a clinic.
 
@@ -212,7 +212,7 @@ ggplot(data = cases, aes(x = distance, y = cancers)) +
 <img src="glm-poisson-single-cont_files/figure-html/unnamed-chunk-3-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 Most of the clinics reporting no cases seem to be more distance from the nuclear plant and those reporting the highest numbers are within 50km.
 
-## Applying and interpreting `glm()`
+## Applying and interpreting `glm()` {#apply-interp-3}
 
 We build a generalised linear model of the number of cases explained by the distance with the `glm()` function as follows:
 
@@ -357,7 +357,7 @@ anova(mod, test = "Chisq")
 
 There is a significant reduction in deviance for our model (p < 0.001).
 
-## Getting predictions from the model
+## Getting predictions from the model {#get-pred-3}
 
 The `predict()` function returns the predicted values of the response. To add a column of predicted values to the dataframe:
 we need to specify they should be on the scale of the responses, not on the link function scale.
@@ -394,7 +394,7 @@ predict_for$pred <- predict(mod, newdata = predict_for, type = "response")
 #plot(mod, which = 1)
 ```
 
-## Creating a figure
+## Creating a figure {#fig-3}
 
 
 ```r
@@ -417,7 +417,7 @@ geom_smooth(method = "glm",
 <img src="glm-poisson-single-cont_files/figure-html/fig-cases-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />
 
 
-## Reporting the results.
+## Reporting the results {#report-3}
 
 The number of cases reported by a clinic significantly decreases by a factor of 2.771 $\pm$ 0.005 for each kilometre from the nuclear plant (p < 0.001). See figure \@ref(fig:fig-cases-report). For a clinic at the plant, 1.019 $\pm$ 0.309 cases are expected
 

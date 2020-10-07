@@ -1,8 +1,8 @@
 # (PART) Introduction {-}
 
-# What are GLMs? {#what-are-glms}
+# What are GLMs? {#what-are-glms-1}
 
-## Overview
+## Overview {#overview-1}
 
 General Linear models predict the value of a normally distributed response from a linear combination of predictor variables.
 
@@ -39,7 +39,7 @@ If you measured the response for a particular value of $x$ very many times there
 You can see that the two model equations are similar in structure. This is with good reason - 
 you can think of the general linear model as a special case of generalised linear model when no transformation to the expected value, $E(y_{i})$, is required.
 
-## Model fitting
+## Model fitting {#mod-fitting-1}
 A very important difference between the general linear model (applied with `lm()`) and the generalised linear model (applied with `glm()`) is that the estimates of the coefficients are given on the scale of the link function. You cannot just read the predicted response at $x=0$ from $\beta_{0}$ - you have to invert the link function to express the coefficients in terms of the response.  
 
 Another important difference between these models is in the measure of fit and the test on that measure of fit. The parameters of General linear models are chosen to minimise the sum of the squared residuals and use $R^2$, the proportion of variance explained. A variance ratio test, the *F*-test, is used to determine if the proportion of variance explained is significant.
@@ -61,7 +61,7 @@ knitr::include_graphics("images/Akaike.jpg")
 ```
 
 
-## Types of GLM
+## Types of GLM {#glm-types-1}
 
 Poisson GLMs are used when our response is a count. They are also known as GLMs with Poisson errors or Poisson regression. The link function is the natural logarithm, $ln$, a function you probably know. This means the predictions are log counts and the coefficients have to be exponentiated using `exp()` to get predicted counts because `exp()` is the inverse of `log()`. 
 
@@ -69,7 +69,7 @@ In R, the `log()` function computes natural logarithms (*i.e.*, logs to the base
 
 Binomial GLMs are used when our response is binary, a zero or one, or a proportion. For example, the response could be died (0) or survived (1), absent (0) or present (1) or right-handed (0) or left-handed (1). Binomial GLMs are also known as GLMs with binomial errors, binomial regression or logistic regression. The link function is $logit$, a function you may not have heard of before. The predictions are "log-odds" and the coefficients have to be exponentiated using `exp()` and interpreted as odds. Often the easiest way to understand the predictions is to use the `predict()` function to get predictions on the scale of the response. If the binomial variable is died (0) or survived(1) these will be probabilities of survival.
 
-## More than one explanatory variable
+## More than one explanatory variable {#more-than-1-1}
 
 When you have more than one explanatory variable these are given as $X2$, $X3$ and so on up to the $p$th explanatory variable. Each explanatory variable has its own $\beta$ coefficient. 
 
@@ -79,9 +79,9 @@ function(E(y_{i}))=\beta_{0}+\beta_{1}X1_{i}+\beta_{2}X2_{i}+...+\beta_{p}Xp_{i}
 (\#eq:glm2)
 \end{equation}
 
-## Generalised linear models in R
+## Generalised linear models in R {#glm-in-r-1}
 
-### Building and viewing
+### Building and viewing {#build-view-1}
 
 Poisson and binomial generalised linear models (and others) can be carried out with the `glm()` function in R. It uses the same method for specifying the model that other functions including `lm()` use. 
 
@@ -120,7 +120,7 @@ summary(mod)
 
 Elements of the `glm()` object include the estimated coefficients  can be accessed with `mod$coeffients`.
 
-### Getting predictions
+### Getting predictions {#get-pred-1}
 
 `mod$fitted.values` gives the predicted values for the explanatory variable values actually used in the experiment, *i.e.*, there is a prediction for each row of data. These are given on the scale of the response. This means they will be predicted counts for Poisson GLMs and predicted probabilities for Binomial GLMs.
 
