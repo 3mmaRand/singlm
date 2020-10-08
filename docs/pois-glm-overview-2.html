@@ -234,9 +234,12 @@ Figure 2.1: Data fitted with a Poisson GLM.
 Figure 2.2: A Generalised linear model with Poisson distributed errors. The measured <span style=" font-weight: bold;    color: #d264c0 !important;">response values are in pink</span>, the <span style=" font-weight: bold;    color: #c0d264 !important;">predictions are in green</span>, and the differences between these, known as the <span style=" font-weight: bold;    color: #64c0d2 !important;">residuals, are in blue</span>. The estimated model parameters, <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> must be exponentiated to be interpreted on the scale of the response. When <span class="math inline">\(x=0\)</span> we predict the number of <span class="math inline">\(y\)</span> to be <span class="math inline">\(exp(\beta_{0})\)</span>. For each unit of <span class="math inline">\(x\)</span>, the number of <span class="math inline">\(y\)</span> changes by a factor of <span class="math inline">\(exp(\beta_{1})\)</span>
 </p>
 </div>
+<div class="key">
+<p><span class="math inline">\(ln\)</span> is the link function in a Poisson GLM. The estimates are log counts and using <span class="math inline">\(exp(\beta_{0})\)</span> and <span class="math inline">\(exp(\beta_{1})\)</span> enables us to interpret them as counts.</p>
+</div>
 <div id="pois-glm-chi-2" class="section level2">
 <h2><span class="header-section-number">2.1</span> When explanatory is categorical</h2>
-<p>If your response is a count and you just one categorical explanatory variable you do not need a Poisson GLMS. Use a chi-squared test</p>
+<p>If your response is a count and you just one categorical explanatory variable you do not need a Poisson GLMS. Use a chi-squared test.</p>
 </div>
 <div id="more-than-one-explanatory" class="section level2">
 <h2><span class="header-section-number">2.2</span> More than one explanatory</h2>
@@ -259,7 +262,7 @@ E(y_{i})=exp(\beta_{0}+\beta_{1}X1_{i}+\beta_{2}X2_{i}+...+\beta_{p}Xp_{i})
 </div>
 <div id="pois-glm-report-2" class="section level2">
 <h2><span class="header-section-number">2.3</span> Reporting</h2>
-<p>The important information to include when reporting the results of fitting a Poisson GLM are the most notable predictions and the significance, direction and magnitude of effects. You need to ensure your reader will understand what the data are saying even if all the numbers and statistical information was removed. For example, variable <span class="math inline">\(Y\)</span> increase with variables <span class="math inline">\(X1\)</span>.</p>
+<p>The important information to include when reporting the results of fitting a Poisson GLM are the most notable predictions and the significance, direction and magnitude of effects. You need to ensure your reader will understand what the data are saying even if all the numbers and statistical information was removed. For example, variable <span class="math inline">\(Y\)</span> increases with variables <span class="math inline">\(X1\)</span>.</p>
 <p>In relatively simple models, reporting group means or a slope, and statistical test information is enough. In more complex models with many variables is it common to give all the estimated model coefficients in a table.</p>
 <p>In addition, your figure should show both the data and the model. This is honest and allows your interpretation to be evaluated.</p>
 

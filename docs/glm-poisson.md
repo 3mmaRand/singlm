@@ -45,9 +45,14 @@ See Figure \@ref(fig:glm-pois-annotated) for a graphical representation of gener
 <p class="caption">(\#fig:glm-pois-annotated)(ref:glm-pois-annotated)</p>
 </div>
 
+:::key
+$ln$ is the link function in a Poisson GLM. The estimates are log counts and using $exp(\beta_{0})$ and $exp(\beta_{1})$ enables us to interpret them as counts.
+:::
+
+
 ## When explanatory is categorical {#pois-glm-chi-2}
 
-If your response is a count and you just one categorical explanatory variable you do not need a Poisson GLMS. Use a chi-squared test
+If your response is a count and you just one categorical explanatory variable you do not need a Poisson GLMS. Use a chi-squared test.
 
 ## More than one explanatory
 
@@ -89,7 +94,7 @@ E(y_{i})=exp(\beta_{0}+\beta_{1}X1_{i}+\beta_{2}X2_{i}+...+\beta_{p}Xp_{i})
 
 
 ## Reporting {#pois-glm-report-2}
-The important information to include when reporting the results of fitting a Poisson GLM are the most notable predictions and the significance, direction and magnitude of effects. You need to ensure your reader will understand what the data are saying even if all the numbers and statistical information was removed. For example, variable $Y$ increase with variables $X1$. 
+The important information to include when reporting the results of fitting a Poisson GLM are the most notable predictions and the significance, direction and magnitude of effects. You need to ensure your reader will understand what the data are saying even if all the numbers and statistical information was removed. For example, variable $Y$ increases with variables $X1$. 
 
 In relatively simple models, reporting group means or a slope, and statistical test information is enough. In more complex models with many variables is it common to give all the estimated model coefficients in a table.
 

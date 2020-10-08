@@ -78,7 +78,7 @@ Extra information and tips are in boxes like these
 ## Following along with the examples
 Readers may wish to code along and the following gives guidance on how best to do that.
 
-I recommend starting a new RStudio project and creating a folder inside that project called `data-raw` where you will save the data files. Links to the data files are given in the text and these can be downloaded to your `data-raw` folder by right-clicking the link choosing the option to save. Then make a new script file for each example to carry our the analysis for that example.
+I recommend starting a new RStudio project and creating a folder inside that project called "data-raw" where you will save the data files. Links to the data files are given in the text and these can be downloaded to your "data-raw" folder by right-clicking the link choosing the option to save. Then make a new script file for each example to carry our the analysis for that example.
 
 
 For example, if you call your Project `singlm` and you have just started [Chapter 3](#pois-glm-single-cont), your folder structure would look like this:
@@ -111,6 +111,9 @@ It is likely you need to load the **`tidyverse`** as shown above.
 
 All other packages will be loaded explicitly with `library()` statements where needed. 
 
+:::key
+To follow the examples, use an RStudio Project containing a "data-raw" folder and load the tidyverse with `library(tidyverse)`
+:::
 
 ## Overview of the chapter contents
 This book introduces the the Generalised Linear Model for two types of discrete response:
@@ -128,7 +131,7 @@ In R, these are analysed with the `glm()` function.
 
 ## Software information
 
-I used the **`knitr`** package [@xie2015] and the **bookdown** package [@R-bookdown] to compile this book. My R session information is shown below:
+I used the **`knitr`** package [@xie2015] and the **`bookdown`** package [@R-bookdown] to compile this book. My R session information is shown below:
 
 ```{r}
 sessionInfo()

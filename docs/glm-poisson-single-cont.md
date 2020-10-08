@@ -297,6 +297,12 @@ exp(b0 + b1 + b1)
 exp(b0 + 10*b1)
 # [1] 2.23
 ```
+
+:::key
+The model predicts the number of cancers at 0 km from the plant will be 2.771, which is $exp(\beta_{0})$. This decreases by a factor of 0.979 for each km away which is $exp(\beta_{1})$. This something you multiply by rather than add because the link function is a log.
+:::
+
+
 Usually, we use the `predict()` function to make predictions for particular distances (see later).
 
 More information including statistical tests of the model and its parameters is obtained by using `summary()`:
@@ -355,7 +361,11 @@ anova(mod, test = "Chisq")
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-There is a significant reduction in deviance for our model (p < 0.001).
+There is a significant reduction in deviance for our model (p < 0.001). Note that there is only one term in this model.
+
+:::key
+The number of cancers decreases significantly with distance
+:::
 
 ## Getting predictions from the model {#get-pred-3}
 
@@ -368,7 +378,7 @@ cases$pred <- predict(mod, type = "response")
 ```
 
 
-This gives predictions for the actual $x$ values used. If you want predicts for other values of $x$ you need to creating a data frame of the $x$ values from which you want to predict
+This gives predictions for the actual $x$ values used. If you want predicts for other values of $x$ you need to create a data frame of the $x$ values from which you want to predict
 
 For example, to predict for distances from 0 to 180 km in steps of 10 km:
 
@@ -380,18 +390,6 @@ predict_for <- data.frame(distance = seq(0, 180, 10))
 
 ```r
 predict_for$pred <- predict(mod, newdata = predict_for, type = "response")
-```
-
-<!-- ## Checking assumptions -->
-
-
-```r
-#plot(mod, which = 2)
-```
-
-
-```r
-#plot(mod, which = 1)
 ```
 
 ## Creating a figure {#fig-3}
@@ -419,7 +417,7 @@ geom_smooth(method = "glm",
 
 ## Reporting the results {#report-3}
 
-The number of cases reported by a clinic significantly decreases by a factor of 2.771 $\pm$ 0.005 for each kilometre from the nuclear plant (p < 0.001). See figure \@ref(fig:fig-cases-report). For a clinic at the plant, 1.019 $\pm$ 0.309 cases are expected
+The number of cases reported by a clinic significantly decreases by a factor of 0.979 $\pm$ 1.005 for each kilometre from the nuclear plant (p < 0.001). See figure \@ref(fig:fig-cases-report). For a clinic at the plant, 2.771 $\pm$ 1.362 cases are expected
 
 (ref:fig-cases-report) Incidence of cancer cases reported at clinic by it distance from the nuclear plant. The line gives predictions for a GLM with Poisson distributed errors, $y$ = 2.771 $\times$ 0.979$^{x}$.
 

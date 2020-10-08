@@ -252,7 +252,7 @@ The code is given for figures but not extensively explained. To learn more go to
 <div id="following-along-with-the-examples" class="section level2">
 <h2><span class="header-section-number">0.5</span> Following along with the examples</h2>
 <p>Readers may wish to code along and the following gives guidance on how best to do that.</p>
-<p>I recommend starting a new RStudio project and creating a folder inside that project called <code>data-raw</code> where you will save the data files. Links to the data files are given in the text and these can be downloaded to your <code>data-raw</code> folder by right-clicking the link choosing the option to save. Then make a new script file for each example to carry our the analysis for that example.</p>
+<p>I recommend starting a new RStudio project and creating a folder inside that project called “data-raw” where you will save the data files. Links to the data files are given in the text and these can be downloaded to your “data-raw” folder by right-clicking the link choosing the option to save. Then make a new script file for each example to carry our the analysis for that example.</p>
 <p>For example, if you call your Project <code>singlm</code> and you have just started <a href="pois-glm-single-cont.html#pois-glm-single-cont">Chapter 3</a>, your folder structure would look like this:</p>
 <pre><code>-- singlm
    |-- singlm.Rproj
@@ -268,6 +268,9 @@ The code is given for figures but not extensively explained. To learn more go to
 <span id="cb4-2"><a href="index.html#cb4-2"></a><span class="co">#  could not find function &quot;read_table2&quot;</span></span></code></pre></div>
 <p>It is likely you need to load the <strong><code>tidyverse</code></strong> as shown above.</p>
 <p>All other packages will be loaded explicitly with <code>library()</code> statements where needed.</p>
+<div class="key">
+<p>To follow the examples, use an RStudio Project containing a “data-raw” folder and load the tidyverse with <code>library(tidyverse)</code></p>
+</div>
 </div>
 <div id="overview-of-the-chapter-contents" class="section level2">
 <h2><span class="header-section-number">0.6</span> Overview of the chapter contents</h2>
@@ -281,7 +284,7 @@ The code is given for figures but not extensively explained. To learn more go to
 </div>
 <div id="software-information" class="section level2">
 <h2><span class="header-section-number">0.7</span> Software information</h2>
-<p>I used the <strong><code>knitr</code></strong> package <span class="citation">(Xie <a href="#ref-xie2015" role="doc-biblioref">2015</a>)</span> and the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown" role="doc-biblioref">2020</a>)</span> to compile this book. My R session information is shown below:</p>
+<p>I used the <strong><code>knitr</code></strong> package <span class="citation">(Xie <a href="#ref-xie2015" role="doc-biblioref">2015</a>)</span> and the <strong><code>bookdown</code></strong> package <span class="citation">(Xie <a href="#ref-R-bookdown" role="doc-biblioref">2020</a>)</span> to compile this book. My R session information is shown below:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="index.html#cb5-1"></a><span class="kw">sessionInfo</span>()</span>
 <span id="cb5-2"><a href="index.html#cb5-2"></a><span class="co"># R version 4.0.2 (2020-06-22)</span></span>
 <span id="cb5-3"><a href="index.html#cb5-3"></a><span class="co"># Platform: x86_64-w64-mingw32/x64 (64-bit)</span></span>
