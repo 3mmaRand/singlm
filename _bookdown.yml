@@ -11,6 +11,7 @@ rmd_files: [
   "glm-poisson-two-explan.Rmd",
   
   "glm-binomial.Rmd",
+  "glm-bino-single-cont.Rmd",
   
   "summary.Rmd",
   

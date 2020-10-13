@@ -1,215 +1,188 @@
 # Single continuous explanatory {#bino-glm-single-cont}
 
-## Introduction to the example {#intro-5}
-
-the data are in [xx.txt](data-raw/x.txt). 
+## Introduction to the example {#intro-6}
+The erythrocyte sedimentation rate (ESR) is a routine test for inflammation where a reading greater than 20mm/hr indicates inflammation. However, fibrinogen levels also affect ESR. The aim of this analysis is to determine whether an ESR greater than 20mm/hr can be predicted from fibrinogen levels.
+The data in [plasma.txt](data-raw/plasma.txt) are a simplified version of Collett and Jemain's (1985) data which comes with the **`HSAUR`** package [@HSAUR]. There are two variables: ESR where 0 indicates less than or equal to 20mm/hr and 1 indicates greater than 20mm/hr; and fibrinogen in arbitrary units.
 
 
 ```{r echo=FALSE}
-# cases <- read_table2("data-raw/cases.txt")
-# cases %>% 
-#   knitr::kable() %>%
-#   kable_styling()  %>%
-#   scroll_box(height = "300px")
+plasma <- read_table2("data-raw/plasma.txt")
+plasma %>%
+  knitr::kable() %>%
+  kable_styling()  %>%
+  scroll_box(height = "300px")
 ```
 
 
 :::key
-There are 2 variables: 
+The response is ESR where 0 indicates less than or equal to 20mm/hr and 1 indicates greater than 20mm/hr. Fibrinogen is the explanatory variable.
 :::
 
 
 We will import the data with the `read_table2()` function and plot it with `ggplot()`.
 
 ```{r eval=FALSE}
-# cases <- read_table2("data-raw/cases.txt")
+plasma <- read_table2("data-raw/plasma.txt")
 ```
 
 
 ```{r}
 # a default scatter plot of the data
-# ggplot(data = cases, aes(x = distance, y = cancers)) +
-  # geom_point()
+ggplot(data = plasma, aes(x = fibrinogen, y = ESR)) +
+  geom_point()
 ```
-Most of .......
+Those with lower ESR do seem to have lower fibrinogen and half of those with high ESR have high fibrinogen. However, we have relatively few high ESR observations. Is the association significant?
 
-## Applying and interpreting `glm()` {#apply-interp-5}
+## Applying and interpreting `glm()` {#apply-interp-6}
 
-We build a generalised linear model of .................... with the `glm()` function as follows:
+We build a generalised linear model of ESR explained by fibrinogen with the `glm()` function as follows:
 
 ```{r}
-# mod <- glm(data = cases, cancers ~ distance, family = binoson)
+mod <- glm(data = plasma, ESR ~ fibrinogen, family = binomial)
 ```
 Printing `mod` to the console gives us the estimated model parameters:
 ```{r}
-# mod
+mod
 ```
 
 
 ```{r echo=FALSE}
-# res <- summary(mod)
-# b0 <- res$coefficients["(Intercept)", "Estimate"]
-# b1 <- res$coefficients["distance", "Estimate"]
-# b0se <- res$coefficients["(Intercept)", "Std. Error"]
-# b1se <- res$coefficients["distance", "Std. Error"]
-# zval <- res$coefficients["distance", "z value"]
-# b0_resp <- exp(b0)
-# b1_resp <- exp(b1)
-# resid_dev <- res$deviance
-# df_resid <- res$df.residual
-# null_dev <- res$null.deviance
-# df_null <- res$df.null
-# mod_dev <- null_dev - resid_dev
-# AIC <- res$aic
-# df <- res$df[2]
-# 
-# if (res$coefficients["(Intercept)", "Pr(>|z|)"] < 0.001) {
-#         b0p = "< 0.001"
-#         }
-# if (res$coefficients["(Intercept)", "Pr(>|z|)"] > 0.001) {
-#         b0p = paste("=", round(res$coefficients["(Intercept)", "Pr(>|t|)"], 3))
-#         }
-# if (res$coefficients["distance", "Pr(>|z|)"] < 0.001) {
-#         b1p = "< 0.001"
-#         }
-# if (res$coefficients["distance", "Pr(>|z|)"] > 0.001) {
-#         b1p = paste("=", round(res$coefficients["distance", "Pr(>|z|)"], 3))
-# }
-# 
-# res2 <- anova(mod, test = "Chisq") 
-# if (res2$`Pr(>Chi)`[2] < 0.001) {
-#         modelp = "< 0.001"
-#         }
-# if (res2$`Pr(>Chi)`[2] > 0.001) {
-#         modelp = paste("=", round(res2$`Pr(>Chi)`[2], 3))
-# }
+res <- summary(mod)
+b0 <- res$coefficients["(Intercept)", "Estimate"]
+b1 <- res$coefficients["fibrinogen", "Estimate"]
+b0se <- res$coefficients["(Intercept)", "Std. Error"]
+b1se <- res$coefficients["fibrinogen", "Std. Error"]
+zval <- res$coefficients["fibrinogen", "z value"]
+b0_resp <- exp(b0)
+b1_resp <- exp(b1)
+resid_dev <- res$deviance
+df_resid <- res$df.residual
+null_dev <- res$null.deviance
+df_null <- res$df.null
+mod_dev <- null_dev - resid_dev
+AIC <- res$aic
+df <- res$df[2]
+
+if (res$coefficients["(Intercept)", "Pr(>|z|)"] < 0.001) {
+        b0p = "< 0.001"
+        }
+if (res$coefficients["(Intercept)", "Pr(>|z|)"] > 0.001) {
+        b0p = paste("=", round(res$coefficients["(Intercept)", "Pr(>|z|)"], 3))
+        }
+if (res$coefficients["fibrinogen", "Pr(>|z|)"] < 0.001) {
+        b1p = "< 0.001"
+        }
+if (res$coefficients["fibrinogen", "Pr(>|z|)"] > 0.001) {
+        b1p = paste("=", round(res$coefficients["fibrinogen", "Pr(>|z|)"], 3))
+}
+
+res2 <- anova(mod, test = "Chisq")
+if (res2$`Pr(>Chi)`[2] < 0.001) {
+        modelp = "< 0.001"
+        }
+if (res2$`Pr(>Chi)`[2] > 0.001) {
+        modelp = paste("=", round(res2$`Pr(>Chi)`[2], 3))
+}
 
 ```
 
 We will postpone discussing the information in the last three lines until we view the model summary.
 
-$\beta_{0}$ is labelled "(Intercept)" and $\beta_{1}$ is labelled "..............". Thus the equation of the line is:
-
-<center> $......$ = `r b0` $+$ `r b1`$\times .....$ </center>
-
-The fact that the estimate for ... (`r b1`) is negative tells us 
-
-These estimates are on the scale of the link function, that is
-
-To understand the parameters the on the scale of the response we apply the inverse of the 
-
-```{r}
-# exp(mod$coefficients)
-```
+$\beta_{0}$ is labelled "(Intercept)" and $\beta_{1}$ is labelled "fibrinogen". Thus the equation of the line is:
 
 So the equation of the model is:
 
+<center> $ln\left(\frac{P(ESR >20)}{1-P(ESR >20)}\right)$ = `r b0` $+$ `r b1`$\times fibrinogen$ </center>
 
-The model predicts there will be `r b0_resp` .........
+The fact that the estimate for fibrinogen (`r b1`) is positive tells us the probability of having an ESR greater than 20 mm/hr increases as fibrinogen increases.
 
-<!-- Recall that for a linear model with one predictor, the second estimate is the amount *added* to the intercept when the predictor changes by one value. Since this is GLM with a log link, the value of `r b1_resp` is amount the intercept is multiplied by for each unit increase of distance. Thus the model predicts there will be `r b0_resp` $\times$ `r b1_resp` =  `r b0_resp*b1_resp` cancers 1 km away and `r b0_resp` $\times$ `r b1_resp` $\times$ `r b1_resp` =  `r b0_resp*b1_resp*b1_resp` cancers 2 km away. That is: $\beta_{0}$ $\times$ $\beta_{0}^n$ mm at $n$ km away. -->
+The fact that the estimate for the intercept (`r b0`) is negative tells us the probability of having an ESR greater than 20 mm/hr is lower than the probability of having an an ESR less than 20 mm/hr at a fibrinogen of zero.
 
-<!-- You can work these out either by exponentiating the coefficients and then multiplying the results or by adding the coefficients and exponentiating. -->
+These estimates are on the scale of the link function - they are log odds.
 
-<!-- Exponentiate coefficients then multiply: -->
+To understand the parameters the on the scale of the response we apply the inverse of the link function. We need to first exponentiate them, then interpret them as odds.
+
 ```{r}
-# # 1km away
-# exp(b0) * exp(b1)
-# 
-# # 2km away
-# exp(b0) * exp(b1) * exp(b1)
-# 
-# # 10km away
-# exp(b0) * exp(b1)^10
+exp(mod$coefficients)
+```
 
-```
-Add the coefficients then exponentiate the sum: 
-```{r}
-# # 1km away
-# exp(b0 + b1)
-# 
-# # 2km away
-# exp(b0 + b1 + b1)
-# 
-# # 10km away
-# exp(b0 + 10*b1)
-```
-Usually, we use the `predict()` function to make predictions for ................. (see later).
+`r b0_resp` is the odds of an ESR >20 at a fibrinogen of 0. Odds are P(ESR > 20) / P(ESR < 20). As this is less than 1, the probability of an ESR >20 must be smaller than the probability ESR < 20 at a fibrinogen of 0. 
+
+`r b1_resp` is the factor by which this odds changes with each unit of fibrinogen. As this is greater than 1, it's going up, not down.
+
+An alterative way to write the equation of the line is:
+
+<center> $\frac{P(ESR >20)}{P(ESR <20)}$ = `r b0_resp` $\times$ `r b1`$^{fibrinogen}$ </center>
 
 More information including statistical tests of the model and its parameters is obtained by using `summary()`:
 
 ```{r}
 summary(mod) 
 ```
-<!-- The `Coefficients` table gives the estimated $\beta_{0}$ and $\beta_{1}$ again but along with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is `r b0` $\pm$ `r b0se` and this differs significantly from zero ($p$ `r b0p`). The estimated value for the slope is `r b1` $\pm$ `r b1se`, also differs significantly from zero ($p$ `r b1p`).  -->
+The `Coefficients` table gives the estimated $\beta_{0}$ and $\beta_{1}$ again but along with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is `r b0` $\pm$ `r b0se` and this differs significantly from zero ($p$ `r b0p`). The estimated value for the slope is `r b1` $\pm$ `r b1se`, also differs significantly from zero ($p$ `r b1p`).
 
-<!-- Towards the bottom of the output there is information about the model fit. The null deviance (what exists if we predict the number of cases from an intercept, $\beta_{0}$, only model) is `r null_dev` with `r df_null` degrees of freedom and the residual deviance (left over after our model is fitted) is `r resid_dev` with `r df_resid` $d.f.$. The model fits a 1 parameter, $\beta_{1}$, and thus accounts for 1 $d.f.$ for a reduction in deviance by `r mod_dev`. -->
+Towards the bottom of the output there is information about the model fit. The null deviance (what exists if we predict the odds of ESR > 20 from an intercept, $\beta_{0}$, only model) is `r null_dev` with `r df_null` degrees of freedom and the residual deviance (left over after our model is fitted) is `r resid_dev` with `r df_resid` $d.f.$. The model fits a 1 parameter, $\beta_{1}$, and thus accounts for 1 $d.f.$ for a reduction in deviance by `r mod_dev`.
 
-<!-- To get a test of whether the reduction in deviance is significant for each term in the the model formula we use: -->
+To get a test of whether the reduction in deviance is significant for each term in the the model formula we use:
 
 ```{r}
-# anova(mod, test = "Chisq") 
+anova(mod, test = "Chisq")
 ```
 
-<!-- There is a significant reduction in deviance for our model (p `r modelp`). -->
+There is a significant reduction in deviance for our model (p `r modelp`).
 
-## Getting predictions from the model {#get-pred-5}
+## Getting predictions from the model {#get-pred-6}
 
 The `predict()` function returns the predicted values of the response. To add a column of predicted values to the dataframe:
-we need to specify they should be on the scale of the responses, not on the link function scale.
-
-```{r}
-# cases$pred <- predict(mod, type = "response")
-```
-
-
-This gives predictions for the actual $x$ values used. If you want predicts for other values of $x$ you need to creating a data frame of the $x$ values from which you want to predict
-
-For example, to predict for distances from 0 to 180 km in steps of 10 km:
-```{r}
-# predict_for <- data.frame(distance = seq(0, 180, 10))
-```
 
 
 ```{r}
-# predict_for$pred <- predict(mod, newdata = predict_for, type = "response")
+# plasma$pred <- predict(mod, type = "response")
+```
+We need to specify they should be on the scale of the responses (i.e., probabilities), not on the link function scale (log odds).
+
+This gives predictions for the actual $x$ values used. If you want predictions for other values of $x$ you need to creating a data frame of the $x$ values from which you want to predict
+
+For example, to predict for fibrinogen from 0 to 6 km in steps of 1 km:
+```{r}
+predict_for <- data.frame(fibrinogen = seq(0, 6, 1))
 ```
 
-<!-- ## Checking assumptions -->
 
 ```{r}
-#plot(mod, which = 2)
+predict_for$pred <- predict(mod, newdata = predict_for, type = "response")
 ```
 
-```{r}
-#plot(mod, which = 1)
-```
+*need to add some text*
+*- soon honest!*
 
-## Creating a figure {#fig-5}
+## Creating a figure {#fig-6}
 
-```{r fig-cases}
-# ggplot(data = cases, aes(x = distance, y = cancers)) +
-#   geom_point() +
-# geom_smooth(method = "glm",
-#               method.args = list(family = "binoson"),
-#               se = FALSE,
-#             colour = "black") +
-#   scale_x_continuous(expand = c(0, 0),
-#                      limits = c(0, 190),
-#                      name = "Distance (km) of clinic from plant") +
-#     scale_y_continuous(expand = c(0, 0.03),
-#                      limits = c(0, 5),
-#                      name = "Number of reported cancers") +
-#   theme_classic()
+```{r fig-plasma}
+ggplot(data = plasma, aes(x = fibrinogen, y = ESR)) +
+  geom_point() +
+geom_smooth(method = "glm",
+              method.args = list(family = "binomial"),
+              se = FALSE,
+            colour = "black") +
+  scale_x_continuous(expand = c(0, 0),
+                     limits = c(0, 6),
+                     name = "Fibrinogen (units)") +
+    scale_y_continuous(expand = c(0, 0.03),
+                      breaks = seq(0, 1, 0.1),
+                     limits = c(0, 1.05),
+                     name = "Probability of ESR >2 0") +
+  theme_classic()
   
 ```
 
 
-## Reporting the results {#report-5}
+## Reporting the results {#report-6}
 
-<!-- The number of cases reported by a clinic significantly decreases by a factor of `r b0_resp` $\pm$ `r b1se` for each kilometre from the nuclear plant (p `r modelp`). See figure \@ref(fig:fig-cases-report). For a clinic at the plant, `r b0` $\pm$ `r b0se` cases are expected -->
+*to be added - soon honest!*
+<!-- The number of plasma reported by a clinic significantly decreases by a factor of `r b0_resp` $\pm$ `r b1se` for each kilometre from the nuclear plant (p `r modelp`). See figure \@ref(fig:fig-plasma-report). For a clinic at the plant, `r b0` $\pm$ `r b0se` plasma are expected -->
 
-<!-- (ref:fig-cases-report) Incidence of cancer cases reported at clinic by it distance from the nuclear plant. The line gives predictions for a GLM with binoson distributed errors, $y$ = `r b0_resp` $\times$ `r b1_resp`$^{x}$. -->
+(ref:fig-plasma-report) Incidence erythrocyte sedimentation rate (ESR) greater than 20 mm/hr with fibrinogen levels. The line gives predictions for a GLM with binomial distributed errors, $\frac{P(ESR >20)}{P(ESR <20)}$ = `r b0_resp` $\times$ `r b1`$^{fibrinogen}$.
 
-<!-- ```{r fig-cases-report, ref.label = 'fig-cases', echo = FALSE, fig.height=4, fig.width=4, fig.cap="(ref:fig-cases-report)", out.width="60%"}  -->
-<!-- ``` -->
+```{r fig-plasma-report, ref.label = 'fig-plasma', echo = FALSE, fig.height=4, fig.width=4, fig.cap="(ref:fig-plasma-report)", out.width="60%"}
+```
