@@ -182,13 +182,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html"><i class="fa fa-check"></i><b>5</b> Binomial GLM overview</a><ul>
 <li class="chapter" data-level="5.1" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html#bino-odds-5"><i class="fa fa-check"></i><b>5.1</b> What exactly are odds?</a></li>
 <li class="chapter" data-level="5.2" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html#bino-b0-odds-5"><i class="fa fa-check"></i><b>5.2</b> What does this mean for <span class="math inline">\(\beta_{0}\)</span>?</a></li>
+<li class="chapter" data-level="5.3" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html#bino-b1-odds-5"><i class="fa fa-check"></i><b>5.3</b> What does this mean for <span class="math inline">\(\beta_{1}\)</span>?</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html"><i class="fa fa-check"></i><b>6</b> Single continuous explanatory</a><ul>
 <li class="chapter" data-level="6.1" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#intro-6"><i class="fa fa-check"></i><b>6.1</b> Introduction to the example</a></li>
 <li class="chapter" data-level="6.2" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#apply-interp-6"><i class="fa fa-check"></i><b>6.2</b> Applying and interpreting <code>glm()</code></a></li>
 <li class="chapter" data-level="6.3" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#get-pred-6"><i class="fa fa-check"></i><b>6.3</b> Getting predictions from the model</a></li>
-<li class="chapter" data-level="6.4" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#fig-6"><i class="fa fa-check"></i><b>6.4</b> Creating a figure</a></li>
-<li class="chapter" data-level="6.5" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#report-6"><i class="fa fa-check"></i><b>6.5</b> Reporting the results</a></li>
+<li class="chapter" data-level="6.4" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#using-the-predictions-to-understand-the-odds"><i class="fa fa-check"></i><b>6.4</b> Using the predictions to understand the odds</a></li>
+<li class="chapter" data-level="6.5" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#fig-6"><i class="fa fa-check"></i><b>6.5</b> Creating a figure</a></li>
+<li class="chapter" data-level="6.6" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#report-6"><i class="fa fa-check"></i><b>6.6</b> Reporting the results</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> Summary</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -215,7 +217,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="bino-glm-overview-5" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Binomial GLM overview</h1>
 <p>When a response variable can take only one of two values such as 0 and 1, dead and alive, no and yes or failure and success it follows a binomial distribution and can be modelled with a binomial GLM. A binomial GLM is also known as logistic regression.
-Although the observations themselves can have only one of two values, the scale of the response is a probability representing the probability of 1, alive, yes or success. The link function used in a binomial GLM is the “logit” function also known as “log-odds”. This means the model estimates are also log-odds. This can make it tricky to interpret the estimates but two things can help us. First, the principle about the sign of <span class="math inline">\(\beta_{1}\)</span> still applies: positive <span class="math inline">\(\beta_{1}\)</span> indicates an increase in the response with an increase in <span class="math inline">\(X1\)</span> and negative <span class="math inline">\(\beta_{1}\)</span> indicates a decrease in the response with an increase in <span class="math inline">\(X1\)</span>. See Figure <a href="bino-glm-overview-5.html#fig:glm-bino-poss">5.1</a> for an illustration of the curve for positive and negative <span class="math inline">\(\beta_{1}\)</span>.</p>
+Although the observations themselves can have only one of two values, the scale of the response is a probability representing the probability of 1, alive, yes or success. The link function used in a binomial GLM is the “logit” function also known as “log-odds”. This means the model estimates are also log-odds. This can make it tricky to interpret the estimates but two things can help us. First, the principle about the sign of <span class="math inline">\(\beta_{1}\)</span> still applies: positive <span class="math inline">\(\beta_{1}\)</span> indicates an increase in the odds with an increase in <span class="math inline">\(X1\)</span> and negative <span class="math inline">\(\beta_{1}\)</span> indicates a decrease in the odds with an increase in <span class="math inline">\(X1\)</span>. See Figure <a href="bino-glm-overview-5.html#fig:glm-bino-poss">5.1</a> for an illustration of the curve for positive and negative <span class="math inline">\(\beta_{1}\)</span>.</p>
 
 <div class="figure" style="text-align: left"><span id="fig:glm-bino-poss"></span>
 <img src="glm-binomial_files/figure-html/glm-bino-poss-1.png" alt="Data fitted with a binomial GLM." width="80%" />
@@ -225,7 +227,7 @@ Figure 5.1: Data fitted with a binomial GLM.
 </div>
 <p>Second, we can use the <code>predict()</code> function to get values on the scale of the response, a probability, rather than the log-odds. This is easier for most people to understand.</p>
 <div class="key">
-<p>Positive <span class="math inline">\(\beta_{1}\)</span> indicates an increase in the response with an increase in <span class="math inline">\(X1\)</span> and negative <span class="math inline">\(\beta_{1}\)</span> indicates a decrease in the response with an increase in <span class="math inline">\(X1\)</span>.</p>
+<p>Positive <span class="math inline">\(\beta_{1}\)</span> indicates an increase in the odds with an increase in <span class="math inline">\(X1\)</span> and negative <span class="math inline">\(\beta_{1}\)</span> indicates a decrease in the odds with an increase in <span class="math inline">\(X1\)</span>.</p>
 </div>
 <p>When you have a single explanatory variable, the binomial GLM is:</p>
 <p><span class="math display" id="eq:glmbino">\[\begin{equation}
@@ -249,13 +251,19 @@ ln\left(\frac{E(y_{i})}{1-E(y_{i})}\right)=\beta_{0}+\beta_{1}X1_{i}
 </div>
 <div id="bino-odds-5" class="section level2">
 <h2><span class="header-section-number">5.1</span> What exactly are odds?</h2>
-<p>An odds is the probability of one outcome divided by the probability of not that outcome. For example, for a fair coin where heads and tails are equally likely, the odds of a head in a coin toss is 1 because:</p>
+<p>An odds is the probability of something happening divided by the probability of it not happening. For example, for a fair coin where heads and tails are equally likely, we can think of the heads as something that happens and tails as it not happening. The odds of a head in a coin toss is:</p>
 <p><span class="math inline">\(\frac{P(H)}{P( not\:head)} = \frac{0.5}{ 1- 0.5} = 1\)</span></p>
+<p>When the odds are 1, heads and tails are equally likely.</p>
 <p>If you had an unfair coin where the probability of a head was <span class="math inline">\(\frac{3}{4}\)</span> then the odds of a head are:</p>
 <p><span class="math inline">\(\frac{P(H)}{P( not\:head)} = \frac{0.75}{ 1- 0.75} = 3\)</span></p>
-<p>A head is three times as likely as a tail. If instead probability of a head was <span class="math inline">\(\frac{1}{4}\)</span> then the odds of a head are:</p>
+<p>A head is three times as likely as a tail. When the odds are greater than 1 heads are more probable than tails.</p>
+<p>If instead probability of a head was <span class="math inline">\(\frac{1}{4}\)</span> then the odds of a head are:</p>
 <p><span class="math inline">\(\frac{P(H)}{P( not\:head)} = \frac{0.25}{ 1- 0.25} = 0.33333\)</span></p>
-<p>A head is a third as likely as a tail.</p>
+<p>A head is a third as likely as a tail. When the odds are less than 1 heads are less probable than tails.</p>
+<div class="key">
+<p>If the odds &gt; 1, success is more likely than failure.
+If the odds &lt; 1, failure is more likely than success.</p>
+</div>
 </div>
 <div id="bino-b0-odds-5" class="section level2">
 <h2><span class="header-section-number">5.2</span> What does this mean for <span class="math inline">\(\beta_{0}\)</span>?</h2>
@@ -268,6 +276,15 @@ ln\left(\frac{P(success)}{P(failure)}\right)
 When the probability of success is less than the probability of failure this will be the log of a number less than 1 and thus negative.</p>
 <div class="key">
 <p>Positive <span class="math inline">\(\beta_{0}\)</span> indicates that the probability of success is greater than the probability of failure at <span class="math inline">\(x = 0\)</span> and negative <span class="math inline">\(\beta_{0}\)</span> indicates that the probability of failure is greater than the probability of success at <span class="math inline">\(x = 0\)</span></p>
+</div>
+</div>
+<div id="bino-b1-odds-5" class="section level2">
+<h2><span class="header-section-number">5.3</span> What does this mean for <span class="math inline">\(\beta_{1}\)</span>?</h2>
+<p><span class="math inline">\(\beta_{1}\)</span> is the change in the log odds of success for each unit change in the explanatory variable. It is the log of the odds of success at <span class="math inline">\(x = 1\)</span> divided by the odds of success at <span class="math inline">\(x = 0\)</span>
+If the odds of success at <span class="math inline">\(x = 1\)</span> is greater than the the odds of success at <span class="math inline">\(x = 0\)</span>, this will be log of a number greater than 1 and thus <span class="math inline">\(\beta_{1}\)</span> is positive.
+If the odds of success at <span class="math inline">\(x = 1\)</span> is less than the the odds of success at <span class="math inline">\(x = 0\)</span>, this will be log of a number less than 1 and thus <span class="math inline">\(\beta_{1}\)</span> is negative.</p>
+<div class="key">
+<p>Positive <span class="math inline">\(\beta_{1}\)</span> indicates that the probability of success is increasing with <span class="math inline">\(x\)</span> and negative <span class="math inline">\(\beta_{1}\)</span> indicates that the probability of success is decreasing with <span class="math inline">\(x\)</span>.</p>
 </div>
 
 </div>

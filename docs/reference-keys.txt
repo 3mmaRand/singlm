@@ -52,10 +52,12 @@ report-4
 bino-glm-overview-5
 bino-odds-5
 bino-b0-odds-5
+bino-b1-odds-5
 bino-glm-single-cont
 intro-6
 apply-interp-6
 get-pred-6
+using-the-predictions-to-understand-the-odds
 fig-6
 report-6
 summary

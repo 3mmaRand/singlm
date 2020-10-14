@@ -182,13 +182,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html"><i class="fa fa-check"></i><b>5</b> Binomial GLM overview</a><ul>
 <li class="chapter" data-level="5.1" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html#bino-odds-5"><i class="fa fa-check"></i><b>5.1</b> What exactly are odds?</a></li>
 <li class="chapter" data-level="5.2" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html#bino-b0-odds-5"><i class="fa fa-check"></i><b>5.2</b> What does this mean for <span class="math inline">\(\beta_{0}\)</span>?</a></li>
+<li class="chapter" data-level="5.3" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html#bino-b1-odds-5"><i class="fa fa-check"></i><b>5.3</b> What does this mean for <span class="math inline">\(\beta_{1}\)</span>?</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html"><i class="fa fa-check"></i><b>6</b> Single continuous explanatory</a><ul>
 <li class="chapter" data-level="6.1" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#intro-6"><i class="fa fa-check"></i><b>6.1</b> Introduction to the example</a></li>
 <li class="chapter" data-level="6.2" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#apply-interp-6"><i class="fa fa-check"></i><b>6.2</b> Applying and interpreting <code>glm()</code></a></li>
 <li class="chapter" data-level="6.3" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#get-pred-6"><i class="fa fa-check"></i><b>6.3</b> Getting predictions from the model</a></li>
-<li class="chapter" data-level="6.4" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#fig-6"><i class="fa fa-check"></i><b>6.4</b> Creating a figure</a></li>
-<li class="chapter" data-level="6.5" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#report-6"><i class="fa fa-check"></i><b>6.5</b> Reporting the results</a></li>
+<li class="chapter" data-level="6.4" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#using-the-predictions-to-understand-the-odds"><i class="fa fa-check"></i><b>6.4</b> Using the predictions to understand the odds</a></li>
+<li class="chapter" data-level="6.5" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#fig-6"><i class="fa fa-check"></i><b>6.5</b> Creating a figure</a></li>
+<li class="chapter" data-level="6.6" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#report-6"><i class="fa fa-check"></i><b>6.6</b> Reporting the results</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> Summary</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -519,12 +521,12 @@ Those with lower ESR do seem to have lower fibrinogen and half of those with hig
 <span id="cb33-11"><a href="bino-glm-single-cont.html#cb33-11"></a><span class="co"># Residual Deviance: 24.8   AIC: 28.8</span></span></code></pre></div>
 <p>We will postpone discussing the information in the last three lines until we view the model summary.</p>
 <p><span class="math inline">\(\beta_{0}\)</span> is labelled “(Intercept)” and <span class="math inline">\(\beta_{1}\)</span> is labelled “fibrinogen”. Thus the equation of the line is:</p>
-<p>So the equation of the model is:</p>
 <center>
 <span class="math inline">\(ln\left(\frac{P(ESR &gt;20)}{1-P(ESR &gt;20)}\right)\)</span> = -6.845 <span class="math inline">\(+\)</span> 1.827<span class="math inline">\(\times fibrinogen\)</span>
 </center>
 <p>The fact that the estimate for fibrinogen (1.827) is positive tells us the probability of having an ESR greater than 20 mm/hr increases as fibrinogen increases.</p>
 <p>The fact that the estimate for the intercept (-6.845) is negative tells us the probability of having an ESR greater than 20 mm/hr is lower than the probability of having an an ESR less than 20 mm/hr at a fibrinogen of zero.</p>
+<p>Notice that we are thinking of having an ESR greater than 20 mm/hr as success. Which of the two outcomes you consider success, or 1, is arbitrary. You just need to make sure the outcome you are classing as success is coded as 1 in your data set. It need not be considered a success biologically. In this example, it means the probability we are modelling is the probability of having an ESR greater than 20 mm/hr.</p>
 <p>These estimates are on the scale of the link function - they are log odds.</p>
 <p>To understand the parameters the on the scale of the response we apply the inverse of the link function. We need to first exponentiate them, then interpret them as odds.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="bino-glm-single-cont.html#cb34-1"></a><span class="kw">exp</span>(mod<span class="op">$</span>coefficients)</span>
@@ -532,10 +534,13 @@ Those with lower ESR do seem to have lower fibrinogen and half of those with hig
 <span id="cb34-3"><a href="bino-glm-single-cont.html#cb34-3"></a><span class="co">#     0.00106     6.21572</span></span></code></pre></div>
 <p>0.001 is the odds of an ESR &gt;20 at a fibrinogen of 0. Odds are P(ESR &gt; 20) / P(ESR &lt; 20). As this is less than 1, the probability of an ESR &gt;20 must be smaller than the probability ESR &lt; 20 at a fibrinogen of 0.</p>
 <p>6.216 is the factor by which this odds changes with each unit of fibrinogen. As this is greater than 1, it’s going up, not down.</p>
-<p>An alterative way to write the equation of the line is:</p>
+<p>An alternative way to write the equation of the line is:</p>
 <center>
 <span class="math inline">\(\frac{P(ESR &gt;20)}{P(ESR &lt;20)}\)</span> = 0.001 <span class="math inline">\(\times\)</span> 1.827<span class="math inline">\(^{fibrinogen}\)</span>
 </center>
+<div class="key">
+
+</div>
 <p>More information including statistical tests of the model and its parameters is obtained by using <code>summary()</code>:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="bino-glm-single-cont.html#cb35-1"></a><span class="kw">summary</span>(mod) </span>
 <span id="cb35-2"><a href="bino-glm-single-cont.html#cb35-2"></a><span class="co"># </span></span>
@@ -561,7 +566,7 @@ Those with lower ESR do seem to have lower fibrinogen and half of those with hig
 <span id="cb35-22"><a href="bino-glm-single-cont.html#cb35-22"></a><span class="co"># </span></span>
 <span id="cb35-23"><a href="bino-glm-single-cont.html#cb35-23"></a><span class="co"># Number of Fisher Scoring iterations: 5</span></span></code></pre></div>
 <p>The <code>Coefficients</code> table gives the estimated <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> again but along with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is -6.845 <span class="math inline">\(\pm\)</span> 2.77 and this differs significantly from zero (<span class="math inline">\(p\)</span> = 0.013). The estimated value for the slope is 1.827 <span class="math inline">\(\pm\)</span> 0.901, also differs significantly from zero (<span class="math inline">\(p\)</span> = 0.043).</p>
-<p>Towards the bottom of the output there is information about the model fit. The null deviance (what exists if we predict the odds of ESR &gt; 20 from an intercept, <span class="math inline">\(\beta_{0}\)</span>, only model) is 30.885 with 31 degrees of freedom and the residual deviance (left over after our model is fitted) is 24.84 with 30 <span class="math inline">\(d.f.\)</span>. The model fits a 1 parameter, <span class="math inline">\(\beta_{1}\)</span>, and thus accounts for 1 <span class="math inline">\(d.f.\)</span> for a reduction in deviance by 6.045.</p>
+<p>Towards the bottom of the output there is information about the model fit. The null deviance (what exists if we predict the odds of ESR &gt; 20 from an intercept, <span class="math inline">\(\beta_{0}\)</span>, only model) is 30.885 with 31 degrees of freedom and the residual deviance (left over after our model is fitted) is 24.84 with 30 <span class="math inline">\(d.f.\)</span>. The model fits a single parameter (after <span class="math inline">\(\beta_{0}\)</span>), <span class="math inline">\(\beta_{1}\)</span>, and thus accounts for 1 <span class="math inline">\(d.f.\)</span> for a reduction in deviance by 6.045.</p>
 <p>To get a test of whether the reduction in deviance is significant for each term in the the model formula we use:</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="bino-glm-single-cont.html#cb36-1"></a><span class="kw">anova</span>(mod, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</span>
 <span id="cb36-2"><a href="bino-glm-single-cont.html#cb36-2"></a><span class="co"># Analysis of Deviance Table</span></span>
@@ -589,11 +594,28 @@ Those with lower ESR do seem to have lower fibrinogen and half of those with hig
 <p>For example, to predict for fibrinogen from 0 to 6 km in steps of 1 km:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="bino-glm-single-cont.html#cb38-1"></a>predict_for &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">fibrinogen =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">1</span>))</span></code></pre></div>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="bino-glm-single-cont.html#cb39-1"></a>predict_for<span class="op">$</span>pred &lt;-<span class="st"> </span><span class="kw">predict</span>(mod, <span class="dt">newdata =</span> predict_for, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
-<p><em>need to add some text</em>
-<em>- soon honest!</em></p>
+</div>
+<div id="using-the-predictions-to-understand-the-odds" class="section level2">
+<h2><span class="header-section-number">6.4</span> Using the predictions to understand the odds</h2>
+<p>You can use the predictions at fibrinogen levels of 0 and 1 to help you understand odds and the model coefficients.</p>
+<p><em>a bit more to come, soon, honest!</em>
+<!-- An odds is the probability of something happening divided by the probability of it not happening.  -->
+<!-- # At a grain size of 0, P(present) is 0.1614302, therefore p(absent) is 1-0.1614302 -->
+<!-- # 0.1614302/(1-0.1614302) = 0.1925066. Look! that's exp(b0)! -->
+<!-- # How does this change from grain size of 0 to grain size of 1? -->
+<!-- # At a grain size of 1, P(present) is 0.9699368, therefore p(absent) is 1-0.9699368 -->
+<!-- # the factor by which the odds change is the odds of present at grainsize 1 / -->
+<!-- # odds of present at grainsize 0 -->
+<!-- # (0.9699368/(1-0.9699368)) / (0.1614302/(1-0.1614302)) -->
+<!-- # = 167.5956 Look, that's exp(b1) -->
+<!-- # Odds are not intuitive for most people. I almost always use the predict function to calculate probabilities to help me understand the effects in my model. -->
+<!-- # You can still make quick judgement on the basis of the coefficients -->
+<!-- # negative b0 means probability of absence (or died/0/no) is higher than probability of presence (or survived/1/yes); positive b0 means probability of presence is higher than probability of absence -->
+<!-- # negative b0 means odds of get lower, presence gets less likely -->
+<!-- # positive b0 means odds of get higher, presence gets less likely --></p>
 </div>
 <div id="fig-6" class="section level2">
-<h2><span class="header-section-number">6.4</span> Creating a figure</h2>
+<h2><span class="header-section-number">6.5</span> Creating a figure</h2>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="bino-glm-single-cont.html#cb40-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> plasma, <span class="kw">aes</span>(<span class="dt">x =</span> fibrinogen, <span class="dt">y =</span> ESR)) <span class="op">+</span></span>
 <span id="cb40-2"><a href="bino-glm-single-cont.html#cb40-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb40-3"><a href="bino-glm-single-cont.html#cb40-3"></a><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;glm&quot;</span>,</span>
@@ -612,9 +634,8 @@ Those with lower ESR do seem to have lower fibrinogen and half of those with hig
 <p><img src="glm-bino-single-cont_files/figure-html/fig-plasma-1.png" width="80%" style="display: block; margin: auto auto auto 0;" /></p>
 </div>
 <div id="report-6" class="section level2">
-<h2><span class="header-section-number">6.5</span> Reporting the results</h2>
-<p><em>to be added - soon honest!</em>
-<!-- The number of plasma reported by a clinic significantly decreases by a factor of 0.001 $\pm$ 0.901 for each kilometre from the nuclear plant (p = 0.014). See figure \@ref(fig:fig-plasma-report). For a clinic at the plant, -6.845 $\pm$ 2.77 plasma are expected --></p>
+<h2><span class="header-section-number">6.6</span> Reporting the results</h2>
+<p>The odds of erythrocyte sedimentation rate (ESR) greater than 20 mm/hr significantly increases with increasing fibrinogen levels by a factor of 6.216 <span class="math inline">\(\pm\)</span> 0.901 for each unit of fibrinogen (p = 0.014). See Figure <a href="bino-glm-single-cont.html#fig:fig-plasma-report">6.1</a>. As an example, the probability of having an ESR greater than 20 mm/hr at 2 units 0.04 is which rises to 0.984 at 6 units.</p>
 
 <div class="figure" style="text-align: left"><span id="fig:fig-plasma-report"></span>
 <img src="glm-bino-single-cont_files/figure-html/fig-plasma-report-1.png" alt="Incidence erythrocyte sedimentation rate (ESR) greater than 20 mm/hr with fibrinogen levels. The line gives predictions for a GLM with binomial distributed errors, \(\frac{P(ESR &gt;20)}{P(ESR &lt;20)}\) = 0.001 \(\times\) 1.827\(^{fibrinogen}\)." width="60%" />

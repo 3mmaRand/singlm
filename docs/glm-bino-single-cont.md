@@ -199,13 +199,13 @@ We will postpone discussing the information in the last three lines until we vie
 
 $\beta_{0}$ is labelled "(Intercept)" and $\beta_{1}$ is labelled "fibrinogen". Thus the equation of the line is:
 
-So the equation of the model is:
-
 <center> $ln\left(\frac{P(ESR >20)}{1-P(ESR >20)}\right)$ = -6.845 $+$ 1.827$\times fibrinogen$ </center>
 
 The fact that the estimate for fibrinogen (1.827) is positive tells us the probability of having an ESR greater than 20 mm/hr increases as fibrinogen increases.
 
 The fact that the estimate for the intercept (-6.845) is negative tells us the probability of having an ESR greater than 20 mm/hr is lower than the probability of having an an ESR less than 20 mm/hr at a fibrinogen of zero.
+
+Notice that we are thinking of having an ESR greater than 20 mm/hr as success. Which of the two outcomes you consider success, or 1, is arbitrary. You just need to make sure the outcome you are classing as success is coded as 1 in your data set. It need not be considered a success biologically. In this example, it means the probability we are modelling is the probability of having an ESR greater than 20 mm/hr.
 
 These estimates are on the scale of the link function - they are log odds.
 
@@ -222,9 +222,13 @@ exp(mod$coefficients)
 
 6.216 is the factor by which this odds changes with each unit of fibrinogen. As this is greater than 1, it's going up, not down.
 
-An alterative way to write the equation of the line is:
+An alternative way to write the equation of the line is:
 
 <center> $\frac{P(ESR >20)}{P(ESR <20)}$ = 0.001 $\times$ 1.827$^{fibrinogen}$ </center>
+
+:::key
+
+:::
 
 More information including statistical tests of the model and its parameters is obtained by using `summary()`:
 
@@ -256,7 +260,7 @@ summary(mod)
 ```
 The `Coefficients` table gives the estimated $\beta_{0}$ and $\beta_{1}$ again but along with their standard errors and tests of whether the estimates differ from zero. The estimated value for the intercept is -6.845 $\pm$ 2.77 and this differs significantly from zero ($p$ = 0.013). The estimated value for the slope is 1.827 $\pm$ 0.901, also differs significantly from zero ($p$ = 0.043).
 
-Towards the bottom of the output there is information about the model fit. The null deviance (what exists if we predict the odds of ESR > 20 from an intercept, $\beta_{0}$, only model) is 30.885 with 31 degrees of freedom and the residual deviance (left over after our model is fitted) is 24.84 with 30 $d.f.$. The model fits a 1 parameter, $\beta_{1}$, and thus accounts for 1 $d.f.$ for a reduction in deviance by 6.045.
+Towards the bottom of the output there is information about the model fit. The null deviance (what exists if we predict the odds of ESR > 20 from an intercept, $\beta_{0}$, only model) is 30.885 with 31 degrees of freedom and the residual deviance (left over after our model is fitted) is 24.84 with 30 $d.f.$. The model fits a single parameter (after $\beta_{0}$), $\beta_{1}$, and thus accounts for 1 $d.f.$ for a reduction in deviance by 6.045.
 
 To get a test of whether the reduction in deviance is significant for each term in the the model formula we use:
 
@@ -306,8 +310,27 @@ predict_for <- data.frame(fibrinogen = seq(0, 6, 1))
 predict_for$pred <- predict(mod, newdata = predict_for, type = "response")
 ```
 
-*need to add some text*
-*- soon honest!*
+
+## Using the predictions to understand the odds
+
+You can use the predictions at fibrinogen levels of 0 and 1 to help you understand odds and the model coefficients.
+
+*a bit more to come, soon, honest!*
+<!-- An odds is the probability of something happening divided by the probability of it not happening.  -->
+<!-- # At a grain size of 0, P(present) is 0.1614302, therefore p(absent) is 1-0.1614302 -->
+<!-- # 0.1614302/(1-0.1614302) = 0.1925066. Look! that's exp(b0)! -->
+<!-- # How does this change from grain size of 0 to grain size of 1? -->
+<!-- # At a grain size of 1, P(present) is 0.9699368, therefore p(absent) is 1-0.9699368 -->
+<!-- # the factor by which the odds change is the odds of present at grainsize 1 / -->
+<!-- # odds of present at grainsize 0 -->
+<!-- # (0.9699368/(1-0.9699368)) / (0.1614302/(1-0.1614302)) -->
+<!-- # = 167.5956 Look, that's exp(b1) -->
+<!-- # Odds are not intuitive for most people. I almost always use the predict function to calculate probabilities to help me understand the effects in my model. -->
+<!-- # You can still make quick judgement on the basis of the coefficients -->
+<!-- # negative b0 means probability of absence (or died/0/no) is higher than probability of presence (or survived/1/yes); positive b0 means probability of presence is higher than probability of absence -->
+<!-- # negative b0 means odds of get lower, presence gets less likely -->
+<!-- # positive b0 means odds of get higher, presence gets less likely -->
+
 
 ## Creating a figure {#fig-6}
 
@@ -335,8 +358,8 @@ geom_smooth(method = "glm",
 
 ## Reporting the results {#report-6}
 
-*to be added - soon honest!*
-<!-- The number of plasma reported by a clinic significantly decreases by a factor of 0.001 $\pm$ 0.901 for each kilometre from the nuclear plant (p = 0.014). See figure \@ref(fig:fig-plasma-report). For a clinic at the plant, -6.845 $\pm$ 2.77 plasma are expected -->
+
+The odds of erythrocyte sedimentation rate (ESR) greater than 20 mm/hr significantly increases with increasing fibrinogen levels by a factor of 6.216 $\pm$ 0.901 for each unit of fibrinogen (p = 0.014). See Figure \@ref(fig:fig-plasma-report). As an example, the probability of having an ESR greater than 20 mm/hr at 2 units 0.04 is which rises to 0.984 at 6 units.
 
 (ref:fig-plasma-report) Incidence erythrocyte sedimentation rate (ESR) greater than 20 mm/hr with fibrinogen levels. The line gives predictions for a GLM with binomial distributed errors, $\frac{P(ESR >20)}{P(ESR <20)}$ = 0.001 $\times$ 1.827$^{fibrinogen}$.
 
