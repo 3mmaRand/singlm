@@ -224,7 +224,7 @@ exp(mod$coefficients)
 
 An alternative way to write the equation of the line is:
 
-<center> $\frac{P(ESR >20)}{P(ESR <20)}$ = 0.001 $\times$ 1.827$^{fibrinogen}$ </center>
+<center> $\frac{P(ESR >20)}{P(ESR <20)}$ = 0.001 $\times$ 6.216$^{fibrinogen}$ </center>
 
 :::key
 
@@ -359,9 +359,9 @@ geom_smooth(method = "glm",
 ## Reporting the results {#report-6}
 
 
-The odds of erythrocyte sedimentation rate (ESR) greater than 20 mm/hr significantly increases with increasing fibrinogen levels by a factor of 6.216 $\pm$ 0.901 for each unit of fibrinogen (p = 0.014). See Figure \@ref(fig:fig-plasma-report). As an example, the probability of having an ESR greater than 20 mm/hr at 2 units 0.04 is which rises to 0.984 at 6 units.
+The odds of erythrocyte sedimentation rate (ESR) greater than 20 mm/hr significantly increases with increasing fibrinogen levels by a factor of 6.216 for each unit of fibrinogen (p = 0.014). See Figure \@ref(fig:fig-plasma-report). As an example, the probability of having an ESR greater than 20 mm/hr at 2 units 0.04 is which rises to 0.984 at 6 units.
 
-(ref:fig-plasma-report) Incidence erythrocyte sedimentation rate (ESR) greater than 20 mm/hr with fibrinogen levels. The line gives predictions for a GLM with binomial distributed errors, $\frac{P(ESR >20)}{P(ESR <20)}$ = 0.001 $\times$ 1.827$^{fibrinogen}$.
+(ref:fig-plasma-report) Incidence erythrocyte sedimentation rate (ESR) greater than 20 mm/hr with fibrinogen levels. The line gives predictions for a GLM with binomial distributed errors, $\frac{P(ESR >20)}{P(ESR <20)}$ = 0.001 $\times$ 6.216$^{fibrinogen}$.
 
 <div class="figure" style="text-align: left">
 <img src="glm-bino-single-cont_files/figure-html/fig-plasma-report-1.png" alt="(ref:fig-plasma-report)" width="60%" />

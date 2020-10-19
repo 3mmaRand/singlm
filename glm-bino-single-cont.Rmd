@@ -55,6 +55,7 @@ b1se <- res$coefficients["fibrinogen", "Std. Error"]
 zval <- res$coefficients["fibrinogen", "z value"]
 b0_resp <- exp(b0)
 b1_resp <- exp(b1)
+b1se_resp <- exp(b1se)
 resid_dev <- res$deviance
 df_resid <- res$df.residual
 null_dev <- res$null.deviance
@@ -112,7 +113,7 @@ exp(mod$coefficients)
 
 An alternative way to write the equation of the line is:
 
-<center> $\frac{P(ESR >20)}{P(ESR <20)}$ = `r b0_resp` $\times$ `r b1`$^{fibrinogen}$ </center>
+<center> $\frac{P(ESR >20)}{P(ESR <20)}$ = `r b0_resp` $\times$ `r b1_resp`$^{fibrinogen}$ </center>
 
 :::key
 
@@ -208,9 +209,9 @@ geom_smooth(method = "glm",
 ## Reporting the results {#report-6}
 
 
-The odds of erythrocyte sedimentation rate (ESR) greater than 20 mm/hr significantly increases with increasing fibrinogen levels by a factor of `r b1_resp` $\pm$ `r b1se` for each unit of fibrinogen (p `r modelp`). See Figure \@ref(fig:fig-plasma-report). As an example, the probability of having an ESR greater than 20 mm/hr at 2 units `r pred_2` is which rises to `r pred_6` at 6 units.
+The odds of erythrocyte sedimentation rate (ESR) greater than 20 mm/hr significantly increases with increasing fibrinogen levels by a factor of `r b1_resp` for each unit of fibrinogen (p `r modelp`). See Figure \@ref(fig:fig-plasma-report). As an example, the probability of having an ESR greater than 20 mm/hr at 2 units `r pred_2` is which rises to `r pred_6` at 6 units.
 
-(ref:fig-plasma-report) Incidence erythrocyte sedimentation rate (ESR) greater than 20 mm/hr with fibrinogen levels. The line gives predictions for a GLM with binomial distributed errors, $\frac{P(ESR >20)}{P(ESR <20)}$ = `r b0_resp` $\times$ `r b1`$^{fibrinogen}$.
+(ref:fig-plasma-report) Incidence erythrocyte sedimentation rate (ESR) greater than 20 mm/hr with fibrinogen levels. The line gives predictions for a GLM with binomial distributed errors, $\frac{P(ESR >20)}{P(ESR <20)}$ = `r b0_resp` $\times$ `r b1_resp`$^{fibrinogen}$.
 
 ```{r fig-plasma-report, ref.label = 'fig-plasma', echo = FALSE, fig.height=4, fig.width=4, fig.cap="(ref:fig-plasma-report)", out.width="60%"}
 ```
