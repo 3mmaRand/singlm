@@ -1,20 +1,25 @@
 --- 
 title: "singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R"
 author: "Emma Rand"
-date: "September 2020"
+date: "October 2021"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [refs/book.bib, refs/packages.bib]
 biblio-style: apalike
 link-citations: true
-description: "The output format for this example is bookdown::gitbook."
+description: "This book aims to teach you how to use and interpret the glm() function in R for two types of response data which are are not normally distributed: Poisson distributed responses (counts) and binomially distributed responses (binary outcomes)."
 favicon: images/favicon.ico
 cover-image: images/hex-s.png
 github-repo: 3mmaRand/singlm
+twitter-handle: er13_r
 url: 'https\://3mmarand.github.io/singlm/'
+always_allow_html: true
 ---
 
-# Preface {-#preface}
+# Welcome! {-#welcome}
+
+![hex logo](images/hex-s.png){width=150px} 
+
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
@@ -129,11 +134,15 @@ In R, these are analysed with the `glm()` function.
 
 
 
-## Software information
+## Credits {.unnumbered}
 
-I used the **`knitr`** package [@xie2015] and the **`bookdown`** package [@R-bookdown] to compile this book. My R session information is shown below:
+I used the [**`bookdown`**](https://bookdown.org/yihui/bookdown/) package [@R-bookdown] to compile this book. My R session information is shown below:
 
 ```{r}
 sessionInfo()
 ```
 
+## License {.unnumbered}
+
+<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="https://licensebuttons.net/l/by-sa/4.0/88x31.png" alt="Creative Commons License" style="border-width:0"/></a><br />This online work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Visit [here](https://github.com/dukestatsciintrods/blob/master/LICENSE.md) for more information about the license.

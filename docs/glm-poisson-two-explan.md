@@ -262,13 +262,13 @@ summary(mod)
 # -1.640  -0.667  -0.172   0.650   1.767  
 # 
 # Coefficients:
-#                 Estimate Std. Error z value Pr(>|z|)    
-# (Intercept)       2.7935     0.1813   15.41   <2e-16 ***
-# grouppair        -0.4161     0.4078   -1.02    0.308    
-# groupsingle      -1.4059     0.5949   -2.36    0.018 *  
-# age               0.2927     0.0354    8.27   <2e-16 ***
-# grouppair:age    -0.1685     0.0789   -2.13    0.033 *  
-# groupsingle:age  -0.3226     0.1260   -2.56    0.010 *  
+#                 Estimate Std. Error z value            Pr(>|z|)    
+# (Intercept)       2.7935     0.1813   15.41 <0.0000000000000002 ***
+# grouppair        -0.4161     0.4078   -1.02               0.308    
+# groupsingle      -1.4059     0.5949   -2.36               0.018 *  
+# age               0.2927     0.0354    8.27 <0.0000000000000002 ***
+# grouppair:age    -0.1685     0.0789   -2.13               0.033 *  
+# groupsingle:age  -0.3226     0.1260   -2.56               0.010 *  
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 # 
@@ -299,11 +299,11 @@ anova(mod, test = "Chisq")
 # Terms added sequentially (first to last)
 # 
 # 
-#           Df Deviance Resid. Df Resid. Dev Pr(>Chi)    
-# NULL                         29        849             
-# group      2      752        27         97  < 2e-16 ***
-# age        1       66        26         31  4.1e-16 ***
-# group:age  2       10        24         21   0.0071 ** 
+#           Df Deviance Resid. Df Resid. Dev             Pr(>Chi)    
+# NULL                         29        849                         
+# group      2      752        27         97 < 0.0000000000000002 ***
+# age        1       66        26         31  0.00000000000000041 ***
+# group:age  2       10        24         21               0.0071 ** 
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
@@ -462,7 +462,6 @@ ggplot(data = birds, aes(x = age, y = prey, colour = group)) +
                      limits = c(0, 110),
                      name = "Number of prey caught") +
   theme_classic()
-  
 ```
 
 <img src="glm-poisson-two-explan_files/figure-html/fig-birds-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />

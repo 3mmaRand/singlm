@@ -23,7 +23,6 @@ options-on-the-toolbar
 conventions-used-in-the-book
 following-along-with-the-examples
 overview-of-the-chapter-contents
-software-information
 what-are-glms-1
 overview-1
 mod-fitting-1

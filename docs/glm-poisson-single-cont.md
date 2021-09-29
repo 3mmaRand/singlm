@@ -273,11 +273,9 @@ Exponentiate coefficients then multiply:
 # 1km away
 exp(b0) * exp(b1)
 # [1] 2.71
-
 # 2km away
 exp(b0) * exp(b1) * exp(b1)
 # [1] 2.65
-
 # 10km away
 exp(b0) * exp(b1)^10
 # [1] 2.23
@@ -288,11 +286,9 @@ Add the coefficients then exponentiate the sum:
 # 1km away
 exp(b0 + b1)
 # [1] 2.71
-
 # 2km away
 exp(b0 + b1 + b1)
 # [1] 2.65
-
 # 10km away
 exp(b0 + 10*b1)
 # [1] 2.23
@@ -321,7 +317,7 @@ summary(mod)
 # Coefficients:
 #             Estimate Std. Error z value Pr(>|z|)    
 # (Intercept)  1.01917    0.30871    3.30  0.00096 ***
-# distance    -0.02150    0.00503   -4.27    2e-05 ***
+# distance    -0.02150    0.00503   -4.27  0.00002 ***
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 # 
@@ -354,9 +350,9 @@ anova(mod, test = "Chisq")
 # Terms added sequentially (first to last)
 # 
 # 
-#          Df Deviance Resid. Df Resid. Dev Pr(>Chi)    
-# NULL                        42       54.5             
-# distance  1     22.7        41       31.8  1.9e-06 ***
+#          Df Deviance Resid. Df Resid. Dev  Pr(>Chi)    
+# NULL                        42       54.5              
+# distance  1     22.7        41       31.8 0.0000019 ***
 # ---
 # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
@@ -409,7 +405,6 @@ geom_smooth(method = "glm",
                      limits = c(0, 5),
                      name = "Number of reported cancers") +
   theme_classic()
-  
 ```
 
 <img src="glm-poisson-single-cont_files/figure-html/fig-cases-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />

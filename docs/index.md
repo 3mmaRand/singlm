@@ -1,20 +1,25 @@
 --- 
 title: "singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R"
 author: "Emma Rand"
-date: "September 2020"
+date: "October 2021"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [refs/book.bib, refs/packages.bib]
 biblio-style: apalike
 link-citations: true
-description: "The output format for this example is bookdown::gitbook."
+description: "This book aims to teach you how to use and interpret the glm() function in R for two types of response data which are are not normally distributed: Poisson distributed responses (counts) and binomially distributed responses (binary outcomes)."
 favicon: images/favicon.ico
 cover-image: images/hex-s.png
 github-repo: 3mmaRand/singlm
+twitter-handle: er13_r
 url: 'https\://3mmarand.github.io/singlm/'
+always_allow_html: true
 ---
 
-# Preface {-#preface}
+# Welcome! {-#welcome}
+
+![hex logo](images/hex-s.png){width=150px} 
+
 
 
 
@@ -45,8 +50,8 @@ cases <- read_table2("data-raw/cases.txt")
 glimpse(cases)
 # Rows: 43
 # Columns: 2
-# $ cancers  <dbl> 0, 0, 4, 0, 0, 0, 0, 1, 0, 0, 2, 0, 2, 1, 1, 0, 0, 1, 1, 1...
-# $ distance <dbl> 154.37, 93.14, 3.83, 60.83, 142.61, 164.72, 135.92, 79.92,...
+# $ cancers  <dbl> 0, 0, 4, 0, 0, 0, 0, 1, 0, 0, 2, 0, 2, 1, 1, 0, 0, 1, 1, 1, 1~
+# $ distance <dbl> 154.37, 93.14, 3.83, 60.83, 142.61, 164.72, 135.92, 79.92, 11~
 ```
 
 Lines of output start with a `#`. The content of a code block can be copied using the icon in its top right.
@@ -126,14 +131,14 @@ In R, these are analysed with the `glm()` function.
 
 
 
-## Software information
+## Credits {.unnumbered}
 
-I used the **`knitr`** package [@xie2015] and the **`bookdown`** package [@R-bookdown] to compile this book. My R session information is shown below:
+I used the [**`bookdown`**](https://bookdown.org/yihui/bookdown/) package [@R-bookdown] to compile this book. My R session information is shown below:
 
 
 ```r
 sessionInfo()
-# R version 4.0.2 (2020-06-22)
+# R version 4.1.0 (2021-05-18)
 # Platform: x86_64-w64-mingw32/x64 (64-bit)
 # Running under: Windows 10 x64 (build 18363)
 # 
@@ -150,24 +155,30 @@ sessionInfo()
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-#  [1] patchwork_1.0.1  kableExtra_1.2.1 forcats_0.5.0    stringr_1.4.0   
-#  [5] dplyr_1.0.2      purrr_0.3.4      readr_1.4.0      tidyr_1.1.2     
-#  [9] tibble_3.0.3     ggplot2_3.3.2    tidyverse_1.3.0 
+#  [1] patchwork_1.1.1  kableExtra_1.3.4 forcats_0.5.1    stringr_1.4.0   
+#  [5] dplyr_1.0.7      purrr_0.3.4      readr_2.0.2      tidyr_1.1.4     
+#  [9] tibble_3.1.4     ggplot2_3.3.5    tidyverse_1.3.1 
 # 
 # loaded via a namespace (and not attached):
-#  [1] tidyselect_1.1.0  xfun_0.18         haven_2.3.1       colorspace_1.4-1 
-#  [5] vctrs_0.3.4       generics_0.0.2    htmltools_0.5.0   viridisLite_0.3.0
-#  [9] yaml_2.2.1        utf8_1.1.4        blob_1.2.1        rlang_0.4.7      
-# [13] pillar_1.4.6      glue_1.4.1        withr_2.3.0       DBI_1.1.0        
-# [17] dbplyr_1.4.4      modelr_0.1.8      readxl_1.3.1      lifecycle_0.2.0  
-# [21] munsell_0.5.0     gtable_0.3.0      cellranger_1.1.0  rvest_0.3.6      
-# [25] evaluate_0.14     knitr_1.30        fansi_0.4.1       broom_0.7.1      
-# [29] Rcpp_1.0.5        scales_1.1.1      backports_1.1.9   webshot_0.5.2    
-# [33] jsonlite_1.7.1    fs_1.5.0          hms_0.5.3         digest_0.6.25    
-# [37] stringi_1.5.3     bookdown_0.20.6   grid_4.0.2        cli_2.0.2        
-# [41] tools_4.0.2       magrittr_1.5      crayon_1.3.4      pkgconfig_2.0.3  
-# [45] ellipsis_0.3.1    xml2_1.3.2        reprex_0.3.0      lubridate_1.7.9  
-# [49] assertthat_0.2.1  rmarkdown_2.4.1   httr_1.4.2        rstudioapi_0.11  
-# [53] R6_2.4.1          compiler_4.0.2
+#  [1] Rcpp_1.0.7        svglite_2.0.0     lubridate_1.7.10  assertthat_0.2.1 
+#  [5] digest_0.6.28     utf8_1.2.2        R6_2.5.1          cellranger_1.1.0 
+#  [9] backports_1.2.1   reprex_2.0.1      evaluate_0.14     httr_1.4.2       
+# [13] pillar_1.6.3      rlang_0.4.11      readxl_1.3.1      rstudioapi_0.13  
+# [17] jquerylib_0.1.4   rmarkdown_2.11    webshot_0.5.2     munsell_0.5.0    
+# [21] broom_0.7.9       compiler_4.1.0    modelr_0.1.8      xfun_0.26        
+# [25] pkgconfig_2.0.3   systemfonts_1.0.2 htmltools_0.5.2   downlit_0.2.1    
+# [29] tidyselect_1.1.1  bookdown_0.24     fansi_0.5.0       viridisLite_0.4.0
+# [33] crayon_1.4.1      tzdb_0.1.2        dbplyr_2.1.1      withr_2.4.2      
+# [37] grid_4.1.0        jsonlite_1.7.2    gtable_0.3.0      lifecycle_1.0.1  
+# [41] DBI_1.1.1         magrittr_2.0.1    scales_1.1.1      cli_3.0.1        
+# [45] stringi_1.7.4     fs_1.5.0          xml2_1.3.2        bslib_0.3.0      
+# [49] ellipsis_0.3.2    generics_0.1.0    vctrs_0.3.8       tools_4.1.0      
+# [53] glue_1.4.2        hms_1.1.1         fastmap_1.1.0     yaml_2.2.1       
+# [57] colorspace_2.0-2  rvest_1.0.1       knitr_1.34        haven_2.4.3      
+# [61] sass_0.4.0
 ```
 
+## License {.unnumbered}
+
+<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="https://licensebuttons.net/l/by-sa/4.0/88x31.png" alt="Creative Commons License" style="border-width:0"/></a><br />This online work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Visit [here](https://github.com/dukestatsciintrods/blob/master/LICENSE.md) for more information about the license.

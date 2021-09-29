@@ -1,228 +1,86 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 2 Poisson GLM overview | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</title>
+<meta name="author" content="Emma Rand">
+<meta name="description" content="When a response variable is the count of objects, individuals or events it often follows a Poisson distribution. Such variables are always positive - they range from 0 to \(\infty\). A Poisson GLM...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 2 Poisson GLM overview | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://3mmarand.github.io/singlm/pois-glm-overview-2.html">
+<meta property="og:image" content="https://3mmarand.github.io/singlm//images/hex-s.png">
+<meta property="og:description" content="When a response variable is the count of objects, individuals or events it often follows a Poisson distribution. Such variables are always positive - they range from 0 to \(\infty\). A Poisson GLM...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 2 Poisson GLM overview | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R">
+<meta name="twitter:site" content="@er13_r">
+<meta name="twitter:description" content="When a response variable is the count of objects, individuals or events it often follows a Poisson distribution. Such variables are always positive - they range from 0 to \(\infty\). A Poisson GLM...">
+<meta name="twitter:image" content="https://3mmarand.github.io/singlm//images/hex-s.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet">
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Poisson GLM overview | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</title>
-  <meta name="description" content="The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="Chapter 2 Poisson GLM overview | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R" />
-  <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://3mmarand.github.io/singlm/" />
-  <meta property="og:image" content="https://3mmarand.github.io/singlm/images/hex-s.png" />
-  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
-  <meta name="github-repo" content="3mmaRand/singlm" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Poisson GLM overview | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R" />
-  
-  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
-  <meta name="twitter:image" content="https://3mmarand.github.io/singlm/images/hex-s.png" />
-
-<meta name="author" content="Emma Rand" />
-
-
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="what-are-glms-1.html"/>
-<link rel="next" href="pois-glm-single-cont.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="assets/book.js"></script>
-
-
-<style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  background-color: #f8f8f8; }
-@media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ef2929; } /* Alert */
-code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
-code span.bn { color: #0000cf; } /* BaseN */
-code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
-code span.co { color: #8f5902; font-style: italic; } /* Comment */
-code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code span.dt { color: #204a87; } /* DataType */
-code span.dv { color: #0000cf; } /* DecVal */
-code span.er { color: #a40000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code span.ot { color: #8f5902; } /* Other */
-code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
-code span.ss { color: #4e9a06; } /* SpecialString */
-code span.st { color: #4e9a06; } /* String */
-code span.va { color: #000000; } /* Variable */
-code span.vs { color: #4e9a06; } /* VerbatimString */
-code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<link rel="stylesheet" href="assets/style.css" type="text/css" />
+      gtag('config', 'UA-115082821-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="assets/style.css">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li class="toc-logo"><a href="./"><img src="images/hex-s.png"></a></li>
-
-<li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#who-is-this-book-for"><i class="fa fa-check"></i><b>0.1</b> Who is this book for?</a></li>
-<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#approach-of-this-book"><i class="fa fa-check"></i><b>0.2</b> Approach of this book</a></li>
-<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#options-on-the-toolbar"><i class="fa fa-check"></i><b>0.3</b> Options on the toolbar</a></li>
-<li class="chapter" data-level="0.4" data-path="index.html"><a href="index.html#conventions-used-in-the-book"><i class="fa fa-check"></i><b>0.4</b> Conventions used in the book</a></li>
-<li class="chapter" data-level="0.5" data-path="index.html"><a href="index.html#following-along-with-the-examples"><i class="fa fa-check"></i><b>0.5</b> Following along with the examples</a></li>
-<li class="chapter" data-level="0.6" data-path="index.html"><a href="index.html#overview-of-the-chapter-contents"><i class="fa fa-check"></i><b>0.6</b> Overview of the chapter contents</a></li>
-<li class="chapter" data-level="0.7" data-path="index.html"><a href="index.html#software-information"><i class="fa fa-check"></i><b>0.7</b> Software information</a></li>
-</ul></li>
-<li class="part"><span><b>I Introduction</b></span></li>
-<li class="chapter" data-level="1" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html"><i class="fa fa-check"></i><b>1</b> What are GLMs?</a><ul>
-<li class="chapter" data-level="1.1" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#overview-1"><i class="fa fa-check"></i><b>1.1</b> Overview</a></li>
-<li class="chapter" data-level="1.2" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#mod-fitting-1"><i class="fa fa-check"></i><b>1.2</b> Model fitting</a></li>
-<li class="chapter" data-level="1.3" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#glm-types-1"><i class="fa fa-check"></i><b>1.3</b> Types of GLM</a></li>
-<li class="chapter" data-level="1.4" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#more-than-1-1"><i class="fa fa-check"></i><b>1.4</b> More than one explanatory variable</a></li>
-<li class="chapter" data-level="1.5" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#glm-in-r-1"><i class="fa fa-check"></i><b>1.5</b> Generalised linear models in R</a><ul>
-<li class="chapter" data-level="1.5.1" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#build-view-1"><i class="fa fa-check"></i><b>1.5.1</b> Building and viewing</a></li>
-<li class="chapter" data-level="1.5.2" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#get-pred-1"><i class="fa fa-check"></i><b>1.5.2</b> Getting predictions</a></li>
-<li class="chapter" data-level="1.5.3" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#tests-of-the-model"><i class="fa fa-check"></i><b>1.5.3</b> Tests of the model</a></li>
-</ul></li>
-</ul></li>
-<li class="part"><span><b>II POISSON GLMs</b></span></li>
-<li class="chapter" data-level="2" data-path="pois-glm-overview-2.html"><a href="pois-glm-overview-2.html"><i class="fa fa-check"></i><b>2</b> Poisson GLM overview</a><ul>
-<li class="chapter" data-level="2.1" data-path="pois-glm-overview-2.html"><a href="pois-glm-overview-2.html#pois-glm-chi-2"><i class="fa fa-check"></i><b>2.1</b> When explanatory is categorical</a></li>
-<li class="chapter" data-level="2.2" data-path="pois-glm-overview-2.html"><a href="pois-glm-overview-2.html#more-than-one-explanatory"><i class="fa fa-check"></i><b>2.2</b> More than one explanatory</a></li>
-<li class="chapter" data-level="2.3" data-path="pois-glm-overview-2.html"><a href="pois-glm-overview-2.html#pois-glm-report-2"><i class="fa fa-check"></i><b>2.3</b> Reporting</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html"><i class="fa fa-check"></i><b>3</b> Single continuous explanatory</a><ul>
-<li class="chapter" data-level="3.1" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#intro-3"><i class="fa fa-check"></i><b>3.1</b> Introduction to the example</a></li>
-<li class="chapter" data-level="3.2" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#apply-interp-3"><i class="fa fa-check"></i><b>3.2</b> Applying and interpreting <code>glm()</code></a></li>
-<li class="chapter" data-level="3.3" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#get-pred-3"><i class="fa fa-check"></i><b>3.3</b> Getting predictions from the model</a></li>
-<li class="chapter" data-level="3.4" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#fig-3"><i class="fa fa-check"></i><b>3.4</b> Creating a figure</a></li>
-<li class="chapter" data-level="3.5" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#report-3"><i class="fa fa-check"></i><b>3.5</b> Reporting the results</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html"><i class="fa fa-check"></i><b>4</b> Two explanatory variables</a><ul>
-<li class="chapter" data-level="4.1" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html#intro-4"><i class="fa fa-check"></i><b>4.1</b> Introduction to the example</a></li>
-<li class="chapter" data-level="4.2" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html#apply-interp-4"><i class="fa fa-check"></i><b>4.2</b> Applying and interpreting <code>glm()</code></a></li>
-<li class="chapter" data-level="4.3" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html#getting-predictions-from-the-model"><i class="fa fa-check"></i><b>4.3</b> Getting predictions from the model</a></li>
-<li class="chapter" data-level="4.4" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html#fig-4"><i class="fa fa-check"></i><b>4.4</b> Creating a figure</a></li>
-<li class="chapter" data-level="4.5" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html#report-4"><i class="fa fa-check"></i><b>4.5</b> Reporting the results</a></li>
-</ul></li>
-<li class="part"><span><b>III BINOMIAL GLMs</b></span></li>
-<li class="chapter" data-level="5" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html"><i class="fa fa-check"></i><b>5</b> Binomial GLM overview</a><ul>
-<li class="chapter" data-level="5.1" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html#bino-odds-5"><i class="fa fa-check"></i><b>5.1</b> What exactly are odds?</a></li>
-<li class="chapter" data-level="5.2" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html#bino-b0-odds-5"><i class="fa fa-check"></i><b>5.2</b> What does this mean for <span class="math inline">\(\beta_{0}\)</span>?</a></li>
-<li class="chapter" data-level="5.3" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html#bino-b1-odds-5"><i class="fa fa-check"></i><b>5.3</b> What does this mean for <span class="math inline">\(\beta_{1}\)</span>?</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html"><i class="fa fa-check"></i><b>6</b> Single continuous explanatory</a><ul>
-<li class="chapter" data-level="6.1" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#intro-6"><i class="fa fa-check"></i><b>6.1</b> Introduction to the example</a></li>
-<li class="chapter" data-level="6.2" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#apply-interp-6"><i class="fa fa-check"></i><b>6.2</b> Applying and interpreting <code>glm()</code></a></li>
-<li class="chapter" data-level="6.3" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#get-pred-6"><i class="fa fa-check"></i><b>6.3</b> Getting predictions from the model</a></li>
-<li class="chapter" data-level="6.4" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#using-the-predictions-to-understand-the-odds"><i class="fa fa-check"></i><b>6.4</b> Using the predictions to understand the odds</a></li>
-<li class="chapter" data-level="6.5" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#fig-6"><i class="fa fa-check"></i><b>6.5</b> Creating a figure</a></li>
-<li class="chapter" data-level="6.6" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#report-6"><i class="fa fa-check"></i><b>6.6</b> Reporting the results</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> Summary</a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome!</a></li>
+<li class="book-part">Introduction</li>
+<li><a class="" href="what-are-glms-1.html"><span class="header-section-number">1</span> What are GLMs?</a></li>
+<li class="book-part">POISSON GLMs</li>
+<li><a class="active" href="pois-glm-overview-2.html"><span class="header-section-number">2</span> Poisson GLM overview</a></li>
+<li><a class="" href="pois-glm-single-cont.html"><span class="header-section-number">3</span> Single continuous explanatory</a></li>
+<li><a class="" href="pois-glm-two-cont.html"><span class="header-section-number">4</span> Two explanatory variables</a></li>
+<li class="book-part">BINOMIAL GLMs</li>
+<li><a class="" href="bino-glm-overview-5.html"><span class="header-section-number">5</span> Binomial GLM overview</a></li>
+<li><a class="" href="bino-glm-single-cont.html"><span class="header-section-number">6</span> Single continuous explanatory</a></li>
+<li><a class="" href="summary.html"><span class="header-section-number">7</span> Summary</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/3mmaRand/singlm">View book source <i class="fab fa-github"></i></a></p>
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="pois-glm-overview-2" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Poisson GLM overview</h1>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="pois-glm-overview-2" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Poisson GLM overview<a class="anchor" aria-label="anchor" href="#pois-glm-overview-2"><i class="fas fa-link"></i></a>
+</h1>
 <p>When a response variable is the count of objects, individuals or events it often follows a Poisson distribution. Such variables are always positive - they range from 0 to <span class="math inline">\(\infty\)</span>. A Poisson GLM is also known as Poisson regression. The link function used in a Poisson GLM is the natural logarithm, <span class="math inline">\(ln\)</span>.</p>
 <p>When you have a single explanatory variable, that model is:</p>
 <p><span class="math display" id="eq:glmpois">\[\begin{equation}
 ln(E(y_{i}))=\beta_{0}+\beta_{1}X1_{i}
 \tag{2.1}
 \end{equation}\]</span></p>
-<p>This means that the model estimates are logged to the base <span class="math inline">\(e\)</span> and and the inverse function, <code>exp()</code> must be applied to them to interpret them in terms of the response. In other words, to make predictions about the expected value of the response we need to exponentiate the coefficients.</p>
+<p>This means that the model estimates are logged to the base <span class="math inline">\(e\)</span> and and the inverse function, <code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code> must be applied to them to interpret them in terms of the response. In other words, to make predictions about the expected value of the response we need to exponentiate the coefficients.</p>
 <p><span class="math display" id="eq:glmpois2">\[\begin{equation}
 E(y_{i})=exp(\beta_{0}+\beta_{1}X1_{i})
 \tag{2.2}
@@ -234,29 +92,33 @@ E(y_{i})=exp(\beta_{0}) \times exp(\beta_{1})^{X1_{i}}
 \end{equation}\]</span></p>
 <p>Just like examples of general linear models with a single explanatory variable, there are two parameters in this model, <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{0}\)</span> and their meaning is similar. <span class="math inline">\(\beta_{0}\)</span> is the log of the expected <span class="math inline">\(y\)</span> when <span class="math inline">\(x\)</span> is zero (i.e., the intercept). The log of <span class="math inline">\(\beta_{1}\)</span> is not the amount you <em>add</em> to <span class="math inline">\(y\)</span> for each unit change in <span class="math inline">\(x\)</span> but the amount by which to <em>multiply</em>. This means the model is a curve. If <span class="math inline">\(\beta_{1}\)</span> is positive, <span class="math inline">\(exp(\beta_{1})\)</span> is greater than one and <span class="math inline">\(y\)</span> increases as <span class="math inline">\(x\)</span> increases; if <span class="math inline">\(\beta_{1}\)</span> is negative, <span class="math inline">\(exp(\beta_{1})\)</span> is less than one and <span class="math inline">\(y\)</span> decreases as <span class="math inline">\(x\)</span> increases. See Figure <a href="pois-glm-overview-2.html#fig:glm-pois-poss">2.1</a> for an illustration of the curve for positive and negative <span class="math inline">\(\beta_{1}\)</span>.</p>
 
-<div class="figure" style="text-align: left"><span id="fig:glm-pois-poss"></span>
-<img src="glm-poisson_files/figure-html/glm-pois-poss-1.png" alt="Data fitted with a Poisson GLM." width="80%" />
-<p class="caption">
+<div class="figure" style="text-align: left">
+<span style="display:block;" id="fig:glm-pois-poss"></span>
+<img src="glm-poisson_files/figure-html/glm-pois-poss-1.png" alt="Data fitted with a Poisson GLM." width="80%"><p class="caption">
 Figure 2.1: Data fitted with a Poisson GLM.
 </p>
 </div>
 <p>See Figure <a href="pois-glm-overview-2.html#fig:glm-pois-annotated">2.2</a> for a graphical representation of generalised linear model terms.</p>
 
-<div class="figure" style="text-align: left"><span id="fig:glm-pois-annotated"></span>
-<img src="images/generic_pois.svg" alt="A Generalised linear model with Poisson distributed errors. The measured response values are in pink, the predictions are in green, and the differences between these, known as the residuals, are in blue. The estimated model parameters, \(\beta_{0}\) and \(\beta_{1}\) must be exponentiated to be interpreted on the scale of the response. When \(x=0\) we predict the number of \(y\) to be \(exp(\beta_{0})\). For each unit of \(x\), the number of \(y\) changes by a factor of \(exp(\beta_{1})\)" width="80%" />
-<p class="caption">
+<div class="figure" style="text-align: left">
+<span style="display:block;" id="fig:glm-pois-annotated"></span>
+<img src="images/generic_pois.svg" alt="A Generalised linear model with Poisson distributed errors. The measured response values are in pink, the predictions are in green, and the differences between these, known as the residuals, are in blue. The estimated model parameters, \(\beta_{0}\) and \(\beta_{1}\) must be exponentiated to be interpreted on the scale of the response. When \(x=0\) we predict the number of \(y\) to be \(exp(\beta_{0})\). For each unit of \(x\), the number of \(y\) changes by a factor of \(exp(\beta_{1})\)" width="80%"><p class="caption">
 Figure 2.2: A Generalised linear model with Poisson distributed errors. The measured <span style=" font-weight: bold;    color: #d264c0 !important;">response values are in pink</span>, the <span style=" font-weight: bold;    color: #c0d264 !important;">predictions are in green</span>, and the differences between these, known as the <span style=" font-weight: bold;    color: #64c0d2 !important;">residuals, are in blue</span>. The estimated model parameters, <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> must be exponentiated to be interpreted on the scale of the response. When <span class="math inline">\(x=0\)</span> we predict the number of <span class="math inline">\(y\)</span> to be <span class="math inline">\(exp(\beta_{0})\)</span>. For each unit of <span class="math inline">\(x\)</span>, the number of <span class="math inline">\(y\)</span> changes by a factor of <span class="math inline">\(exp(\beta_{1})\)</span>
 </p>
 </div>
 <div class="key">
 <p><span class="math inline">\(ln\)</span> is the link function in a Poisson GLM. The estimates are log counts and using <span class="math inline">\(exp(\beta_{0})\)</span> and <span class="math inline">\(exp(\beta_{1})\)</span> enables us to interpret them as counts.</p>
 </div>
-<div id="pois-glm-chi-2" class="section level2">
-<h2><span class="header-section-number">2.1</span> When explanatory is categorical</h2>
+<div id="pois-glm-chi-2" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> When explanatory is categorical<a class="anchor" aria-label="anchor" href="#pois-glm-chi-2"><i class="fas fa-link"></i></a>
+</h2>
 <p>If your response is a count and you just one categorical explanatory variable you do not need a Poisson GLMS. Use a chi-squared test.</p>
 </div>
-<div id="more-than-one-explanatory" class="section level2">
-<h2><span class="header-section-number">2.2</span> More than one explanatory</h2>
+<div id="more-than-one-explanatory" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> More than one explanatory<a class="anchor" aria-label="anchor" href="#more-than-one-explanatory"><i class="fas fa-link"></i></a>
+</h2>
 <p><span class="math display" id="eq:glmpois4">\[\begin{equation}
 ln(E(y_{i}))=\beta_{0}+\beta_{1}X1_{i}+\beta_{2}X2_{i}+...+\beta_{p}Xp_{i}
 \tag{2.4}
@@ -274,72 +136,52 @@ E(y_{i})=exp(\beta_{0}+\beta_{1}X1_{i}+\beta_{2}X2_{i}+...+\beta_{p}Xp_{i})
 <!-- The Q-Q plot is a scatterplot of the residuals (standardised to a mean of zero and a standard deviation of 1) against what is expected if the residuals are normally distributed.  -->
 <!-- The following are two examples in which the residuals are not normally distributed. -->
 </div>
-<div id="pois-glm-report-2" class="section level2">
-<h2><span class="header-section-number">2.3</span> Reporting</h2>
+<div id="pois-glm-report-2" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Reporting<a class="anchor" aria-label="anchor" href="#pois-glm-report-2"><i class="fas fa-link"></i></a>
+</h2>
 <p>The important information to include when reporting the results of fitting a Poisson GLM are the most notable predictions and the significance, direction and magnitude of effects. You need to ensure your reader will understand what the data are saying even if all the numbers and statistical information was removed. For example, variable <span class="math inline">\(Y\)</span> increases with variables <span class="math inline">\(X1\)</span>.</p>
 <p>In relatively simple models, reporting group means or a slope, and statistical test information is enough. In more complex models with many variables is it common to give all the estimated model coefficients in a table.</p>
 <p>In addition, your figure should show both the data and the model. This is honest and allows your interpretation to be evaluated.</p>
 
 </div>
 </div>
-            </section>
+  <div class="chapter-nav">
+<div class="prev"><a href="what-are-glms-1.html"><span class="header-section-number">1</span> What are GLMs?</a></div>
+<div class="next"><a href="pois-glm-single-cont.html"><span class="header-section-number">3</span> Single continuous explanatory</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#pois-glm-overview-2"><span class="header-section-number">2</span> Poisson GLM overview</a></li>
+<li><a class="nav-link" href="#pois-glm-chi-2"><span class="header-section-number">2.1</span> When explanatory is categorical</a></li>
+<li><a class="nav-link" href="#more-than-one-explanatory"><span class="header-section-number">2.2</span> More than one explanatory</a></li>
+<li><a class="nav-link" href="#pois-glm-report-2"><span class="header-section-number">2.3</span> Reporting</a></li>
+</ul>
 
-          </div>
-        </div>
-      </div>
-<a href="what-are-glms-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="pois-glm-single-cont.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/3mmaRand/singlm/blob/master/glm-poisson.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/3mmaRand/singlm/edit/master/glm-poisson.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</strong>" was written by Emma Rand. It was last built on October 2021.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": true,
-"facebook": false,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"all": false
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/3mmaRand/singlm/edit/master/glm-poisson.Rmd",
-"text": "Make an edit suggestion"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["singlm.pdf", "singlm.epub", "https://github.com/3mmaRand/singlm/raw/master/glm-poisson.Rmd"],
-"toc": {
-"collapse": "section"
-}
-});
-});
-</script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -351,7 +193,22 @@ gitbook.start({
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
-
 </html>

@@ -1,5 +1,11 @@
 # 
-options(digits = 3)
+options(digits = 3,
+        scipen = 999,
+        kableExtra.html.bsTable = T,
+        knitr.table.format = function() {
+          if (knitr::is_latex_output()) 
+            "latex" else "pipe"
+        })
 
 knitr::opts_chunk$set(
   comment = "#",
@@ -21,6 +27,7 @@ library(kableExtra,
         verbose = FALSE, 
         quietly = TRUE, 
         warn.conflicts = FALSE)
+
 library(patchwork, 
         verbose = FALSE, 
         quietly = TRUE, 

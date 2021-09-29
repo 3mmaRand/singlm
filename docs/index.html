@@ -1,258 +1,123 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Welcome! | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</title>
+<meta name="author" content="Emma Rand">
+<meta name="description" content="This book aims to teach you how to use and interpret the glm() function in R for two types of response data which are are not normally distributed: Poisson distributed responses (counts) and binomially distributed responses (binary outcomes).">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Welcome! | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://3mmarand.github.io/singlm/">
+<meta property="og:image" content="https://3mmarand.github.io/singlm//images/hex-s.png">
+<meta property="og:description" content="This book aims to teach you how to use and interpret the glm() function in R for two types of response data which are are not normally distributed: Poisson distributed responses (counts) and binomially distributed responses (binary outcomes).">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Welcome! | singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R">
+<meta name="twitter:site" content="@er13_r">
+<meta name="twitter:description" content="This book aims to teach you how to use and interpret the glm() function in R for two types of response data which are are not normally distributed: Poisson distributed responses (counts) and binomially distributed responses (binary outcomes).">
+<meta name="twitter:image" content="https://3mmarand.github.io/singlm//images/hex-s.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet">
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</title>
-  <meta name="description" content="The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R" />
-  <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://3mmarand.github.io/singlm/" />
-  <meta property="og:image" content="https://3mmarand.github.io/singlm/images/hex-s.png" />
-  <meta property="og:description" content="The output format for this example is bookdown::gitbook." />
-  <meta name="github-repo" content="3mmaRand/singlm" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R" />
-  
-  <meta name="twitter:description" content="The output format for this example is bookdown::gitbook." />
-  <meta name="twitter:image" content="https://3mmarand.github.io/singlm/images/hex-s.png" />
-
-<meta name="author" content="Emma Rand" />
-
-
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-
-<link rel="next" href="what-are-glms-1.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="assets/book.js"></script>
-
-
-<style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  background-color: #f8f8f8; }
-@media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ef2929; } /* Alert */
-code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
-code span.bn { color: #0000cf; } /* BaseN */
-code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
-code span.co { color: #8f5902; font-style: italic; } /* Comment */
-code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code span.dt { color: #204a87; } /* DataType */
-code span.dv { color: #0000cf; } /* DecVal */
-code span.er { color: #a40000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code span.ot { color: #8f5902; } /* Other */
-code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
-code span.ss { color: #4e9a06; } /* SpecialString */
-code span.st { color: #4e9a06; } /* String */
-code span.va { color: #000000; } /* Variable */
-code span.vs { color: #4e9a06; } /* VerbatimString */
-code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<link rel="stylesheet" href="assets/style.css" type="text/css" />
+      gtag('config', 'UA-115082821-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="assets/style.css">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li class="toc-logo"><a href="./"><img src="images/hex-s.png"></a></li>
-
-<li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#who-is-this-book-for"><i class="fa fa-check"></i><b>0.1</b> Who is this book for?</a></li>
-<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#approach-of-this-book"><i class="fa fa-check"></i><b>0.2</b> Approach of this book</a></li>
-<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#options-on-the-toolbar"><i class="fa fa-check"></i><b>0.3</b> Options on the toolbar</a></li>
-<li class="chapter" data-level="0.4" data-path="index.html"><a href="index.html#conventions-used-in-the-book"><i class="fa fa-check"></i><b>0.4</b> Conventions used in the book</a></li>
-<li class="chapter" data-level="0.5" data-path="index.html"><a href="index.html#following-along-with-the-examples"><i class="fa fa-check"></i><b>0.5</b> Following along with the examples</a></li>
-<li class="chapter" data-level="0.6" data-path="index.html"><a href="index.html#overview-of-the-chapter-contents"><i class="fa fa-check"></i><b>0.6</b> Overview of the chapter contents</a></li>
-<li class="chapter" data-level="0.7" data-path="index.html"><a href="index.html#software-information"><i class="fa fa-check"></i><b>0.7</b> Software information</a></li>
-</ul></li>
-<li class="part"><span><b>I Introduction</b></span></li>
-<li class="chapter" data-level="1" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html"><i class="fa fa-check"></i><b>1</b> What are GLMs?</a><ul>
-<li class="chapter" data-level="1.1" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#overview-1"><i class="fa fa-check"></i><b>1.1</b> Overview</a></li>
-<li class="chapter" data-level="1.2" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#mod-fitting-1"><i class="fa fa-check"></i><b>1.2</b> Model fitting</a></li>
-<li class="chapter" data-level="1.3" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#glm-types-1"><i class="fa fa-check"></i><b>1.3</b> Types of GLM</a></li>
-<li class="chapter" data-level="1.4" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#more-than-1-1"><i class="fa fa-check"></i><b>1.4</b> More than one explanatory variable</a></li>
-<li class="chapter" data-level="1.5" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#glm-in-r-1"><i class="fa fa-check"></i><b>1.5</b> Generalised linear models in R</a><ul>
-<li class="chapter" data-level="1.5.1" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#build-view-1"><i class="fa fa-check"></i><b>1.5.1</b> Building and viewing</a></li>
-<li class="chapter" data-level="1.5.2" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#get-pred-1"><i class="fa fa-check"></i><b>1.5.2</b> Getting predictions</a></li>
-<li class="chapter" data-level="1.5.3" data-path="what-are-glms-1.html"><a href="what-are-glms-1.html#tests-of-the-model"><i class="fa fa-check"></i><b>1.5.3</b> Tests of the model</a></li>
-</ul></li>
-</ul></li>
-<li class="part"><span><b>II POISSON GLMs</b></span></li>
-<li class="chapter" data-level="2" data-path="pois-glm-overview-2.html"><a href="pois-glm-overview-2.html"><i class="fa fa-check"></i><b>2</b> Poisson GLM overview</a><ul>
-<li class="chapter" data-level="2.1" data-path="pois-glm-overview-2.html"><a href="pois-glm-overview-2.html#pois-glm-chi-2"><i class="fa fa-check"></i><b>2.1</b> When explanatory is categorical</a></li>
-<li class="chapter" data-level="2.2" data-path="pois-glm-overview-2.html"><a href="pois-glm-overview-2.html#more-than-one-explanatory"><i class="fa fa-check"></i><b>2.2</b> More than one explanatory</a></li>
-<li class="chapter" data-level="2.3" data-path="pois-glm-overview-2.html"><a href="pois-glm-overview-2.html#pois-glm-report-2"><i class="fa fa-check"></i><b>2.3</b> Reporting</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html"><i class="fa fa-check"></i><b>3</b> Single continuous explanatory</a><ul>
-<li class="chapter" data-level="3.1" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#intro-3"><i class="fa fa-check"></i><b>3.1</b> Introduction to the example</a></li>
-<li class="chapter" data-level="3.2" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#apply-interp-3"><i class="fa fa-check"></i><b>3.2</b> Applying and interpreting <code>glm()</code></a></li>
-<li class="chapter" data-level="3.3" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#get-pred-3"><i class="fa fa-check"></i><b>3.3</b> Getting predictions from the model</a></li>
-<li class="chapter" data-level="3.4" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#fig-3"><i class="fa fa-check"></i><b>3.4</b> Creating a figure</a></li>
-<li class="chapter" data-level="3.5" data-path="pois-glm-single-cont.html"><a href="pois-glm-single-cont.html#report-3"><i class="fa fa-check"></i><b>3.5</b> Reporting the results</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html"><i class="fa fa-check"></i><b>4</b> Two explanatory variables</a><ul>
-<li class="chapter" data-level="4.1" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html#intro-4"><i class="fa fa-check"></i><b>4.1</b> Introduction to the example</a></li>
-<li class="chapter" data-level="4.2" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html#apply-interp-4"><i class="fa fa-check"></i><b>4.2</b> Applying and interpreting <code>glm()</code></a></li>
-<li class="chapter" data-level="4.3" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html#getting-predictions-from-the-model"><i class="fa fa-check"></i><b>4.3</b> Getting predictions from the model</a></li>
-<li class="chapter" data-level="4.4" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html#fig-4"><i class="fa fa-check"></i><b>4.4</b> Creating a figure</a></li>
-<li class="chapter" data-level="4.5" data-path="pois-glm-two-cont.html"><a href="pois-glm-two-cont.html#report-4"><i class="fa fa-check"></i><b>4.5</b> Reporting the results</a></li>
-</ul></li>
-<li class="part"><span><b>III BINOMIAL GLMs</b></span></li>
-<li class="chapter" data-level="5" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html"><i class="fa fa-check"></i><b>5</b> Binomial GLM overview</a><ul>
-<li class="chapter" data-level="5.1" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html#bino-odds-5"><i class="fa fa-check"></i><b>5.1</b> What exactly are odds?</a></li>
-<li class="chapter" data-level="5.2" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html#bino-b0-odds-5"><i class="fa fa-check"></i><b>5.2</b> What does this mean for <span class="math inline">\(\beta_{0}\)</span>?</a></li>
-<li class="chapter" data-level="5.3" data-path="bino-glm-overview-5.html"><a href="bino-glm-overview-5.html#bino-b1-odds-5"><i class="fa fa-check"></i><b>5.3</b> What does this mean for <span class="math inline">\(\beta_{1}\)</span>?</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html"><i class="fa fa-check"></i><b>6</b> Single continuous explanatory</a><ul>
-<li class="chapter" data-level="6.1" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#intro-6"><i class="fa fa-check"></i><b>6.1</b> Introduction to the example</a></li>
-<li class="chapter" data-level="6.2" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#apply-interp-6"><i class="fa fa-check"></i><b>6.2</b> Applying and interpreting <code>glm()</code></a></li>
-<li class="chapter" data-level="6.3" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#get-pred-6"><i class="fa fa-check"></i><b>6.3</b> Getting predictions from the model</a></li>
-<li class="chapter" data-level="6.4" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#using-the-predictions-to-understand-the-odds"><i class="fa fa-check"></i><b>6.4</b> Using the predictions to understand the odds</a></li>
-<li class="chapter" data-level="6.5" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#fig-6"><i class="fa fa-check"></i><b>6.5</b> Creating a figure</a></li>
-<li class="chapter" data-level="6.6" data-path="bino-glm-single-cont.html"><a href="bino-glm-single-cont.html#report-6"><i class="fa fa-check"></i><b>6.6</b> Reporting the results</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> Summary</a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="active" href="index.html">Welcome!</a></li>
+<li class="book-part">Introduction</li>
+<li><a class="" href="what-are-glms-1.html"><span class="header-section-number">1</span> What are GLMs?</a></li>
+<li class="book-part">POISSON GLMs</li>
+<li><a class="" href="pois-glm-overview-2.html"><span class="header-section-number">2</span> Poisson GLM overview</a></li>
+<li><a class="" href="pois-glm-single-cont.html"><span class="header-section-number">3</span> Single continuous explanatory</a></li>
+<li><a class="" href="pois-glm-two-cont.html"><span class="header-section-number">4</span> Two explanatory variables</a></li>
+<li class="book-part">BINOMIAL GLMs</li>
+<li><a class="" href="bino-glm-overview-5.html"><span class="header-section-number">5</span> Binomial GLM overview</a></li>
+<li><a class="" href="bino-glm-single-cont.html"><span class="header-section-number">6</span> Single continuous explanatory</a></li>
+<li><a class="" href="summary.html"><span class="header-section-number">7</span> Summary</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/3mmaRand/singlm">View book source <i class="fab fa-github"></i></a></p>
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</h1>
-<p class="author"><em>Emma Rand</em></p>
-<p class="date"><em>September 2020</em></p>
+      </nav>
 </div>
-<div id="preface" class="section level1 unnumbered">
-<h1>Preface</h1>
-<div id="who-is-this-book-for" class="section level2">
-<h2><span class="header-section-number">0.1</span> Who is this book for?</h2>
-<p>This book is for R users who have done an introductory class in data analysis which covered hypothesis testing and applying and interpreting linear models in R with the <code>lm()</code> function. I assume you are familiar with, but not expert in, using R and RStudio to import data, analyse it and interpret the results and create figures using <code>ggplot()</code>.</p>
-<p>The book aims to teach you how to use and interpret the <code>glm()</code> function in R for two types of response data which are are not normally distributed: Poisson distributed responses (counts) and binomially distributed responses (binary outcomes).</p>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="welcome" class="section level1 unnumbered">
+<h1>Welcome!<a class="anchor" aria-label="anchor" href="#welcome"><i class="fas fa-link"></i></a>
+</h1>
+<div class="figure">
+<img src="images/hex-s.png" width="150" alt=""><p class="caption">hex logo</p>
 </div>
-<div id="approach-of-this-book" class="section level2">
-<h2><span class="header-section-number">0.2</span> Approach of this book</h2>
+<div id="who-is-this-book-for" class="section level2" number="0.1">
+<h2>
+<span class="header-section-number">0.1</span> Who is this book for?<a class="anchor" aria-label="anchor" href="#who-is-this-book-for"><i class="fas fa-link"></i></a>
+</h2>
+<p>This book is for R users who have done an introductory class in data analysis which covered hypothesis testing and applying and interpreting linear models in R with the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function. I assume you are familiar with, but not expert in, using R and RStudio to import data, analyse it and interpret the results and create figures using <code>ggplot()</code>.</p>
+<p>The book aims to teach you how to use and interpret the <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> function in R for two types of response data which are are not normally distributed: Poisson distributed responses (counts) and binomially distributed responses (binary outcomes).</p>
+</div>
+<div id="approach-of-this-book" class="section level2" number="0.2">
+<h2>
+<span class="header-section-number">0.2</span> Approach of this book<a class="anchor" aria-label="anchor" href="#approach-of-this-book"><i class="fas fa-link"></i></a>
+</h2>
 <p>Models are explained with reference to examples. Each example demonstrates the R code needed, how understand the output and how to report the results, including suggested <strong><code>ggplot2</code></strong>figures.
 The code is given for figures but not extensively explained. To learn more go to <a href="https://ggplot2.tidyverse.org/" class="uri">https://ggplot2.tidyverse.org/</a></p>
 </div>
-<div id="options-on-the-toolbar" class="section level2">
-<h2><span class="header-section-number">0.3</span> Options on the toolbar</h2>
+<div id="options-on-the-toolbar" class="section level2" number="0.3">
+<h2>
+<span class="header-section-number">0.3</span> Options on the toolbar<a class="anchor" aria-label="anchor" href="#options-on-the-toolbar"><i class="fas fa-link"></i></a>
+</h2>
 <p>You can change the appearance of the book using the toolbar at the top of the page. The menu on the left can be hidden, the font size increased or decreased and the colour altered to a dark or sepia theme.</p>
 <p>Search the book by clicking on the magnifying glass, entering a search term and using the up and down arrows to navigate through the results.</p>
 </div>
-<div id="conventions-used-in-the-book" class="section level2">
-<h2><span class="header-section-number">0.4</span> Conventions used in the book</h2>
+<div id="conventions-used-in-the-book" class="section level2" number="0.4">
+<h2>
+<span class="header-section-number">0.4</span> Conventions used in the book<a class="anchor" aria-label="anchor" href="#conventions-used-in-the-book"><i class="fas fa-link"></i></a>
+</h2>
 <p>Code and any output appears in blocks formatted like this:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a>cases &lt;-<span class="st"> </span><span class="kw">read_table2</span>(<span class="st">&quot;data-raw/cases.txt&quot;</span>)</span>
-<span id="cb1-2"><a href="index.html#cb1-2"></a><span class="kw">glimpse</span>(cases)</span>
-<span id="cb1-3"><a href="index.html#cb1-3"></a><span class="co"># Rows: 43</span></span>
-<span id="cb1-4"><a href="index.html#cb1-4"></a><span class="co"># Columns: 2</span></span>
-<span id="cb1-5"><a href="index.html#cb1-5"></a><span class="co"># $ cancers  &lt;dbl&gt; 0, 0, 4, 0, 0, 0, 0, 1, 0, 0, 2, 0, 2, 1, 1, 0, 0, 1, 1, 1...</span></span>
-<span id="cb1-6"><a href="index.html#cb1-6"></a><span class="co"># $ distance &lt;dbl&gt; 154.37, 93.14, 3.83, 60.83, 142.61, 164.72, 135.92, 79.92,...</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cases</span> <span class="op">&lt;-</span> <span class="fu">read_table2</span><span class="op">(</span><span class="st">"data-raw/cases.txt"</span><span class="op">)</span>
+<span class="fu">glimpse</span><span class="op">(</span><span class="va">cases</span><span class="op">)</span>
+<span class="co"># Rows: 43</span>
+<span class="co"># Columns: 2</span>
+<span class="co"># $ cancers  &lt;dbl&gt; 0, 0, 4, 0, 0, 0, 0, 1, 0, 0, 2, 0, 2, 1, 1, 0, 0, 1, 1, 1, 1~</span>
+<span class="co"># $ distance &lt;dbl&gt; 154.37, 93.14, 3.83, 60.83, 142.61, 164.72, 135.92, 79.92, 11~</span></code></pre></div>
 <p>Lines of output start with a <code>#</code>. The content of a code block can be copied using the icon in its top right.</p>
 <p>Within the text:</p>
 <ul>
-<li>packages are indicated in bold code font like this: <strong><code>ggplot2</code></strong><br />
+<li>packages are indicated in bold code font like this: <strong><code>ggplot2</code></strong><br>
 </li>
-<li>functions are indicated in code font with brackets after their name like this: <code>ggplot()</code><br />
+<li>functions are indicated in code font with brackets after their name like this: <code>ggplot()</code><br>
 </li>
-<li>R objects are indicated in code font like this: <code>cases</code></li>
+<li>R objects are indicated in code font like this: <code>cases</code>
+</li>
 </ul>
 <p>Key points are summarised throughout the book using boxes like this:</p>
 <div class="key">
@@ -263,8 +128,10 @@ The code is given for figures but not extensively explained. To learn more go to
 <p>Extra information and tips are in boxes like these</p>
 </div>
 </div>
-<div id="following-along-with-the-examples" class="section level2">
-<h2><span class="header-section-number">0.5</span> Following along with the examples</h2>
+<div id="following-along-with-the-examples" class="section level2" number="0.5">
+<h2>
+<span class="header-section-number">0.5</span> Following along with the examples<a class="anchor" aria-label="anchor" href="#following-along-with-the-examples"><i class="fas fa-link"></i></a>
+</h2>
 <p>Readers may wish to code along and the following gives guidance on how best to do that.</p>
 <p>I recommend starting a new RStudio project and creating a folder inside that project called “data-raw” where you will save the data files. Links to the data files are given in the text and these can be downloaded to your “data-raw” folder by right-clicking the link choosing the option to save. Then make a new script file for each example to carry our the analysis for that example.</p>
 <p>For example, if you call your Project <code>singlm</code> and you have just started <a href="pois-glm-single-cont.html#pois-glm-single-cont">Chapter 3</a>, your folder structure would look like this:</p>
@@ -275,155 +142,128 @@ The code is given for figures but not extensively explained. To learn more go to
       |-- cases.text
 </code></pre>
 <p>Using this structure will mean the paths to files needed in your code are the same as those given in the book.</p>
-<p>I use packages from the <strong><code>tidyverse</code></strong> <span class="citation">(Wickham et al. <a href="#ref-tidyverse2019" role="doc-biblioref">2019</a>)</span> including <strong><code>ggplot2</code></strong> <span class="citation">(Wickham <a href="#ref-ggplot2-book" role="doc-biblioref">2016</a>)</span>, <strong><code>dplyr</code></strong> <span class="citation">(Wickham et al. <a href="#ref-dplyr" role="doc-biblioref">2020</a>)</span>, <strong><code>tidyr</code></strong> <span class="citation">(Wickham <a href="#ref-tidyr" role="doc-biblioref">2020</a>)</span> and <strong><code>readr</code></strong> <span class="citation">(Wickham, Hester, and Francois <a href="#ref-readr" role="doc-biblioref">2018</a>)</span> throughout the book. All the code assumes you have loaded the core <strong><code>tidyverse</code></strong> packages with:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<p>I use packages from the <strong><code>tidyverse</code></strong> <span class="citation">(<a href="references.html#ref-tidyverse2019" role="doc-biblioref">Wickham et al. 2019</a>)</span> including <strong><code>ggplot2</code></strong> <span class="citation">(<a href="references.html#ref-ggplot2-book" role="doc-biblioref">Wickham 2016</a>)</span>, <strong><code>dplyr</code></strong> <span class="citation">(<a href="references.html#ref-dplyr" role="doc-biblioref">Wickham et al. 2020</a>)</span>, <strong><code>tidyr</code></strong> <span class="citation">(<a href="references.html#ref-tidyr" role="doc-biblioref">Wickham 2020</a>)</span> and <strong><code>readr</code></strong> <span class="citation">(<a href="references.html#ref-readr" role="doc-biblioref">Wickham, Hester, and Francois 2018</a>)</span> throughout the book. All the code assumes you have loaded the core <strong><code>tidyverse</code></strong> packages with:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
 <p>If you run examples and get an error like this:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="index.html#cb4-1"></a><span class="co"># Error in read_table2(&quot;data-raw/cases.txt&quot;) : </span></span>
-<span id="cb4-2"><a href="index.html#cb4-2"></a><span class="co">#  could not find function &quot;read_table2&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Error in read_table2("data-raw/cases.txt") : </span>
+<span class="co">#  could not find function "read_table2"</span></code></pre></div>
 <p>It is likely you need to load the <strong><code>tidyverse</code></strong> as shown above.</p>
-<p>All other packages will be loaded explicitly with <code>library()</code> statements where needed.</p>
+<p>All other packages will be loaded explicitly with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> statements where needed.</p>
 <div class="key">
-<p>To follow the examples, use an RStudio Project containing a “data-raw” folder and load the tidyverse with <code>library(tidyverse)</code></p>
+<p>To follow the examples, use an RStudio Project containing a “data-raw” folder and load the tidyverse with <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code></p>
 </div>
 </div>
-<div id="overview-of-the-chapter-contents" class="section level2">
-<h2><span class="header-section-number">0.6</span> Overview of the chapter contents</h2>
+<div id="overview-of-the-chapter-contents" class="section level2" number="0.6">
+<h2>
+<span class="header-section-number">0.6</span> Overview of the chapter contents<a class="anchor" aria-label="anchor" href="#overview-of-the-chapter-contents"><i class="fas fa-link"></i></a>
+</h2>
 <p>This book introduces the the Generalised Linear Model for two types of discrete response:</p>
-<p>1.Poisson distributed: when a response variable is the number of things.<br />
-2. Binomially distributed: when a response variable can take one of only two values, such as “yes” or “no”, “alive” or “dead”, “present” or “absent”.</p>
-<p>In R, these are analysed with the <code>glm()</code> function.</p>
+<p>1.Poisson distributed: when a response variable is the number of things.<br>
+2. Binomially distributed: when a response variable can take one of only two values, such as “yes” or “no,” “alive” or “dead,” “present” or “absent.”</p>
+<p>In R, these are analysed with the <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> function.</p>
 <div class="key">
-<p><code>glm()</code> can be used to perform tests using the Generalised Linear Model for response variables which are counts or binary.</p>
+<p><code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> can be used to perform tests using the Generalised Linear Model for response variables which are counts or binary.</p>
 </div>
 </div>
-<div id="software-information" class="section level2">
-<h2><span class="header-section-number">0.7</span> Software information</h2>
-<p>I used the <strong><code>knitr</code></strong> package <span class="citation">(Xie <a href="#ref-xie2015" role="doc-biblioref">2015</a>)</span> and the <strong><code>bookdown</code></strong> package <span class="citation">(Xie <a href="#ref-R-bookdown" role="doc-biblioref">2020</a>)</span> to compile this book. My R session information is shown below:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="index.html#cb5-1"></a><span class="kw">sessionInfo</span>()</span>
-<span id="cb5-2"><a href="index.html#cb5-2"></a><span class="co"># R version 4.0.2 (2020-06-22)</span></span>
-<span id="cb5-3"><a href="index.html#cb5-3"></a><span class="co"># Platform: x86_64-w64-mingw32/x64 (64-bit)</span></span>
-<span id="cb5-4"><a href="index.html#cb5-4"></a><span class="co"># Running under: Windows 10 x64 (build 18363)</span></span>
-<span id="cb5-5"><a href="index.html#cb5-5"></a><span class="co"># </span></span>
-<span id="cb5-6"><a href="index.html#cb5-6"></a><span class="co"># Matrix products: default</span></span>
-<span id="cb5-7"><a href="index.html#cb5-7"></a><span class="co"># </span></span>
-<span id="cb5-8"><a href="index.html#cb5-8"></a><span class="co"># locale:</span></span>
-<span id="cb5-9"><a href="index.html#cb5-9"></a><span class="co"># [1] LC_COLLATE=English_United Kingdom.1252 </span></span>
-<span id="cb5-10"><a href="index.html#cb5-10"></a><span class="co"># [2] LC_CTYPE=English_United Kingdom.1252   </span></span>
-<span id="cb5-11"><a href="index.html#cb5-11"></a><span class="co"># [3] LC_MONETARY=English_United Kingdom.1252</span></span>
-<span id="cb5-12"><a href="index.html#cb5-12"></a><span class="co"># [4] LC_NUMERIC=C                           </span></span>
-<span id="cb5-13"><a href="index.html#cb5-13"></a><span class="co"># [5] LC_TIME=English_United Kingdom.1252    </span></span>
-<span id="cb5-14"><a href="index.html#cb5-14"></a><span class="co"># </span></span>
-<span id="cb5-15"><a href="index.html#cb5-15"></a><span class="co"># attached base packages:</span></span>
-<span id="cb5-16"><a href="index.html#cb5-16"></a><span class="co"># [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
-<span id="cb5-17"><a href="index.html#cb5-17"></a><span class="co"># </span></span>
-<span id="cb5-18"><a href="index.html#cb5-18"></a><span class="co"># other attached packages:</span></span>
-<span id="cb5-19"><a href="index.html#cb5-19"></a><span class="co">#  [1] patchwork_1.0.1  kableExtra_1.2.1 forcats_0.5.0    stringr_1.4.0   </span></span>
-<span id="cb5-20"><a href="index.html#cb5-20"></a><span class="co">#  [5] dplyr_1.0.2      purrr_0.3.4      readr_1.4.0      tidyr_1.1.2     </span></span>
-<span id="cb5-21"><a href="index.html#cb5-21"></a><span class="co">#  [9] tibble_3.0.3     ggplot2_3.3.2    tidyverse_1.3.0 </span></span>
-<span id="cb5-22"><a href="index.html#cb5-22"></a><span class="co"># </span></span>
-<span id="cb5-23"><a href="index.html#cb5-23"></a><span class="co"># loaded via a namespace (and not attached):</span></span>
-<span id="cb5-24"><a href="index.html#cb5-24"></a><span class="co">#  [1] tidyselect_1.1.0  xfun_0.18         haven_2.3.1       colorspace_1.4-1 </span></span>
-<span id="cb5-25"><a href="index.html#cb5-25"></a><span class="co">#  [5] vctrs_0.3.4       generics_0.0.2    htmltools_0.5.0   viridisLite_0.3.0</span></span>
-<span id="cb5-26"><a href="index.html#cb5-26"></a><span class="co">#  [9] yaml_2.2.1        utf8_1.1.4        blob_1.2.1        rlang_0.4.7      </span></span>
-<span id="cb5-27"><a href="index.html#cb5-27"></a><span class="co"># [13] pillar_1.4.6      glue_1.4.1        withr_2.3.0       DBI_1.1.0        </span></span>
-<span id="cb5-28"><a href="index.html#cb5-28"></a><span class="co"># [17] dbplyr_1.4.4      modelr_0.1.8      readxl_1.3.1      lifecycle_0.2.0  </span></span>
-<span id="cb5-29"><a href="index.html#cb5-29"></a><span class="co"># [21] munsell_0.5.0     gtable_0.3.0      cellranger_1.1.0  rvest_0.3.6      </span></span>
-<span id="cb5-30"><a href="index.html#cb5-30"></a><span class="co"># [25] evaluate_0.14     knitr_1.30        fansi_0.4.1       broom_0.7.1      </span></span>
-<span id="cb5-31"><a href="index.html#cb5-31"></a><span class="co"># [29] Rcpp_1.0.5        scales_1.1.1      backports_1.1.9   webshot_0.5.2    </span></span>
-<span id="cb5-32"><a href="index.html#cb5-32"></a><span class="co"># [33] jsonlite_1.7.1    fs_1.5.0          hms_0.5.3         digest_0.6.25    </span></span>
-<span id="cb5-33"><a href="index.html#cb5-33"></a><span class="co"># [37] stringi_1.5.3     bookdown_0.20.6   grid_4.0.2        cli_2.0.2        </span></span>
-<span id="cb5-34"><a href="index.html#cb5-34"></a><span class="co"># [41] tools_4.0.2       magrittr_1.5      crayon_1.3.4      pkgconfig_2.0.3  </span></span>
-<span id="cb5-35"><a href="index.html#cb5-35"></a><span class="co"># [45] ellipsis_0.3.1    xml2_1.3.2        reprex_0.3.0      lubridate_1.7.9  </span></span>
-<span id="cb5-36"><a href="index.html#cb5-36"></a><span class="co"># [49] assertthat_0.2.1  rmarkdown_2.4.1   httr_1.4.2        rstudioapi_0.11  </span></span>
-<span id="cb5-37"><a href="index.html#cb5-37"></a><span class="co"># [53] R6_2.4.1          compiler_4.0.2</span></span></code></pre></div>
+<div id="credits" class="section level2 unnumbered">
+<h2>Credits<a class="anchor" aria-label="anchor" href="#credits"><i class="fas fa-link"></i></a>
+</h2>
+<p>I used the <a href="https://bookdown.org/yihui/bookdown/"><strong><code>bookdown</code></strong></a> package <span class="citation">(<a href="references.html#ref-R-bookdown" role="doc-biblioref">Xie 2020</a>)</span> to compile this book. My R session information is shown below:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co"># R version 4.1.0 (2021-05-18)</span>
+<span class="co"># Platform: x86_64-w64-mingw32/x64 (64-bit)</span>
+<span class="co"># Running under: Windows 10 x64 (build 18363)</span>
+<span class="co"># </span>
+<span class="co"># Matrix products: default</span>
+<span class="co"># </span>
+<span class="co"># locale:</span>
+<span class="co"># [1] LC_COLLATE=English_United Kingdom.1252 </span>
+<span class="co"># [2] LC_CTYPE=English_United Kingdom.1252   </span>
+<span class="co"># [3] LC_MONETARY=English_United Kingdom.1252</span>
+<span class="co"># [4] LC_NUMERIC=C                           </span>
+<span class="co"># [5] LC_TIME=English_United Kingdom.1252    </span>
+<span class="co"># </span>
+<span class="co"># attached base packages:</span>
+<span class="co"># [1] stats     graphics  grDevices utils     datasets  methods   base     </span>
+<span class="co"># </span>
+<span class="co"># other attached packages:</span>
+<span class="co">#  [1] patchwork_1.1.1  kableExtra_1.3.4 forcats_0.5.1    stringr_1.4.0   </span>
+<span class="co">#  [5] dplyr_1.0.7      purrr_0.3.4      readr_2.0.2      tidyr_1.1.4     </span>
+<span class="co">#  [9] tibble_3.1.4     ggplot2_3.3.5    tidyverse_1.3.1 </span>
+<span class="co"># </span>
+<span class="co"># loaded via a namespace (and not attached):</span>
+<span class="co">#  [1] Rcpp_1.0.7        svglite_2.0.0     lubridate_1.7.10  assertthat_0.2.1 </span>
+<span class="co">#  [5] digest_0.6.28     utf8_1.2.2        R6_2.5.1          cellranger_1.1.0 </span>
+<span class="co">#  [9] backports_1.2.1   reprex_2.0.1      evaluate_0.14     httr_1.4.2       </span>
+<span class="co"># [13] pillar_1.6.3      rlang_0.4.11      readxl_1.3.1      rstudioapi_0.13  </span>
+<span class="co"># [17] jquerylib_0.1.4   rmarkdown_2.11    webshot_0.5.2     munsell_0.5.0    </span>
+<span class="co"># [21] broom_0.7.9       compiler_4.1.0    modelr_0.1.8      xfun_0.26        </span>
+<span class="co"># [25] pkgconfig_2.0.3   systemfonts_1.0.2 htmltools_0.5.2   downlit_0.2.1    </span>
+<span class="co"># [29] tidyselect_1.1.1  bookdown_0.24     fansi_0.5.0       viridisLite_0.4.0</span>
+<span class="co"># [33] crayon_1.4.1      tzdb_0.1.2        dbplyr_2.1.1      withr_2.4.2      </span>
+<span class="co"># [37] grid_4.1.0        jsonlite_1.7.2    gtable_0.3.0      lifecycle_1.0.1  </span>
+<span class="co"># [41] DBI_1.1.1         magrittr_2.0.1    scales_1.1.1      cli_3.0.1        </span>
+<span class="co"># [45] stringi_1.7.4     fs_1.5.0          xml2_1.3.2        bslib_0.3.0      </span>
+<span class="co"># [49] ellipsis_0.3.2    generics_0.1.0    vctrs_0.3.8       tools_4.1.0      </span>
+<span class="co"># [53] glue_1.4.2        hms_1.1.1         fastmap_1.1.0     yaml_2.2.1       </span>
+<span class="co"># [57] colorspace_2.0-2  rvest_1.0.1       knitr_1.34        haven_2.4.3      </span>
+<span class="co"># [61] sass_0.4.0</span></code></pre></div>
+</div>
+<div id="license" class="section level2 unnumbered">
+<h2>License<a class="anchor" aria-label="anchor" href="#license"><i class="fas fa-link"></i></a>
+</h2>
+<p><a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="https://licensebuttons.net/l/by-sa/4.0/88x31.png" alt="Creative Commons License" style="border-width:0"></a><br>This online work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
+Visit <a href="https://github.com/dukestatsciintrods/blob/master/LICENSE.md">here</a> for more information about the license.</p>
 
 </div>
 </div>
 
 
 
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-ggplot2-book">
-<p>Wickham, Hadley. 2016. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.</p>
-</div>
-<div id="ref-tidyr">
-<p>Wickham, Hadley. 2020. <em>Tidyr: Tidy Messy Data</em>. <a href="https://CRAN.R-project.org/package=tidyr">https://CRAN.R-project.org/package=tidyr</a>.</p>
-</div>
-<div id="ref-tidyverse2019">
-<p>Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. “Welcome to the tidyverse.” <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.</p>
-</div>
-<div id="ref-dplyr">
-<p>Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2020. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.</p>
-</div>
-<div id="ref-readr">
-<p>Wickham, Hadley, Jim Hester, and Romain Francois. 2018. <em>Readr: Read Rectangular Text Data</em>. <a href="https://CRAN.R-project.org/package=readr">https://CRAN.R-project.org/package=readr</a>.</p>
-</div>
-<div id="ref-xie2015">
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.</p>
-</div>
-<div id="ref-R-bookdown">
-<p>Xie, Yihui. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
-</div>
-            </section>
+  <div class="chapter-nav">
+<div class="empty"></div>
+<div class="next"><a href="what-are-glms-1.html"><span class="header-section-number">1</span> What are GLMs?</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#welcome">Welcome!</a></li>
+<li><a class="nav-link" href="#who-is-this-book-for"><span class="header-section-number">0.1</span> Who is this book for?</a></li>
+<li><a class="nav-link" href="#approach-of-this-book"><span class="header-section-number">0.2</span> Approach of this book</a></li>
+<li><a class="nav-link" href="#options-on-the-toolbar"><span class="header-section-number">0.3</span> Options on the toolbar</a></li>
+<li><a class="nav-link" href="#conventions-used-in-the-book"><span class="header-section-number">0.4</span> Conventions used in the book</a></li>
+<li><a class="nav-link" href="#following-along-with-the-examples"><span class="header-section-number">0.5</span> Following along with the examples</a></li>
+<li><a class="nav-link" href="#overview-of-the-chapter-contents"><span class="header-section-number">0.6</span> Overview of the chapter contents</a></li>
+<li><a class="nav-link" href="#credits">Credits</a></li>
+<li><a class="nav-link" href="#license">License</a></li>
+</ul>
 
-          </div>
-        </div>
-      </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/3mmaRand/singlm/blob/master/index.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/3mmaRand/singlm/edit/master/index.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
 
-<a href="what-are-glms-1.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>singlm: A simple introduction to GLM for analysing Poisson and Binomial responses in R</strong>" was written by Emma Rand. It was last built on October 2021.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": true,
-"facebook": false,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"all": false
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/3mmaRand/singlm/edit/master/index.Rmd",
-"text": "Make an edit suggestion"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["singlm.pdf", "singlm.epub", "https://github.com/3mmaRand/singlm/raw/master/index.Rmd"],
-"toc": {
-"collapse": "section"
-}
-});
-});
-</script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -435,7 +275,22 @@ gitbook.start({
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
-
 </html>
