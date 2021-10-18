@@ -350,6 +350,7 @@ geom_smooth(method = "glm",
                      limits = c(0, 1.05),
                      name = "Probability of ESR >2 0") +
   theme_classic()
+  
 ```
 
 <img src="glm-bino-single-cont_files/figure-html/fig-plasma-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />

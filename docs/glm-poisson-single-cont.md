@@ -273,9 +273,11 @@ Exponentiate coefficients then multiply:
 # 1km away
 exp(b0) * exp(b1)
 # [1] 2.71
+
 # 2km away
 exp(b0) * exp(b1) * exp(b1)
 # [1] 2.65
+
 # 10km away
 exp(b0) * exp(b1)^10
 # [1] 2.23
@@ -286,9 +288,11 @@ Add the coefficients then exponentiate the sum:
 # 1km away
 exp(b0 + b1)
 # [1] 2.71
+
 # 2km away
 exp(b0 + b1 + b1)
 # [1] 2.65
+
 # 10km away
 exp(b0 + 10*b1)
 # [1] 2.23
@@ -405,6 +409,7 @@ geom_smooth(method = "glm",
                      limits = c(0, 5),
                      name = "Number of reported cancers") +
   theme_classic()
+  
 ```
 
 <img src="glm-poisson-single-cont_files/figure-html/fig-cases-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />

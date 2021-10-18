@@ -449,6 +449,9 @@ This sort of information is helpful in explaining our results.
 
 
 ```r
+# blue, pink, green triadic
+pal4 <- c("#256c7a", "#7a256c", "#6c7a25")
+
 ggplot(data = birds, aes(x = age, y = prey, colour = group)) +
   geom_point() +
   geom_smooth(method = "glm",
@@ -462,6 +465,7 @@ ggplot(data = birds, aes(x = age, y = prey, colour = group)) +
                      limits = c(0, 110),
                      name = "Number of prey caught") +
   theme_classic()
+  
 ```
 
 <img src="glm-poisson-two-explan_files/figure-html/fig-birds-1.png" width="80%" style="display: block; margin: auto auto auto 0;" />

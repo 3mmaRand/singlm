@@ -6,7 +6,7 @@ The number of insect prey caught by individuals of a particular bird species var
 
 
 ```{r echo=FALSE}
-birds <- read_table2("data-raw/birds.txt")
+birds <- read_table("data-raw/birds.txt")
 birds %>% 
   knitr::kable() %>%
   kable_styling()  %>%
@@ -237,6 +237,9 @@ av_age_single <- predict_for %>%
 ## Creating a figure  {#fig-4}
 
 ```{r fig-birds}
+# blue, pink, green triadic
+pal4 <- c("#256c7a", "#7a256c", "#6c7a25")
+
 ggplot(data = birds, aes(x = age, y = prey, colour = group)) +
   geom_point() +
   geom_smooth(method = "glm",

@@ -6,7 +6,7 @@ The number of cases of cancer reported by a clinic and its distance, in kilometr
 
 
 ```{r echo=FALSE}
-cases <- read_table2("data-raw/cases.txt")
+cases <- read_table("data-raw/cases.txt")
 cases %>% 
   knitr::kable() %>%
   kable_styling()  %>%
