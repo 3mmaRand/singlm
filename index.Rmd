@@ -45,17 +45,12 @@ The book aims to teach you how to use and interpret the `glm()` function in R fo
 Models are explained with reference to examples. Each example demonstrates the R code needed, how understand the output and how to report the results, including suggested **`ggplot2`**figures. 
 The code is given for figures but not extensively explained. To learn more go to  https://ggplot2.tidyverse.org/
 
-## Options on the toolbar 
-
-You can change the appearance of the book using the toolbar at the top of the page. The menu on the left can be hidden, the font size increased or decreased and the colour altered to a dark or sepia theme.
-
-Search the book by clicking on the magnifying glass, entering a search term and using the up and down arrows to navigate through the results.
 
 ## Conventions used in the book
 Code and any output appears in blocks formatted like this:
 
 ```{r}
-cases <- read_table2("data-raw/cases.txt")
+cases <- read_table("data-raw/cases.txt")
 glimpse(cases)
 ```
 

@@ -90,20 +90,13 @@
 <p>Models are explained with reference to examples. Each example demonstrates the R code needed, how understand the output and how to report the results, including suggested <strong><code>ggplot2</code></strong>figures.
 The code is given for figures but not extensively explained. To learn more go to <a href="https://ggplot2.tidyverse.org/" class="uri">https://ggplot2.tidyverse.org/</a></p>
 </div>
-<div id="options-on-the-toolbar" class="section level2" number="0.3">
+<div id="conventions-used-in-the-book" class="section level2" number="0.3">
 <h2>
-<span class="header-section-number">0.3</span> Options on the toolbar<a class="anchor" aria-label="anchor" href="#options-on-the-toolbar"><i class="fas fa-link"></i></a>
-</h2>
-<p>You can change the appearance of the book using the toolbar at the top of the page. The menu on the left can be hidden, the font size increased or decreased and the colour altered to a dark or sepia theme.</p>
-<p>Search the book by clicking on the magnifying glass, entering a search term and using the up and down arrows to navigate through the results.</p>
-</div>
-<div id="conventions-used-in-the-book" class="section level2" number="0.4">
-<h2>
-<span class="header-section-number">0.4</span> Conventions used in the book<a class="anchor" aria-label="anchor" href="#conventions-used-in-the-book"><i class="fas fa-link"></i></a>
+<span class="header-section-number">0.3</span> Conventions used in the book<a class="anchor" aria-label="anchor" href="#conventions-used-in-the-book"><i class="fas fa-link"></i></a>
 </h2>
 <p>Code and any output appears in blocks formatted like this:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">cases</span> <span class="op">&lt;-</span> <span class="fu">read_table2</span><span class="op">(</span><span class="st">"data-raw/cases.txt"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">cases</span> <span class="op">&lt;-</span> <span class="fu">read_table</span><span class="op">(</span><span class="st">"data-raw/cases.txt"</span><span class="op">)</span>
 <span class="fu">glimpse</span><span class="op">(</span><span class="va">cases</span><span class="op">)</span>
 <span class="co"># Rows: 43</span>
 <span class="co"># Columns: 2</span>
@@ -128,9 +121,9 @@ The code is given for figures but not extensively explained. To learn more go to
 <p>Extra information and tips are in boxes like these</p>
 </div>
 </div>
-<div id="following-along-with-the-examples" class="section level2" number="0.5">
+<div id="following-along-with-the-examples" class="section level2" number="0.4">
 <h2>
-<span class="header-section-number">0.5</span> Following along with the examples<a class="anchor" aria-label="anchor" href="#following-along-with-the-examples"><i class="fas fa-link"></i></a>
+<span class="header-section-number">0.4</span> Following along with the examples<a class="anchor" aria-label="anchor" href="#following-along-with-the-examples"><i class="fas fa-link"></i></a>
 </h2>
 <p>Readers may wish to code along and the following gives guidance on how best to do that.</p>
 <p>I recommend starting a new RStudio project and creating a folder inside that project called “data-raw” where you will save the data files. Links to the data files are given in the text and these can be downloaded to your “data-raw” folder by right-clicking the link choosing the option to save. Then make a new script file for each example to carry our the analysis for that example.</p>
@@ -155,9 +148,9 @@ The code is given for figures but not extensively explained. To learn more go to
 <p>To follow the examples, use an RStudio Project containing a “data-raw” folder and load the tidyverse with <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code></p>
 </div>
 </div>
-<div id="overview-of-the-chapter-contents" class="section level2" number="0.6">
+<div id="overview-of-the-chapter-contents" class="section level2" number="0.5">
 <h2>
-<span class="header-section-number">0.6</span> Overview of the chapter contents<a class="anchor" aria-label="anchor" href="#overview-of-the-chapter-contents"><i class="fas fa-link"></i></a>
+<span class="header-section-number">0.5</span> Overview of the chapter contents<a class="anchor" aria-label="anchor" href="#overview-of-the-chapter-contents"><i class="fas fa-link"></i></a>
 </h2>
 <p>This book introduces the the Generalised Linear Model for two types of discrete response:</p>
 <p>1.Poisson distributed: when a response variable is the number of things.<br>
@@ -232,10 +225,9 @@ Visit <a href="https://github.com/dukestatsciintrods/blob/master/LICENSE.md">her
 <li><a class="nav-link" href="#welcome">Welcome!</a></li>
 <li><a class="nav-link" href="#who-is-this-book-for"><span class="header-section-number">0.1</span> Who is this book for?</a></li>
 <li><a class="nav-link" href="#approach-of-this-book"><span class="header-section-number">0.2</span> Approach of this book</a></li>
-<li><a class="nav-link" href="#options-on-the-toolbar"><span class="header-section-number">0.3</span> Options on the toolbar</a></li>
-<li><a class="nav-link" href="#conventions-used-in-the-book"><span class="header-section-number">0.4</span> Conventions used in the book</a></li>
-<li><a class="nav-link" href="#following-along-with-the-examples"><span class="header-section-number">0.5</span> Following along with the examples</a></li>
-<li><a class="nav-link" href="#overview-of-the-chapter-contents"><span class="header-section-number">0.6</span> Overview of the chapter contents</a></li>
+<li><a class="nav-link" href="#conventions-used-in-the-book"><span class="header-section-number">0.3</span> Conventions used in the book</a></li>
+<li><a class="nav-link" href="#following-along-with-the-examples"><span class="header-section-number">0.4</span> Following along with the examples</a></li>
+<li><a class="nav-link" href="#overview-of-the-chapter-contents"><span class="header-section-number">0.5</span> Overview of the chapter contents</a></li>
 <li><a class="nav-link" href="#credits">Credits</a></li>
 <li><a class="nav-link" href="#license">License</a></li>
 </ul>

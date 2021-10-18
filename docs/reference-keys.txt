@@ -19,7 +19,6 @@ eq:glmbino4
 fig:fig-plasma-report
 who-is-this-book-for
 approach-of-this-book
-options-on-the-toolbar
 conventions-used-in-the-book
 following-along-with-the-examples
 overview-of-the-chapter-contents
