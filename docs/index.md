@@ -100,8 +100,8 @@ If you run examples and get an error like this:
 
 
 ```r
-# Error in read_table2("data-raw/cases.txt") : 
-#  could not find function "read_table2"
+# Error in read_table("data-raw/cases.txt") : 
+#  could not find function "read_table"
 ```
 
 It is likely you need to load the **`tidyverse`** as shown above.

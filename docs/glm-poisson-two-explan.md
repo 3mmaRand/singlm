@@ -173,11 +173,11 @@ There are 3 variables: the response, `prey`, is the number of caught by an indiv
 :::
 
 
-We will import the data with the `read_table2()` function and plot it with `ggplot()`.
+We will import the data with the `read_table()` function and plot it with `ggplot()`.
 
 
 ```r
-birds <- read_table2("data-raw/birds.txt")
+birds <- read_table("data-raw/birds.txt")
 ```
 
 We need to be able to show the different group behaviours

@@ -194,11 +194,11 @@ There are 2 variables: the response, `cancers`, is the number of cancer cases re
 :::
 
 
-We will import the data with the `read_table2()` function and plot it with `ggplot()`.
+We will import the data with the `read_table()` function and plot it with `ggplot()`.
 
 
 ```r
-cases <- read_table2("data-raw/cases.txt")
+cases <- read_table("data-raw/cases.txt")
 ```
 
 
